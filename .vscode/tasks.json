@@ -6,7 +6,7 @@
         {
             "label": "Flask",
             "type": "shell",
-            "command": "export FLASK_APP=main.py; export FLASK_ENV=development; .env/Scripts/flask.exe run",
+            "command": "export FLASK_APP=main.py; export FLASK_ENV=development; .env/bin/flask run",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
