@@ -188,5 +188,5 @@ if __name__ == "__main__":
         print(
             spotify.download_track(
                 "https://open.spotify.com/track/0dD17UWACV5aYTyeS6af1k?si=lVxjP4k7SoeMXM5Vs5D84w"
-            )[0]
+            )
         )
