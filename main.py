@@ -49,14 +49,16 @@ def album():
             artist, name = metadata["artist"]["name"], metadata["name"]
 
             paths = []
-            for i, path, metadata in enumerate(spotify.download_tracks(uris)):
+            for i, (path, metadata) in enumerate(spotify.download_tracks(uris)):
                 if path is not None:
                     paths.append(path)
                 else:
                     logging.warning(f'Failed to download track {uris[i]}')
 
-        with tempfile.TemporaryFile() as path:
+        with tempfile.TemporaryDirectory() as tmp:
             attachment_filename = f"{artist} - {name}.zip"
+
+            path = Path(tmp) / attachment_filename
 
             logging.info(f'Zipping album `{data["uri"]}` to `{path}`')
 
