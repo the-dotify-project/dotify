@@ -1,7 +1,6 @@
 import logging
 import re
 
-import spotdl
 from spotdl import Spotdl, util
 from spotdl.helpers.spotify import SpotifyHelpers
 from spotdl.metadata_search import MetadataSearch
@@ -136,13 +135,7 @@ class Spotify(Spotdl):
 
 
 if __name__ == "__main__":
-    SPOTIFY = {
-        "output_file": "download/{artist}/{album}/{track-name}.{output-ext}",
-        "overwrite": "skip",
-        "log_level": "info",
-        "no_spaces": "true",
-        "cache_albumart": "false",
-    }
+    from spotify.settings import SETTINGS
 
     # with Spotify(SPOTIFY) as provider:
     #     rv = provider.download_track('https://open.spotify.com/track/691df0fYjhhszUgQH3FGvP?si=IaDHTfJFTmiJIcos2MjzWg')
@@ -191,9 +184,9 @@ if __name__ == "__main__":
     #         }
     #     )
 
-    with Spotify(SPOTIFY) as spotify:
+    with Spotify(SETTINGS) as spotify:
         print(
-            spotify.fetch_album(
-                "https://open.spotify.com/album/0ufGvePLRPce9olVIZhRyE?si=H_LVsESVT1OhIyT9oT86Qg"
+            spotify.download_track(
+                "https://open.spotify.com/track/0dD17UWACV5aYTyeS6af1k?si=lVxjP4k7SoeMXM5Vs5D84w"
             )[0]
         )

@@ -3,8 +3,8 @@ import tempfile
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
-from flask import Flask, abort, jsonify, request, send_file
-from spotify import (SPOTIFY, Spotify, SpotifyAlbumNotFoundError,
+from flask import Flask, abort, request, send_file
+from spotify import (SETTINGS, Spotify, SpotifyAlbumNotFoundError,
                      SpotifyException)
 
 app = Flask("Spotify Downloader API")
@@ -18,7 +18,7 @@ def track():
         abort(400)
 
     try:
-        with Spotify(SPOTIFY) as spotify:
+        with Spotify(SETTINGS) as spotify:
             path, metadata = spotify.download_track(data['uri'])
 
             artist, name = metadata["artist"]["name"], metadata["name"]
@@ -41,7 +41,7 @@ def album():
         abort(400)
 
     try:
-        with Spotify(SPOTIFY) as spotify:
+        with Spotify(SETTINGS) as spotify:
             metadata, uris = spotify.fetch_album(data['uri'])
 
             artist, name = metadata["artist"]["name"], metadata["name"]
@@ -51,10 +51,8 @@ def album():
                 if path is not None:
                     paths.append(path)
 
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryFile() as path:
             attachment_filename = f"{artist} - {name}.zip"
-
-            path = Path(tmp) / attachment_filename
 
             zipfile = ZipFile(path, 'w', ZIP_DEFLATED)
             for path in paths:
