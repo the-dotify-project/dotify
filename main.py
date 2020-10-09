@@ -25,6 +25,8 @@ def track():
 
             attachment_filename = f"{artist} - {name}.mp3"
 
+            logging.info(f'Responding with file `{attachment_filename}`')
+
             return send_file(path, as_attachment=True, attachment_filename=attachment_filename)
     except SpotifyException:
         abort(404)
@@ -47,16 +49,22 @@ def album():
             artist, name = metadata["artist"]["name"], metadata["name"]
 
             paths = []
-            for path, metadata in spotify.download_tracks(uris):
+            for i, path, metadata in enumerate(spotify.download_tracks(uris)):
                 if path is not None:
                     paths.append(path)
+                else:
+                    logging.warning(f'Failed to download track {uris[i]}')
 
         with tempfile.TemporaryFile() as path:
             attachment_filename = f"{artist} - {name}.zip"
 
+            logging.info(f'Zipping album `{data["uri"]}` to `{path}`')
+
             zipfile = ZipFile(path, 'w', ZIP_DEFLATED)
             for path in paths:
                 zipfile.write(path, Path(path).name)
+
+            logging.info(f'Responding with zip file `{attachment_filename}`')
 
             return send_file(path, as_attachment=True, attachment_filename=attachment_filename)
     except SpotifyAlbumNotFoundError:
