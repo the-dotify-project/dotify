@@ -135,7 +135,7 @@ class Spotify(Spotdl):
 
 
 if __name__ == "__main__":
-    from spotify.settings import SETTINGS
+    from settings import SETTINGS
 
     # with Spotify(SPOTIFY) as provider:
     #     rv = provider.download_track('https://open.spotify.com/track/691df0fYjhhszUgQH3FGvP?si=IaDHTfJFTmiJIcos2MjzWg')
