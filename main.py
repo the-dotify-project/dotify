@@ -33,7 +33,7 @@ def track():
         abort(404)
     except Exception as e:
         logging.exception(e)
-        abort(500)
+        abort(500, str(e))
 
 
 @app.route("/album", methods=['POST', ])
@@ -75,7 +75,7 @@ def album():
         abort(404)
     except Exception as e:
         logging.exception(e)
-        abort(500)
+        abort(500, str(e))
 
 
 if __name__ == "__main__":
