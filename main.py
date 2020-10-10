@@ -4,7 +4,7 @@ from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
 from flask import Flask, abort, request, send_file
-from spotify import (SETTINGS, Spotify, SpotifyAlbumNotFoundError,
+from spotify import (DEFAULT, Spotify, SpotifyAlbumNotFoundError,
                      SpotifyException)
 
 app = Flask("Spotify Downloader API")
@@ -19,7 +19,7 @@ def track():
 
     try:
         with tempfile.TemporaryDirectory() as tmp:
-            with Spotify(output_file=f'{Path(tmp) / SETTINGS["output_file"]}') as spotify:
+            with Spotify(output_file=f'{Path(tmp) / DEFAULT["output_file"]}') as spotify:
                 path, metadata = spotify.download_track(data['uri'])
 
                 artist, name = metadata["artist"]["name"], metadata["name"]
@@ -45,7 +45,7 @@ def album():
 
     try:
         with tempfile.TemporaryDirectory() as tmp:
-            with Spotify(output_file=f'{Path(tmp) / SETTINGS["output_file"]}') as spotify:
+            with Spotify(output_file=f'{Path(tmp) / DEFAULT["output_file"]}') as spotify:
                 metadata, uris = spotify.fetch_album(data['uri'])
 
                 artist, name = metadata["artist"]["name"], metadata["name"]
@@ -86,7 +86,7 @@ def playlist():
 
     try:
         with tempfile.TemporaryDirectory() as tmp:
-            with Spotify(output_file=f'{Path(tmp) / SETTINGS["output_file"]}') as spotify:
+            with Spotify(output_file=f'{Path(tmp) / DEFAULT["output_file"]}') as spotify:
                 metadata, uris = spotify.fetch_playlist(data['uri'])
 
                 name = metadata["name"]
