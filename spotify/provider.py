@@ -71,6 +71,11 @@ class Spotify(Spotdl):
             },
         }
 
+    def minimal_playlist_metadata(self, metadata):
+        return {
+            'name': metadata['name']
+        }
+
     def get_track_metadata(self, uri):
         assert re.match(r"https://open.spotify.com/track/.+", uri), uri
 
@@ -89,7 +94,11 @@ class Spotify(Spotdl):
         assert re.match(r"https://open.spotify.com/playlist/.+", uri), uri
 
         metadata = self.tools.fetch_playlist(uri)
-        return self.get_tracks(metadata["tracks"])
+
+        return (
+            self.minimal_playlist_metadata(metadata),
+            self.get_tracks(metadata["tracks"]),
+        )
 
     def fetch_album(self, uri):
         assert re.match(r"https://open.spotify.com/album/.+", uri), uri
@@ -186,7 +195,7 @@ if __name__ == "__main__":
 
     with Spotify() as spotify:
         print(
-            spotify.tools.fetch_playlist(
+            spotify.fetch_playlist(
                 "https://open.spotify.com/playlist/7LleICaPbgvmwh9GExnbOY?si=5utOlLCKTMWVpZmFlOGf2A"
             )
         )
