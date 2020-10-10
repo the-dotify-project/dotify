@@ -6,7 +6,7 @@
         {
             "label": "Flask",
             "type": "shell",
-            "command": "export FLASK_APP=app/api.py; export FLASK_ENV=development; .env/bin/flask run",
+            "command": "export FLASK_APP=backend/api.py; export FLASK_ENV=development; .env/bin/flask run",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
