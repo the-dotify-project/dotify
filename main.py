@@ -19,7 +19,7 @@ def track():
 
     try:
         with tempfile.TemporaryDirectory() as tmp:
-            with Spotify({**SETTINGS, 'output_file': f'{Path(tmp) / SETTINGS["output_file"]}'}) as spotify:
+            with Spotify(output_file=f'{Path(tmp) / SETTINGS["output_file"]}') as spotify:
                 path, metadata = spotify.download_track(data['uri'])
 
                 artist, name = metadata["artist"]["name"], metadata["name"]
@@ -45,7 +45,7 @@ def album():
 
     try:
         with tempfile.TemporaryDirectory() as tmp:
-            with Spotify({**SETTINGS, 'output_file': f'{Path(tmp) / SETTINGS["output_file"]}'}) as spotify:
+            with Spotify(output_file=f'{Path(tmp) / SETTINGS["output_file"]}') as spotify:
                 metadata, uris = spotify.fetch_album(data['uri'])
 
                 artist, name = metadata["artist"]["name"], metadata["name"]

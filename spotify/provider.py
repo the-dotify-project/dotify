@@ -5,12 +5,14 @@ from spotdl import Spotdl, util
 from spotdl.helpers.spotify import SpotifyHelpers
 from spotdl.metadata_search import MetadataSearch
 
+from spotify.settings import SETTINGS
+
 util.install_logger(logging.INFO)
 
 
 class Spotify(Spotdl):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__({**SETTINGS, **kwargs})
 
         self.logger = logging.getLogger(self.__class__.__name__)
 
@@ -135,8 +137,6 @@ class Spotify(Spotdl):
 
 
 if __name__ == "__main__":
-    from settings import SETTINGS
-
     # with Spotify(SPOTIFY) as provider:
     #     rv = provider.download_track('https://open.spotify.com/track/691df0fYjhhszUgQH3FGvP?si=IaDHTfJFTmiJIcos2MjzWg')
     #     print(rv)
@@ -184,9 +184,9 @@ if __name__ == "__main__":
     #         }
     #     )
 
-    with Spotify(SETTINGS) as spotify:
+    with Spotify() as spotify:
         print(
-            spotify.download_track(
-                "https://open.spotify.com/track/0dD17UWACV5aYTyeS6af1k?si=lVxjP4k7SoeMXM5Vs5D84w"
+            spotify.tools.fetch_playlist(
+                "https://open.spotify.com/playlist/7LleICaPbgvmwh9GExnbOY?si=5utOlLCKTMWVpZmFlOGf2A"
             )
         )
