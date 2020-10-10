@@ -77,8 +77,8 @@ def album():
         abort(500, str(e))
 
 
-@app.route("/album", methods=['POST', ])
-def album():
+@app.route("/playlist", methods=['POST', ])
+def playlist():
     data = request.json
 
     if data is None or 'uri' not in data:
@@ -87,9 +87,9 @@ def album():
     try:
         with tempfile.TemporaryDirectory() as tmp:
             with Spotify(output_file=f'{Path(tmp) / SETTINGS["output_file"]}') as spotify:
-                metadata, uris = spotify.fetch_album(data['uri'])
+                metadata, uris = spotify.fetch_playlist(data['uri'])
 
-                artist, name = metadata["artist"]["name"], metadata["name"]
+                name = metadata["name"]
 
                 paths = []
                 for i, (path, metadata) in enumerate(spotify.download_tracks(uris)):
@@ -98,11 +98,11 @@ def album():
                     else:
                         logging.warning(f'Failed to download track {uris[i]}')
 
-                attachment_filename = f"{artist} - {name}.zip"
+                attachment_filename = f"{name}.zip"
 
                 path = Path(tmp) / attachment_filename
 
-                logging.info(f'Zipping album {data["uri"]} to {path}')
+                logging.info(f'Zipping playlist {data["uri"]} to {path}')
 
                 zipfile = ZipFile(path, 'w', ZIP_DEFLATED)
                 for path in paths:
