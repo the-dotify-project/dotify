@@ -1,5 +1,14 @@
 # Dotify
 
+- [Dotify](#dotify)
+  - [Installation](#installation)
+    - [System Dependencies](#system-dependencies)
+    - [Virtual Environment](#virtual-environment)
+    - [Pip Dependencies](#pip-dependencies)
+  - [Development](#development)
+    - [Running](#running)
+  - [TODOs](#todos)
+
 ## Installation
 
 ### System Dependencies
@@ -24,12 +33,17 @@ virtualenv .env
 pip install -r requirements
 ```
 
-### Development
+## Development
 
-## Running
+### Running
 
 ```bash
 export FLASK_APP=backend/api.py
 export FLASK_ENV=development
 .env/bin/flask run
 ```
+
+## TODOs
+
+- [ ] Flask API
+  - [ ] Exceptions
