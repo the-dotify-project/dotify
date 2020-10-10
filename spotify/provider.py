@@ -5,14 +5,14 @@ from spotdl import Spotdl, util
 from spotdl.helpers.spotify import SpotifyHelpers
 from spotdl.metadata_search import MetadataSearch
 
-from spotify.settings import SETTINGS
+from spotify.settings import DEFAULT
 
 util.install_logger(logging.INFO)
 
 
 class Spotify(Spotdl):
     def __init__(self, **kwargs):
-        super().__init__({**SETTINGS, **kwargs})
+        super().__init__({**DEFAULT, **kwargs})
 
         self.logger = logging.getLogger(self.__class__.__name__)
 
