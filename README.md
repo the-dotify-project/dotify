@@ -45,5 +45,5 @@ export FLASK_ENV=development
 
 ## TODOs
 
-- [ ] Flask API
-  - [ ] Exceptions
+- [X] Exceptions
+- [ ] SpotifyException
