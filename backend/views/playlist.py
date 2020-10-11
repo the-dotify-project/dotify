@@ -4,7 +4,8 @@ from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
 from backend.api import api
-from flask import abort, request, send_file
+from backend.error.errors import BadRequest, InternalServerError, NotFound
+from flask import request, send_file
 from spotify import DEFAULT, Spotify, SpotifyAlbumNotFoundError
 
 
@@ -13,7 +14,7 @@ def playlist():
     data = request.json
 
     if data is None or 'uri' not in data:
-        abort(400)
+        raise BadRequest('No playlist uri')
 
     try:
         with tempfile.TemporaryDirectory() as tmp:
@@ -43,7 +44,7 @@ def playlist():
 
                 return send_file(path, as_attachment=True, attachment_filename=attachment_filename)
     except SpotifyAlbumNotFoundError:
-        abort(404)
+        raise NotFound(f'No playlist corresponding to {data["uri"]}')
     except Exception as e:
         logging.exception(e)
-        abort(500, str(e))
+        raise InternalServerError(str(e))

@@ -2,10 +2,10 @@ import logging
 import tempfile
 from pathlib import Path
 
-from flask import abort, request, send_file
-from spotify import DEFAULT, Spotify, SpotifyException
-
 from backend.api import api
+from backend.error.errors import BadRequest, InternalServerError, NotFound
+from flask import request, send_file
+from spotify import DEFAULT, Spotify, SpotifyException
 
 
 @api.route("/track", methods=['POST', ])
@@ -13,7 +13,7 @@ def track():
     data = request.json
 
     if data is None or 'uri' not in data:
-        abort(400)
+        raise BadRequest('No track uri')
 
     try:
         with tempfile.TemporaryDirectory() as tmp:
@@ -28,7 +28,7 @@ def track():
 
                 return send_file(path, as_attachment=True, attachment_filename=attachment_filename)
     except SpotifyException:
-        abort(404)
+        raise NotFound(f'No track corresponding to {data["uri"]}')
     except Exception as e:
         logging.exception(e)
-        abort(500, str(e))
+        raise InternalServerError(str(e))

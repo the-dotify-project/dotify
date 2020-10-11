@@ -26,6 +26,30 @@ class Spotify(Spotdl):
         if exc_type is not None:
             self.logger.exception(f'{exc_type.__name__}: {exc_value}')
 
+    def assert_valid_uri(self, regex, uri, message):
+        assert re.match(regex, uri) is not None, message
+
+    def assert_track_uri(self, uri):
+        self.assert_valid_uri(
+            r"https://open.spotify.com/track/.+",
+            uri,
+            f'{uri} is not a valid spotify track uri'
+        )
+
+    def assert_album_uri(self, uri):
+        self.assert_valid_uri(
+            r"https://open.spotify.com/album/.+",
+            uri,
+            f'{uri} is not a valid spotify album uri'
+        )
+
+    def assert_playlist_uri(self, uri):
+        self.assert_valid_uri(
+            r"https://open.spotify.com/playlist/.+",
+            uri,
+            f'{uri} is not a valid spotify playlist uri'
+        )
+
     def get_tracks(self, tracks):
         urls = []
         while True:
@@ -77,7 +101,7 @@ class Spotify(Spotdl):
         }
 
     def get_track_metadata(self, uri):
-        assert re.match(r"https://open.spotify.com/track/.+", uri), uri
+        self.assert_track_uri(uri)
 
         searcher = MetadataSearch(
             uri,
@@ -91,7 +115,7 @@ class Spotify(Spotdl):
         return self.minimal_track_metadata(metadata)
 
     def fetch_playlist(self, uri):
-        assert re.match(r"https://open.spotify.com/playlist/.+", uri), uri
+        self.assert_playlist_uri(uri)
 
         metadata = self.tools.fetch_playlist(uri)
 
@@ -101,7 +125,7 @@ class Spotify(Spotdl):
         )
 
     def fetch_album(self, uri):
-        assert re.match(r"https://open.spotify.com/album/.+", uri), uri
+        self.assert_album_uri(uri)
 
         metadata = self.tools.fetch_album(uri)
 
@@ -111,7 +135,7 @@ class Spotify(Spotdl):
         )
 
     def download_track(self, uri):
-        assert re.match(r"https://open.spotify.com/track/.+", uri), uri
+        self.assert_track_uri(uri)
 
         search_metadata = MetadataSearch(
             uri,
