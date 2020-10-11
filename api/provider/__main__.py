@@ -1,6 +1,6 @@
 
-from spotify.provider import Spotify
-from spotify.settings import DEFAULT
+from api.provider.spotify import Spotify
+from api.provider.settings import DEFAULT
 
 if __name__ == "__main__":
     # with Spotify(SPOTIFY) as provider:

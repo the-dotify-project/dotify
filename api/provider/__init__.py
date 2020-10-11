@@ -1,5 +1,5 @@
 from spotdl.helpers.exceptions import SpotifyAlbumNotFoundError
 from spotipy.exceptions import SpotifyException
 
-from spotify.provider import Spotify
-from spotify.settings import DEFAULT
+from api.provider.spotify import Spotify
+from api.provider.settings import DEFAULT

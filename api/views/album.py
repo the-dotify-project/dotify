@@ -3,10 +3,10 @@ import tempfile
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
-from backend.api import api
-from backend.error.errors import BadRequest, InternalServerError, NotFound
+from api.api import api
+from api.error.errors import BadRequest, InternalServerError, NotFound
 from flask import request, send_file
-from spotify import DEFAULT, Spotify, SpotifyAlbumNotFoundError
+from api.provider import DEFAULT, Spotify, SpotifyAlbumNotFoundError
 
 
 @api.route("/album", methods=['POST', ])

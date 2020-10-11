@@ -5,7 +5,7 @@ from spotdl import Spotdl, util
 from spotdl.helpers.spotify import SpotifyHelpers
 from spotdl.metadata_search import MetadataSearch
 
-from spotify.settings import DEFAULT
+from api.provider.settings import DEFAULT
 
 util.install_logger(logging.INFO)
 

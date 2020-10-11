@@ -2,10 +2,10 @@ import logging
 import tempfile
 from pathlib import Path
 
-from backend.api import api
-from backend.error.errors import BadRequest, InternalServerError, NotFound
+from api.api import api
+from api.error.errors import BadRequest, InternalServerError, NotFound
 from flask import request, send_file
-from spotify import DEFAULT, Spotify, SpotifyException
+from api.provider import DEFAULT, Spotify, SpotifyException
 
 
 @api.route("/track", methods=['POST', ])

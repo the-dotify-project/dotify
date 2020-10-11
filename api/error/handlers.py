@@ -1,5 +1,5 @@
-from backend.api import api
-from backend.error.errors import APIError
+from api.api import api
+from api.error.errors import APIError
 from flask import jsonify
 
 
