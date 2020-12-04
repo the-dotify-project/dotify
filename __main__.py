@@ -51,8 +51,4 @@ if __name__ == "__main__":
     #     )
 
     with Spotify() as spotify:
-        print(
-            spotify.fetch_playlist(
-                "https://open.spotify.com/playlist/7LleICaPbgvmwh9GExnbOY?si=5utOlLCKTMWVpZmFlOGf2A"
-            )
-        )
+        print(spotify.search("Fitzpleasure"))
