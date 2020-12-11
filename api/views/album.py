@@ -5,21 +5,28 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 from api.api import api
 from api.error.errors import BadRequest, InternalServerError, NotFound
+from api.settings import DOTIFY_SETTINGS
 from flask import request, send_file
-from api.provider import DEFAULT, Spotify, SpotifyAlbumNotFoundError
+from spotify import Spotify
+
+ID, SECRET = DOTIFY_SETTINGS['spotify_id'], DOTIFY_SETTINGS['spotify_secret']
 
 
 @api.route("/album", methods=['POST', ])
 def album():
     data = request.json
 
-    if data is None or 'uri' not in data:
-        raise BadRequest('No album uri')
+    if data is None or 'url' not in data:
+        raise BadRequest('No album url')
+
+    url = data['url']
 
     try:
         with tempfile.TemporaryDirectory() as tmp:
-            with Spotify(output_file=f'{Path(tmp) / DEFAULT["output_file"]}') as spotify:
-                metadata, uris = spotify.fetch_album(data['uri'])
+            with Spotify(ID, SECRET) as spotify:
+                tracks = spotify.tracks_of_album(url)
+
+                metadata, uris = spotify.fetch_album(url)
 
                 artist, name = metadata["artist"]["name"], metadata["name"]
 
@@ -34,7 +41,7 @@ def album():
 
                 path = Path(tmp) / attachment_filename
 
-                logging.info(f'Zipping album {data["uri"]} to {path}')
+                logging.info(f'Zipping album {url} to {path}')
 
                 zipfile = ZipFile(path, 'w', ZIP_DEFLATED)
                 for path in paths:
@@ -44,7 +51,7 @@ def album():
 
                 return send_file(path, as_attachment=True, attachment_filename=attachment_filename)
     except SpotifyAlbumNotFoundError:
-        raise NotFound(f'No album corresponding to {data["uri"]}')
+        raise NotFound(f'No album corresponding to {url}')
     except Exception as e:
         logging.exception(e)
         raise InternalServerError(str(e))

@@ -1,7 +1,7 @@
 
 from flask import Flask
 
-api = Flask("Spotify Downloader API")
+api = Flask("Dotify API")
 
 
 if __name__ == "__main__":
