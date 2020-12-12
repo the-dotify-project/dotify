@@ -150,6 +150,7 @@ dmypy.json
 
 # Custom
 
+.vscode
 *.mp3
 
 # Custom

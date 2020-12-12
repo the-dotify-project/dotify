@@ -40,6 +40,6 @@ def download(client, url):
 
     name = playlist.name
     name = name.strip()
-    name = sub(r'\s+', '_', name)
+    name = sub(r'\s+', ' ', name)
 
-    playlist.download(f'{name}.mp3')
+    playlist.download(name)

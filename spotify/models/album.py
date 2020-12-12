@@ -24,7 +24,7 @@ class Album:
         return self.name
 
     def __repr__(self):
-        return f'<Album {self.name}>'
+        return f'<Album "{self.name}">'
 
     @staticmethod
     def extract_metadata(metadata):

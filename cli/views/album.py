@@ -40,6 +40,6 @@ def download(client, url):
 
     artist, name = album.artist.name, album.name
     artist, name = artist.strip(), name.strip()
-    artist, name = sub(r'\s+', '_', artist), sub(r'\s+', '_', name)
+    artist, name = sub(r'\s+', ' ', artist), sub(r'\s+', ' ', name)
 
-    album.download(f'{artist} - {name}.mp3')
+    album.download(f'{artist} - {name}')

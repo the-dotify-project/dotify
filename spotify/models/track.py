@@ -33,7 +33,7 @@ class Track:
         return f'{self.artists[0]} - {self.name}'
 
     def __repr__(self):
-        return f'<Track {self.artists[0]} - {self.name}>'
+        return f'<Track "{self.artists[0]} - {self.name}">'
 
     def __eq__(self, comparedSong) -> bool:
         return comparedSong.dump == self.dump
@@ -280,7 +280,7 @@ class Track:
             skip_existing=False
         )
 
-        converted_file_path = Path(path.parent) / f"{path}"
+        converted_file_path = path
 
         command = 'ffmpeg -v quiet -y -i "%s" -acodec libmp3lame -abr true -af "apad=pad_dur=2, dynaudnorm, loudnorm=I=-17" "%s"'
         formatted_command = command % (

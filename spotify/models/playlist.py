@@ -21,7 +21,7 @@ class Playlist:
         return self.name
 
     def __repr__(self):
-        return f'<Playlist {self.name}>'
+        return f'<Playlist "{self.name}">'
 
     @staticmethod
     def extract_metadata(metadata):
