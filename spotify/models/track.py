@@ -29,8 +29,14 @@ class Track:
         self.__rawArtistMeta = rawArtistMeta
         self.__youtubeLink = youtubeLink
 
-    def __repr__(self):
+    def __str__(self):
         return f'{self.artists[0]} - {self.name}'
+
+    def __repr__(self):
+        return f'<Track {self.artists[0]} - {self.name}>'
+
+    def __eq__(self, comparedSong) -> bool:
+        return comparedSong.dump == self.dump
 
     @staticmethod
     def extract_metadata(metadata):
@@ -117,9 +123,6 @@ class Track:
             rawTrackMeta, rawAlbumMeta,
             rawArtistMeta, youtubeLink
         )
-
-    def __eq__(self, comparedSong) -> bool:
-        return comparedSong.dump == self.dump
 
     @property
     def url_youtube(self) -> str:

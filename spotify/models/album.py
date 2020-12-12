@@ -20,8 +20,11 @@ class Album:
         self.metadata = metadata
         self.tracks = tracks
 
-    def __repr__(self):
+    def __str__(self):
         return self.name
+
+    def __repr__(self):
+        return f'<Album {self.name}>'
 
     @staticmethod
     def extract_metadata(metadata):
