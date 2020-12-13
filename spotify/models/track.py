@@ -265,41 +265,36 @@ class Track:
             'rawArtistMeta': self.__rawArtistMeta
         }
 
+    @property
+    def stream(self):
+        return YouTube(self.url_youtube).streams.get_audio_only()
+
     @classmethod
     def search(cls, spotify, query, limit=10):
         return map(cls.extract_metadata, spotify.search(query, limit=limit, about='track'))
 
-    def download(self, path):
+    def download(self, path, skip_existing=False):
         path = Path(path)
 
-        youtube_handler = YouTube(self.url_youtube)
-        track_audio_stream = youtube_handler.streams.get_audio_only()
-        downloaded_file_path = track_audio_stream.download(
+        downloaded_file_path = self.stream.download(
             output_path=path.parent,
             filename=path.stem,
-            skip_existing=False
+            skip_existing=skip_existing
         )
 
-        converted_file_path = path
+        ffmpeg_cmd = 'ffmpeg -v quiet -y -i "%s" -acodec libmp3lame -abr true -af "apad=pad_dur=2, dynaudnorm, loudnorm=I=-17" "%s"'
 
-        command = 'ffmpeg -v quiet -y -i "%s" -acodec libmp3lame -abr true -af "apad=pad_dur=2, dynaudnorm, loudnorm=I=-17" "%s"'
-        formatted_command = command % (
-            downloaded_file_path,
-            converted_file_path
-        )
-
-        run_in_shell(formatted_command)
+        run_in_shell(ffmpeg_cmd % (downloaded_file_path, path))
 
         # ! Wait till converted file is actually created
-        while True:
-            if converted_file_path.exists():
-                break
+        while not path.exists():
+            pass
 
         # ! embed song details
         # ! we save tags as both ID3 v2.3 and v2.4
 
         # ! The simple ID3 tags
-        audio_file = EasyID3(converted_file_path)
+        audio_file = EasyID3(path)
 
         # ! Get rid of all existing ID3 tags (if any exist)
         audio_file.delete()
@@ -337,7 +332,7 @@ class Track:
         audio_file.save(v2_version=3)
 
         # ! setting the album art
-        audio_file = ID3(converted_file_path)
+        audio_file = ID3(path)
 
         rawAlbumArt = urlopen(self.album_cover_url).read()
 
