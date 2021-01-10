@@ -7,12 +7,12 @@ from api.api import api
 from api.error.errors import BadRequest, InternalServerError, NotFound
 from api.settings import DOTIFY_SETTINGS
 from flask import request, send_file
-from spotify import Spotify
+from spotify import Spotify, Album
 
 ID, SECRET = DOTIFY_SETTINGS['spotify_id'], DOTIFY_SETTINGS['spotify_secret']
 
 
-@api.route("/album", methods=['POST', ])
+@api.route("/album/download", methods=['POST', ])
 def album():
     data = request.json
 
@@ -24,34 +24,32 @@ def album():
     try:
         with tempfile.TemporaryDirectory() as tmp:
             with Spotify(ID, SECRET) as spotify:
-                tracks = spotify.tracks_of_album(url)
+                album = Album.from_url(spotify, url)
 
-                metadata, uris = spotify.fetch_album(url)
+                artist, name = album.artist.name, album.name
 
-                artist, name = metadata["artist"]["name"], metadata["name"]
+                filename = f'{artist} - {name}'
+                path = Path(tmp) / filename
 
-                paths = []
-                for i, (path, metadata) in enumerate(spotify.download_tracks(uris)):
-                    if path is not None:
-                        paths.append(path)
-                    else:
-                        logging.warning(f'Failed to download track {uris[i]}')
+                album.download(path)
 
-                attachment_filename = f"{artist} - {name}.zip"
-
-                path = Path(tmp) / attachment_filename
+                attachment_filename = f"{filename}.zip"
+                attachment_path = Path(tmp) / attachment_filename
 
                 logging.info(f'Zipping album {url} to {path}')
 
-                zipfile = ZipFile(path, 'w', ZIP_DEFLATED)
-                for path in paths:
-                    zipfile.write(path, Path(path).name)
+                zipfile = ZipFile(attachment_path, 'w', ZIP_DEFLATED)
+                for entry in path.iterdir():
+                    if entry.is_file():
+                        zipfile.write(entry, entry.name)
 
                 logging.info(f'Sending zip file {attachment_filename}')
 
                 return send_file(path, as_attachment=True, attachment_filename=attachment_filename)
-    except SpotifyAlbumNotFoundError:
+    except Album.NotFound:
         raise NotFound(f'No album corresponding to {url}')
+    except Album.InvalidURL:
+        raise BadRequest(f'{url} is not a valid Spotify album URL')
     except Exception as e:
         logging.exception(e)
         raise InternalServerError(str(e))

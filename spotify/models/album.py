@@ -14,6 +14,9 @@ class Album:
     class InvalidURL(Spotify.GeneralException):
         pass
 
+    class NotFound(Spotify.NotFound):
+        pass
+
     def __init__(self, metadata, tracks):
         super().__init__()
 

@@ -12,7 +12,7 @@ class Spotify:
     class GeneralException(Exception):
         pass
 
-    class NoSearchResults(GeneralException):
+    class NotFound(GeneralException):
         pass
 
     def __init__(self, client_id, client_secret):
@@ -56,7 +56,7 @@ class Spotify:
         results = self.client.search(query, type=about, limit=limit)
 
         if len(results[f'{about}s']['items']) == 0:
-            raise Spotify.NoSearchResults
+            raise Spotify.NotFound
 
         return results[f'{about}s']['items']
 

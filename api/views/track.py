@@ -7,12 +7,11 @@ from api.error.errors import BadRequest, InternalServerError, NotFound
 from api.settings import DOTIFY_SETTINGS
 from flask import request, send_file
 from spotify import Spotify, Track
-from spotify.exceptions import InvalidSpotifyTrackURL, NoSearchResults
 
 ID, SECRET = DOTIFY_SETTINGS['spotify_id'], DOTIFY_SETTINGS['spotify_secret']
 
 
-@api.route("/track", methods=['POST', ])
+@api.route("/track/download", methods=['POST', ])
 def track():
     data = request.json
 
@@ -26,8 +25,8 @@ def track():
             with Spotify(ID, SECRET) as spotify:
                 track = Track.from_url(spotify, url)
 
-                artist = track.get_contributing_artists()[0]
-                name = track.get_song_name()
+                artist = track.artists[0]
+                name = track.name
 
                 path = Path(tmp) / f'{artist} - {name}.mp3'
 
@@ -38,10 +37,10 @@ def track():
                 logging.info(f'Sending MP3 file {attachment_filename}')
 
                 return send_file(path, as_attachment=True, attachment_filename=attachment_filename)
-    except NoSearchResults:
+    except Track.NotFound:
         raise NotFound(f'No track corresponding to {url}')
-    except InvalidSpotifyTrackURL:
-        raise BadRequest(f'{url} is not a valid Spotify URL')
+    except Track.InvalidURL:
+        raise BadRequest(f'{url} is not a valid Spotify track URL')
     except Exception as e:
         logging.exception(e)
         raise InternalServerError(str(e))

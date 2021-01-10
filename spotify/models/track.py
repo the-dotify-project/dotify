@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import List
 from urllib.request import urlopen
 
+import spotipy
 from mutagen.easyid3 import ID3, EasyID3
 from mutagen.id3 import APIC as AlbumCover
 from pytube import YouTube
@@ -17,6 +18,9 @@ class Track:
     URL = f'{Spotify.URL}/track/'
 
     class InvalidURL(Spotify.GeneralException):
+        pass
+
+    class NotFound(Spotify.NotFound):
         pass
 
     #! This can be accessed as Track.searchProvider. Track acts like a namespace
@@ -77,7 +81,15 @@ class Track:
         cls.assert_valid_url(url)
 
         # query spotify for song, artist, album details
-        raw_track_meta = spotify.client.track(url)
+        try:
+            raw_track_meta = spotify.client.track(url)
+        except spotipy.exceptions.SpotifyException as e:
+            if e.http_status == 404:
+                raise cls.NotFound
+            elif e.http_status == 400:
+                raise cls.InvalidURL
+            else:
+                raise e
 
         primary_artist_id = raw_track_meta['artists'][0]['id']
         raw_artist_meta = spotify.client.artist(primary_artist_id)

@@ -13,6 +13,9 @@ class Playlist:
     class InvalidURL(Spotify.GeneralException):
         pass
 
+    class NotFound(Spotify.NotFound):
+        pass
+
     def __init__(self, metadata, tracks):
         self.metadata = metadata
         self.tracks = tracks
