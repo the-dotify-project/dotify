@@ -50,12 +50,12 @@ class Track:
             "album": {
                 "name": html.unescape(metadata["album"]["name"]),
                 "url": metadata["album"]["external_urls"]["spotify"],
-                "images": metadata["album"]["images"]
-            },
-            "artist": {
-                "name": html.unescape(metadata["artists"][0]["name"]),
-                "url": metadata["artists"][0]["external_urls"]["spotify"],
-            },
+                "images": metadata["album"]["images"],
+                "artist": {
+                    "name": html.unescape(metadata["artists"][0]["name"]),
+                    "url": metadata["artists"][0]["external_urls"]["spotify"],
+                },
+            }
         }
 
     @classmethod
