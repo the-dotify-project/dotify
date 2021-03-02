@@ -46,13 +46,13 @@ class Track:
     def extract_metadata(metadata):
         return {
             "url": metadata["external_urls"]["spotify"],
-            "name": html.unescape(metadata["name"]),
+            "name": html.unescape(metadata["name"]).strip(),
             "album": {
-                "name": html.unescape(metadata["album"]["name"]),
+                "name": html.unescape(metadata["album"]["name"]).strip(),
                 "url": metadata["album"]["external_urls"]["spotify"],
                 "images": metadata["album"]["images"],
                 "artist": {
-                    "name": html.unescape(metadata["artists"][0]["name"]),
+                    "name": html.unescape(metadata["artists"][0]["name"]).strip(),
                     "url": metadata["artists"][0]["external_urls"]["spotify"],
                 },
             }

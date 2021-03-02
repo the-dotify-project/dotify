@@ -30,8 +30,8 @@ class Playlist:
     def extract_metadata(metadata):
         return {
             'url': metadata["external_urls"]["spotify"],
-            'name': html.unescape(metadata['name']),
-            'description': html.unescape(metadata['description']),
+            'name': html.unescape(metadata['name']).strip(),
+            'description': html.unescape(metadata['description']).strip(),
             'images': metadata['images']
         }
 
