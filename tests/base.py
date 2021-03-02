@@ -1,8 +1,10 @@
-from unittest import TestCase
-from re import sub
 from pathlib import Path
+from re import sub
+from shutil import rmtree
+from unittest import TestCase
 
-from spotify import Spotify, Track, Playlist, Album
+from spotify import Album, Playlist, Spotify, Track
+
 from tests.settings import DOTIFY_SETTINGS
 
 
@@ -13,39 +15,56 @@ class DotifyBaseTestCase(TestCase):
             DOTIFY_SETTINGS['spotify_secret']
         )
 
-    def download_track(self, url):
+        self.test_directory = Path(__file__).parent / 'tmp'
+        self.test_directory.mkdir(parents=True, exist_ok=True)
+
+    def tearDown(self):
+        rmtree(self.test_directory)
+
+    def _get_download_basename_track(self, track):
+        artist, name = track.artists[0], track.name
+        artist, name = artist.strip(), name.strip()
+        artist, name = sub(r'\s+', '_', artist), sub(r'\s+', '_', name)
+
+        return f'{artist} - {name}.mp3'
+
+    def _get_download_basename_playlist(self, playlist):
+        name = playlist.name
+        name = name.strip()
+        name = sub(r'\s+', ' ', name)
+
+        return name
+
+    def _get_download_basename_album(self, album):
+        artist, name = album.artist.name, album.name
+        artist, name = artist.strip(), name.strip()
+        artist, name = sub(r'\s+', ' ', artist), sub(r'\s+', ' ', name)
+
+        return f'{artist} - {name}'
+
+    def get_download_basename(self, obj):
+        if isinstance(obj, Track):
+            return self._get_download_basename_track(obj)
+        elif isinstance(obj, Playlist):
+            return self._get_download_basename_playlist(obj)
+        elif isinstance(obj, Album):
+            return self._get_download_basename_album(obj)
+        else:
+            raise RuntimeError(f'`{obj}` is an instance of {type(obj)}')
+
+    def download(self, cls, url):
         with self.client:
-            track = Track.from_url(self.client, url)
+            obj = cls.from_url(self.client, url)
 
-            artist, name = track.artists[0], track.name
-            artist, name = artist.strip(), name.strip()
-            artist, name = sub(r'\s+', '_', artist), sub(r'\s+', '_', name)
+            download_basename = self.get_download_basename(obj)
+            download_fullpath = self.test_directory / download_basename
 
-            track.download(Path.cwd() / f'{artist} - {name}.mp3')
+            obj.download(download_fullpath)
 
-    def download_playlist(self, url):
+            self.assertTrue(download_fullpath.exists())
+
+    def search(self, cls, query, metadata):
         with self.client:
-            playlist = Playlist.from_url(self.client, url)
+            results = next(cls.search(self.client, query, limit=1))
 
-            name = playlist.name
-            name = name.strip()
-            name = sub(r'\s+', ' ', name)
-
-            playlist.download(Path.cwd() / name)
-
-    def download_album(self, url):
-        url = 'https://open.spotify.com/album/5WEwObchJdvIzPcmm2e3Li'
-        with self.client:
-            album = Album.from_url(self.client, url)
-
-            artist, name = album.artist.name, album.name
-            artist, name = artist.strip(), name.strip()
-            artist, name = sub(r'\s+', ' ', artist), sub(r'\s+', ' ', name)
-
-            album.download(Path.cwd() / f'{artist} - {name}')
-
-    def search_track(self, cls, query, metadata):
-        with self.client:
-            results = cls.search(self.client, query, limit=1)
-
-            self.assertEqual(results[0], metadata)
+            self.assertEqual(results, metadata)
