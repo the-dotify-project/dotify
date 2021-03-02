@@ -152,5 +152,7 @@ dmypy.json
 
 .vscode
 *.mp3
+settings.json
+
 
 # Custom
