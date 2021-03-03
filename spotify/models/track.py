@@ -10,8 +10,7 @@ from mutagen.easyid3 import ID3, EasyID3
 from mutagen.id3 import APIC as AlbumCover
 from pytube import YouTube
 from spotify.provider import Spotify
-from spotify.sanity import assert_valid_url
-from spotify.search import search_and_get_best_match
+from youtubesearchpython import VideosSearch
 
 
 class Track:
@@ -22,10 +21,6 @@ class Track:
 
     class NotFound(Spotify.NotFound):
         pass
-
-    #! This can be accessed as Track.searchProvider. Track acts like a namespace
-    #! it allows us a convenient way of setting a search provider without using globals
-    searchProvider = search_and_get_best_match
 
     def __init__(self, rawTrackMeta, rawAlbumMeta, rawArtistMeta, youtubeLink):
         self. __rawTrackMeta = rawTrackMeta
@@ -60,7 +55,7 @@ class Track:
 
     @classmethod
     def assert_valid_url(cls, url):
-        assert_valid_url(
+        Spotify.assert_valid_url(
             r"https?://open.spotify.com/track/.+",
             url,
             cls.InvalidURL(f'{url} is not a valid spotify track url')
@@ -112,12 +107,14 @@ class Track:
         for artist in raw_track_meta['artists']:
             contributing_artists.append(artist['name'])
 
-        youtube_link = Track.searchProvider(
-            song_name,
-            contributing_artists,
-            album_name,
-            duration
+        video_search = VideosSearch(
+            raw_track_meta['artists'][0]['name'],
+            limit=1
         )
+
+        result = video_search.result()
+
+        youtube_link = result['result'][0]['link']
 
         return Track(
             raw_track_meta, raw_album_meta,
