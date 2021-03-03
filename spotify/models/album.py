@@ -5,7 +5,6 @@ from spotify.models.artist import Artist
 from spotify.models.image import Image
 from spotify.models.track import Track
 from spotify.provider import Spotify
-from spotify.sanity import assert_valid_url
 
 
 class Album:
@@ -43,7 +42,7 @@ class Album:
 
     @classmethod
     def assert_valid_url(cls, url):
-        assert_valid_url(
+        Spotify.assert_valid_url(
             r"https?://open.spotify.com/album/.+",
             url,
             cls.InvalidURL(f'{url} is not a valid spotify album url')

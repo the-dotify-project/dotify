@@ -4,7 +4,6 @@ from pathlib import Path
 from spotify.models.image import Image
 from spotify.models.track import Track
 from spotify.provider import Spotify
-from spotify.sanity import assert_valid_url
 
 
 class Playlist:
@@ -37,7 +36,7 @@ class Playlist:
 
     @classmethod
     def assert_valid_url(cls, url):
-        assert_valid_url(
+        Spotify.assert_valid_url(
             r"https?://open.spotify.com/playlist/.+",
             url,
             cls.InvalidURL(f'{url} is not a valid spotify playlist url')

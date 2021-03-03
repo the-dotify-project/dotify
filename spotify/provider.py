@@ -1,4 +1,5 @@
 import logging
+from re import match
 
 from spotipy import Spotify as Client
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -7,6 +8,13 @@ import spotify.models as models
 
 
 class Spotify:
+    @classmethod
+    def assert_valid_url(cls, regex, url, exception):
+        try:
+            assert match(regex, url) is not None
+        except AssertionError:
+            raise exception
+
     URL = 'https://open.spotify.com/'
 
     class GeneralException(Exception):
