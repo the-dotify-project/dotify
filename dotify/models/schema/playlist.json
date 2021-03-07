@@ -1,0 +1,148 @@
+{
+    "$id": "https://dotify.com/playlisst.schema.json",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Playlist",
+    "type": "object",
+    "required": [
+        "external_urls",
+        "name",
+        "images"
+    ],
+    "properties": {
+        "collaborative": {
+            "type": "boolean"
+        },
+        "description": {
+            "type": "string"
+        },
+        "external_urls": {
+            "type": "object",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string"
+                }
+            },
+            "minProperties": 1
+        },
+        "href": {
+            "type": "string",
+            "pattern": "https://api.spotify.com/v1/playlists/.*"
+        },
+        "id": {
+            "type": "string"
+        },
+        "images": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Image"
+            }
+        },
+        "name": {
+            "type": "string"
+        },
+        "owner": {
+            "$ref": "#/definitions/User"
+        },
+        "primary_color": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "public": {
+            "type": [
+                "null",
+                "boolean"
+            ]
+        },
+        "snapshot_id": {
+            "type": "string"
+        },
+        "tracks": {
+            "type": "object",
+            "required": [
+                "total"
+            ],
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "number"
+                }
+            }
+        },
+        "type": {
+            "type": "string",
+            "pattern": "^playlist$"
+        },
+        "uri": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "spotify:playlist:.*"
+        }
+    },
+    "definitions": {
+        "Image": {
+            "type": "object",
+            "required": [
+                "url",
+                "height",
+                "width"
+            ],
+            "properties": {
+                "height": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                },
+                "url": {
+                    "type": "string"
+                },
+                "width": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "required": [
+                "display_name"
+            ],
+            "properties": {
+                "display_name": {
+                    "type": "string"
+                },
+                "external_urls": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^.*$": {
+                            "type": "string"
+                        }
+                    },
+                    "minProperties": 1
+                },
+                "href": {
+                    "type": "string",
+                    "pattern": "https://api.spotify.com/v1/users/.*"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "pattern": "^user$"
+                },
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "spotify:user:.*"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,210 @@
+{
+    "$id": "https://dotify.com/track.schema.json",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Track",
+    "type": "object",
+    "required": [
+        "album",
+        "artists",
+        "external_urls"
+    ],
+    "properties": {
+        "album": {
+            "$ref": "#/definitions/Album"
+        },
+        "artists": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Artist"
+            }
+        },
+        "disc_number": {
+            "type": "integer"
+        },
+        "duration_ms": {
+            "type": "number"
+        },
+        "explicit": {
+            "type": "boolean"
+        },
+        "external_ids": {
+            "type": "object",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string"
+                }
+            }
+        },
+        "external_urls": {
+            "type": "object",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string"
+                }
+            },
+            "minProperties": 1
+        },
+        "href": {
+            "type": "string",
+            "pattern": "https://api.spotify.com/v1/tracks/.*"
+        },
+        "id": {
+            "type": "string"
+        },
+        "is_local": {
+            "type": "boolean"
+        },
+        "is_playable": {
+            "type": "boolean"
+        },
+        "name": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string",
+            "pattern": "^track$"
+        },
+        "uri": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "spotify:track:.*"
+        },
+        "popularity": {
+            "type": "number"
+        },
+        "preview_url": {
+            "type": "string"
+        },
+        "track_number": {
+            "type": "number"
+        }
+    },
+    "definitions": {
+        "Album": {
+            "type": "object",
+            "required": [
+                "artists",
+                "external_urls",
+                "images",
+                "name"
+            ],
+            "properties": {
+                "album_type": {
+                    "type": "string"
+                },
+                "artists": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Artist"
+                    }
+                },
+                "external_urls": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^.*$": {
+                            "type": "string"
+                        }
+                    },
+                    "minProperties": 1
+                },
+                "href": {
+                    "type": "string",
+                    "pattern": "https://api.spotify.com/v1/albums/.*"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Image"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "pattern": "^album$"
+                },
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "spotify:album:.*"
+                },
+                "release_date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "release_date_precision": {
+                    "type": "string"
+                },
+                "total_tracks": {
+                    "type": "number"
+                }
+            }
+        },
+        "Artist": {
+            "type": "object",
+            "required": [
+                "external_urls",
+                "name"
+            ],
+            "properties": {
+                "external_urls": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^.*$": {
+                            "type": "string"
+                        }
+                    },
+                    "minProperties": 1
+                },
+                "href": {
+                    "type": "string",
+                    "pattern": "https://api.spotify.com/v1/artists/.*"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "pattern": "^artist$"
+                },
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "spotify:artist:.*"
+                }
+            }
+        },
+        "Image": {
+            "type": "object",
+            "required": [
+                "url",
+                "height",
+                "width"
+            ],
+            "properties": {
+                "height": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                },
+                "url": {
+                    "type": "string"
+                },
+                "width": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                }
+            }
+        }
+    }
+}

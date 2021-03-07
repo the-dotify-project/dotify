@@ -4,7 +4,7 @@ import click
 from cli.types import URL
 from cli.ui import echo_dictionary
 from cli.views.root import root
-from spotify import Playlist
+from dotify import Playlist
 
 
 @root.group()

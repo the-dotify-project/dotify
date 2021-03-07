@@ -6,20 +6,19 @@ from typing import List
 from urllib.request import urlopen
 
 import spotipy
+from dotify.dotify import Dotify
+from dotify.models.base import Base
 from mutagen.easyid3 import ID3, EasyID3
 from mutagen.id3 import APIC as AlbumCover
 from pytube import YouTube
-from spotify.provider import Spotify
 from youtubesearchpython import VideosSearch
 
 
-class Track:
-    URL = f'{Spotify.URL}/track/'
-
-    class InvalidURL(Spotify.GeneralException):
+class Track(Base):
+    class InvalidURL(Base.InvalidURL):
         pass
 
-    class NotFound(Spotify.NotFound):
+    class NotFound(Base.NotFound):
         pass
 
     def __init__(self, rawTrackMeta, rawAlbumMeta, rawArtistMeta, youtubeLink):
@@ -52,14 +51,6 @@ class Track:
                 },
             }
         }
-
-    @classmethod
-    def assert_valid_url(cls, url):
-        Spotify.assert_valid_url(
-            r"https?://open.spotify.com/track/.+",
-            url,
-            cls.InvalidURL(f'{url} is not a valid spotify track url')
-        )
 
     #! constructors here are a bit mucky, there are two different constructors for two
     #! different use cases, hence the actual __init__ function does not exist
@@ -277,10 +268,6 @@ class Track:
     @property
     def stream(self):
         return YouTube(self.url_youtube).streams.get_audio_only()
-
-    @classmethod
-    def search(cls, spotify, query, limit=10):
-        return map(cls.extract_metadata, spotify.search(query, limit=limit, about='track'))
 
     def download(self, path, skip_existing=False):
         path = Path(path)

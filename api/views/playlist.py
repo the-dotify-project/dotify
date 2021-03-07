@@ -7,7 +7,7 @@ from api.api import api
 from api.error.errors import BadRequest, InternalServerError, NotFound
 from api.settings import DOTIFY_SETTINGS
 from flask import request, send_file
-from spotify import Spotify, Playlist
+from dotify import Dotify, Playlist
 
 ID, SECRET = DOTIFY_SETTINGS['spotify_id'], DOTIFY_SETTINGS['spotify_secret']
 
@@ -23,7 +23,7 @@ def playlist():
 
     try:
         with tempfile.TemporaryDirectory() as tmp:
-            with Spotify(ID, SECRET) as spotify:
+            with Dotify(ID, SECRET) as spotify:
                 playlist = Playlist.from_url(spotify, url)
 
                 filename = playlist.name
@@ -47,7 +47,7 @@ def playlist():
     except Playlist.NotFound:
         raise NotFound(f'No playlist corresponding to {url}')
     except Playlist.InvalidURL:
-        raise BadRequest(f'{url} is not a valid Spotify playlist URL')
+        raise BadRequest(f'{url} is not a valid Dotify playlist URL')
     except Exception as e:
         logging.exception(e)
         raise InternalServerError(str(e))

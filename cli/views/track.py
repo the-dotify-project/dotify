@@ -4,7 +4,7 @@ import click
 from cli.types import URL
 from cli.ui import echo_dictionary
 from cli.views.root import root
-from spotify import Track
+from dotify import Track
 
 
 @root.group()
@@ -24,7 +24,7 @@ def track(ctx):
 def search(client, query, limit):
     """Search for a Track"""
 
-    results = Track.search(client, query, limit=limit)
+    results = client.Track.search(query, limit=limit)
     results = list(results)
 
     for result in results:

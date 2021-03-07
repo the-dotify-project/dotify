@@ -1,4 +1,4 @@
-from spotify import Album, Playlist, Track
+from dotify import Album, Playlist, Track
 
 from tests.base import DotifyBaseTestCase
 

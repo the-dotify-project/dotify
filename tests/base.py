@@ -3,14 +3,14 @@ from re import sub
 from shutil import rmtree
 from unittest import TestCase
 
-from spotify import Album, Playlist, Spotify, Track
+from dotify import Album, Playlist, Dotify, Track
 
 from tests.settings import DOTIFY_SETTINGS
 
 
 class DotifyBaseTestCase(TestCase):
     def setUp(self):
-        self.client = Spotify(
+        self.client = Dotify(
             DOTIFY_SETTINGS['spotify_id'],
             DOTIFY_SETTINGS['spotify_secret']
         )

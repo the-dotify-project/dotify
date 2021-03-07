@@ -1,18 +1,17 @@
 import html
 from pathlib import Path
 
-from spotify.models.image import Image
-from spotify.models.track import Track
-from spotify.provider import Spotify
+from dotify.dotify import Dotify
+from dotify.models.base import Base
+from dotify.models.image import Image
+from dotify.models.track import Track
 
 
-class Playlist:
-    URL = f'{Spotify.URL}/playlist/'
-
-    class InvalidURL(Spotify.GeneralException):
+class Playlist(Base):
+    class InvalidURL(Base.InvalidURL):
         pass
 
-    class NotFound(Spotify.NotFound):
+    class NotFound(Base.NotFound):
         pass
 
     def __init__(self, metadata, tracks):
@@ -33,18 +32,6 @@ class Playlist:
             'description': html.unescape(metadata['description']).strip(),
             'images': metadata['images']
         }
-
-    @classmethod
-    def assert_valid_url(cls, url):
-        Spotify.assert_valid_url(
-            r"https?://open.spotify.com/playlist/.+",
-            url,
-            cls.InvalidURL(f'{url} is not a valid spotify playlist url')
-        )
-
-    @classmethod
-    def search(cls, spotify, query, limit=10):
-        return map(cls.extract_metadata, spotify.search(query, limit=limit, about='playlist'))
 
     @classmethod
     def from_url(cls, spotify, url):

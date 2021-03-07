@@ -3,7 +3,7 @@ import click
 
 def echo(k, v):
     click.echo(click.style(f"{k}: ".title(), fg='green', bold=True) + v)
-
+ 
 
 def echo_dictionary(dictionary, depth=0, indent=4 * " "):
     for k, v in sorted(dictionary.items()):
