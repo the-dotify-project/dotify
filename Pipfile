@@ -4,16 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-spotipy = "2.16.1"
-tqdm = "4.54.1"
-rapidfuzz = "0.14.0"
-requests = "2.25.0"
-mutagen = "1.45.1"
-click = "7.1.2"
-colorama = "0.4.4"
-Flask = "1.1.2"
-ytmusicapi = "*"
-pytube = "*"
+python-jsonschema-objects = "*"
+youtube-search-python = "*"
 
 [dev-packages]
 autopep8 = "*"
