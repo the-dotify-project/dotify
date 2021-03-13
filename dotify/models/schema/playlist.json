@@ -34,14 +34,14 @@
         "images": {
             "type": "array",
             "items": {
-                "$ref": "#/definitions/Image"
+                "$ref": "file:///image.json"
             }
         },
         "name": {
             "type": "string"
         },
         "owner": {
-            "$ref": "#/definitions/User"
+            "$ref": "file:///user.json"
         },
         "primary_color": {
             "type": [
@@ -80,69 +80,6 @@
             "type": "string",
             "format": "uri",
             "pattern": "spotify:playlist:.*"
-        }
-    },
-    "definitions": {
-        "Image": {
-            "type": "object",
-            "required": [
-                "url",
-                "height",
-                "width"
-            ],
-            "properties": {
-                "height": {
-                    "type": [
-                        "null",
-                        "number"
-                    ]
-                },
-                "url": {
-                    "type": "string"
-                },
-                "width": {
-                    "type": [
-                        "null",
-                        "number"
-                    ]
-                }
-            }
-        },
-        "User": {
-            "type": "object",
-            "required": [
-                "display_name"
-            ],
-            "properties": {
-                "display_name": {
-                    "type": "string"
-                },
-                "external_urls": {
-                    "type": "object",
-                    "patternProperties": {
-                        "^.*$": {
-                            "type": "string"
-                        }
-                    },
-                    "minProperties": 1
-                },
-                "href": {
-                    "type": "string",
-                    "pattern": "https://api.spotify.com/v1/users/.*"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string",
-                    "pattern": "^user$"
-                },
-                "uri": {
-                    "type": "string",
-                    "format": "uri",
-                    "pattern": "spotify:user:.*"
-                }
-            }
         }
     }
 }

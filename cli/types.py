@@ -21,9 +21,7 @@ class URLParamType(click.types.StringParamType):
 
         if re.match(self.VALIDATOR, value) is None:
             self.fail(
-                "invalid choice: {}. (choose from {})".format(
-                    value, ", ".join(self.choices)
-                ),
+                "'%s' is not a valid URL" % (value,),
                 param,
                 ctx,
             )

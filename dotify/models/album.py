@@ -7,12 +7,9 @@ from dotify.models.track import Track
 
 
 class Album(Base):
-    schema = Path(__file__).parent / 'schema' / 'album.json'
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        # TODO: Initialize tracks (or NOT ?)
+    class Json:
+        schema = Path(__file__).parent / 'schema' / 'album.json'
+        dependencies = [Track, Artist, Image]
 
     @property
     def artist(self):
@@ -29,23 +26,23 @@ class Album(Base):
         return f'<Album "{str(self)}">'
 
     @classmethod
-    def from_url(cls, spotify, url):
+    def from_url(cls, url):
         cls.assert_valid_url(url)
 
-        metadata = cls.extract_metadata(spotify.client.album(url))
+        metadata = cls.extract_metadata(self.client.client.album(url))
 
-        results = spotify.client.album_tracks(url)
+        results = self.client.client.album_tracks(url)
 
         tracks = []
         while True:
             for result in results['items']:
                 url = result['external_urls']['spotify']
-                tracks.append(Track.from_url(spotify, url))
+                tracks.append(self.client.Track.from_url(url))
 
             if not results['next']:
                 break
 
-            results = spotify.client.album_tracks(url, offset=len(tracks))
+            results = self.client.client.album_tracks(url, offset=len(tracks))
 
         return cls(metadata, tracks)
 

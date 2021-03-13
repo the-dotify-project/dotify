@@ -3,28 +3,22 @@ import logging
 from re import match
 
 from dotify.json_serializable import JsonSerializable, JsonSerializableMeta
+from dotify.resolver import RelativePathRefResolver
 
 
-class DotifyMeta(JsonSerializableMeta):
+class Base(JsonSerializable):
+    logger: logging.Logger
+
     class InvalidURL(Exception):
         pass
 
     class NotFound(Exception):
         pass
 
-    def __new__(cls, name, bases, attrs):
-        attrs['InvalidURL'] = DotifyMeta.InvalidURL
-        attrs['NotFound'] = DotifyMeta.NotFound
-
-        return super().__new__(cls, name, bases, attrs)
-
-
-class Base(JsonSerializable, metaclass=DotifyMeta):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
         name = self.view_name()
-
         if hasattr(self, 'client'):
             name = f'{self.client.logger.name}.{name}'
 

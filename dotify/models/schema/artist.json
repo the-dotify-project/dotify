@@ -1,0 +1,40 @@
+{
+    "$id": "https://dotify.com/artist.schema.json",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Artist",
+    "type": "object",
+    "required": [
+        "external_urls",
+        "name"
+    ],
+    "properties": {
+        "external_urls": {
+            "type": "object",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string"
+                }
+            },
+            "minProperties": 1
+        },
+        "href": {
+            "type": "string",
+            "pattern": "https://api.spotify.com/v1/artists/.*"
+        },
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string",
+            "pattern": "^artist$"
+        },
+        "uri": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "spotify:artist:.*"
+        }
+    }
+}

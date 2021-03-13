@@ -36,9 +36,9 @@ def search(client, query, limit, raw):
     for result in results:
         result = {
             "url": result.url,
-            "name": html.unescape(str(result.name).strip()),
+            "name": html.unescape(result.name.strip()),
             "artist": {
-                "name": html.unescape(str(result.artist.name).strip()),
+                "name": html.unescape(result.artist.name).strip(),
                 "url": result.artist.external_urls.spotify,
             },
             "images": [{
@@ -63,7 +63,7 @@ def search(client, query, limit, raw):
 def download(client, url):
     """Download an Album"""
 
-    album = Album.from_url(client, url)
+    album = client.Album.from_url(url)
 
     artist, name = album.artist.name, album.name
     artist, name = artist.strip(), name.strip()

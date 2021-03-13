@@ -1,5 +1,8 @@
+from pathlib import Path
 
-class Artist:
-    def __init__(self, name, url):
-        self.name = name
-        self.url = url
+from dotify.json_serializable import JsonSerializable
+
+
+class Artist(JsonSerializable):
+    class Json:
+        schema = schema = Path(__file__).parent / 'schema' / 'artist.json'

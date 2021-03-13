@@ -1,0 +1,39 @@
+{
+    "$id": "https://dotify.com/track.user.json",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "User",
+    "type": "object",
+    "required": [
+        "display_name"
+    ],
+    "properties": {
+        "display_name": {
+            "type": "string"
+        },
+        "external_urls": {
+            "type": "object",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string"
+                }
+            },
+            "minProperties": 1
+        },
+        "href": {
+            "type": "string",
+            "pattern": "https://api.spotify.com/v1/users/.*"
+        },
+        "id": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string",
+            "pattern": "^user$"
+        },
+        "uri": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "spotify:user:.*"
+        }
+    }
+}

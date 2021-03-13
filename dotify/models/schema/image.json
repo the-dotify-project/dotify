@@ -1,0 +1,28 @@
+{
+    "$id": "https://dotify.com/image.schema.json",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Image",
+    "type": "object",
+    "required": [
+        "url",
+        "height",
+        "width"
+    ],
+    "properties": {
+        "height": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "url": {
+            "type": "string"
+        },
+        "width": {
+            "type": [
+                "null",
+                "number"
+            ]
+        }
+    }
+}
