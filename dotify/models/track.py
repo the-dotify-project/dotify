@@ -5,52 +5,37 @@ from pathlib import Path
 from typing import List
 from urllib.request import urlopen
 
-import spotipy
-from dotify.dotify import Dotify
-from dotify.models.base import Base
+import dotify.models as models
+import dotify.models.base as base
 from mutagen.easyid3 import ID3, EasyID3
 from mutagen.id3 import APIC as AlbumCover
 from pytube import YouTube
 from youtubesearchpython import VideosSearch
 
 
-class Track(Base):
-    class InvalidURL(Base.InvalidURL):
+class Track(base.Base):
+    class Json:
+        schema = base.Base.Json.schema_dir / 'track.json'
+
+        @classmethod
+        def dependencies(cls):
+            return [models.Album, models.Artist]
+
+    class InvalidURL(base.Base.InvalidURL):
         pass
 
-    class NotFound(Base.NotFound):
+    class NotFound(base.Base.NotFound):
         pass
 
-    def __init__(self, rawTrackMeta, rawAlbumMeta, rawArtistMeta, youtubeLink):
-        self. __rawTrackMeta = rawTrackMeta
-        self.__rawAlbumMeta = rawArtistMeta
-        self.__rawArtistMeta = rawArtistMeta
-        self.__youtubeLink = youtubeLink
+    @property
+    def url(self) -> str:
+        return self.external_urls.spotify
 
     def __str__(self):
         return f'{self.artists[0]} - {self.name}'
 
     def __repr__(self):
         return f'<Track "{self.artists[0]} - {self.name}">'
-
-    def __eq__(self, comparedSong) -> bool:
-        return comparedSong.dump == self.dump
-
-    @staticmethod
-    def extract_metadata(metadata):
-        return {
-            "url": metadata["external_urls"]["spotify"],
-            "name": html.unescape(metadata["name"]).strip(),
-            "album": {
-                "name": html.unescape(metadata["album"]["name"]).strip(),
-                "url": metadata["album"]["external_urls"]["spotify"],
-                "images": metadata["album"]["images"],
-                "artist": {
-                    "name": html.unescape(metadata["artists"][0]["name"]).strip(),
-                    "url": metadata["artists"][0]["external_urls"]["spotify"],
-                },
-            }
-        }
 
     #! constructors here are a bit mucky, there are two different constructors for two
     #! different use cases, hence the actual __init__ function does not exist
@@ -112,25 +97,9 @@ class Track(Base):
             raw_artist_meta, youtube_link
         )
 
-    @classmethod
-    def from_dump(cls, dataDump: dict):
-        rawTrackMeta = dataDump['rawTrackMeta']
-        rawAlbumMeta = dataDump['rawAlbumMeta']
-        rawArtistMeta = dataDump['rawAlbumMeta']
-        youtubeLink = dataDump['youtubeLink']
-
-        return cls(
-            rawTrackMeta, rawAlbumMeta,
-            rawArtistMeta, youtubeLink
-        )
-
     @property
     def url_youtube(self) -> str:
         return self.__youtubeLink
-
-    @property
-    def url(self) -> str:
-        return self.__rawTrackMeta['external_urls']['spotify']
 
     #! Song Details:
 

@@ -1,8 +1,12 @@
 from pathlib import Path
 
-from dotify.json_serializable import JsonSerializable
+import dotify.models.base as base
 
 
-class Artist(JsonSerializable):
+class Artist(base.Base):
     class Json:
-        schema = schema = Path(__file__).parent / 'schema' / 'artist.json'
+        schema = base.Base.Json.schema_dir / 'artist.json'
+
+    @property
+    def url(self):
+        return self.external_urls.spotify

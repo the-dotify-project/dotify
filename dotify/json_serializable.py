@@ -62,8 +62,11 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
         if isinstance(obj, ProtocolBase):
             if hasattr(self.Json, 'dependencies'):
                 name = obj.__class__.__name__
-                for dependency in self.Json.dependencies:
+                # FIXME: Having to define and call
+                # a @classmethod is so ugly
+                for dependency in self.Json.dependencies():
                     _name = dependency.__name__
+                    # FIXME: This is hardcoded AF...
                     _name = f'{_name}.json'.lower()
                     if name == _name:
                         return dependency(**obj.as_dict())

@@ -39,7 +39,7 @@ def search(client, query, limit, raw):
             "name": html.unescape(result.name.strip()),
             "artist": {
                 "name": html.unescape(result.artist.name).strip(),
-                "url": result.artist.external_urls.spotify,
+                "url": result.artist.url,
             },
             "images": [{
                 'url': image.url,

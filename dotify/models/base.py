@@ -1,12 +1,14 @@
-
 import logging
+from pathlib import Path
 from re import match
 
 from dotify.json_serializable import JsonSerializable, JsonSerializableMeta
-from dotify.resolver import RelativePathRefResolver
 
 
 class Base(JsonSerializable):
+    class Json:
+        schema_dir = Path(__file__).parent / 'schema'
+
     logger: logging.Logger
 
     class InvalidURL(Exception):

@@ -28,6 +28,20 @@ def search(client, query, limit):
     results = list(results)
 
     for result in results:
+        result = {
+            "url": result.url,
+            "name": html.unescape(metadata["name"]).strip(),
+            "album": {
+                "name": html.unescape(metadata["album"]["name"]).strip(),
+                "url": metadata["album"]["external_urls"]["spotify"],
+                "images": metadata["album"]["images"],
+                "artist": {
+                    "name": html.unescape(metadata["artists"][0]["name"]).strip(),
+                    "url": metadata["artists"][0]["external_urls"]["spotify"],
+                },
+            }
+        }
+
         echo_dictionary(result)
 
 

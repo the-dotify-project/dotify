@@ -1,15 +1,16 @@
 from pathlib import Path
 
-from dotify.models.artist import Artist
-from dotify.models.base import Base
-from dotify.models.image import Image
-from dotify.models.track import Track
+import dotify.models.base as base
+import dotify.models as models
 
 
-class Album(Base):
+class Album(base.Base):
     class Json:
-        schema = Path(__file__).parent / 'schema' / 'album.json'
-        dependencies = [Track, Artist, Image]
+        schema = base.Base.Json.schema_dir / 'album.json'
+
+        @classmethod
+        def dependencies(cls):
+            return [models.Track, models.Artist, models.Image]
 
     @property
     def artist(self):

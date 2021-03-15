@@ -9,8 +9,6 @@ import dotify.models as models
 
 
 class Dotify:
-    SCHEMA_DIR = Path(__file__).parent / 'models' / 'schema'
-
     def __init__(self, client_id, client_secret):
         self.logger = logging.getLogger(self.__class__.__name__)
 

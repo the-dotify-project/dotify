@@ -1,17 +1,15 @@
 import html
 from pathlib import Path
 
-from dotify.dotify import Dotify
-from dotify.models.base import Base
-from dotify.models.image import Image
-from dotify.models.track import Track
+import dotify.models.base as base
+import dotify.models as models
 
 
-class Playlist(Base):
-    class InvalidURL(Base.InvalidURL):
+class Playlist(base.Base):
+    class InvalidURL(base.Base.InvalidURL):
         pass
 
-    class NotFound(Base.NotFound):
+    class NotFound(base.Base.NotFound):
         pass
 
     def __init__(self, metadata, tracks):
@@ -45,7 +43,7 @@ class Playlist(Base):
         while True:
             for result in results['items']:
                 url = result['track']['external_urls']['spotify']
-                tracks.append(Track.from_url(spotify, url))
+                # tracks.append(Track.from_url(spotify, url))
 
             if not results['next']:
                 break
@@ -66,12 +64,12 @@ class Playlist(Base):
     def description(self):
         return self.metadata['description']
 
-    @property
-    def images(self):
-        return [
-            Image(image['height'], image['width'], image['url'])
-            for image in self.metadata['images']
-        ]
+    # @property
+    # def images(self):
+    #     return [
+    #         Image(image['height'], image['width'], image['url'])
+    #         for image in self.metadata['images']
+    #     ]
 
     def download(self, path):
         path = Path(path)

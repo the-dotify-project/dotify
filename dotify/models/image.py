@@ -1,6 +1,8 @@
+from pathlib import Path
 
-class Image:
-    def __init__(self, height, width, url):
-        self.height = height
-        self.width = width
-        self.url = url
+import dotify.models.base as base
+
+
+class Image(base.Base):
+    class Json:
+        schema = base.Base.Json.schema_dir / 'image.json'
