@@ -52,24 +52,45 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             else:
                 raise
 
+    def _resolve_dependency(self, obj):
+        if not hasattr(self.Json, 'dependencies'):
+            return None
+
+        name = obj.__class__.__name__
+        # FIXME: Having to define and call
+        # a @classmethod. It's so ugly
+        # FIXME: The for loop can be replaced
+        # by dict look ups
+        for dependency in self.Json.dependencies():
+            _name = dependency.__name__
+            # FIXME: This is hardcoded AF...
+            _name = f'{_name}.json'.lower()
+            if name == _name:
+                return dependency
+
+        return None
+
     def __getattribute__(self, name):
         obj = super().__getattribute__(name)
 
         if isinstance(obj, LiteralValue):
             return obj._value
         if isinstance(obj, ArrayWrapper):
-            return obj.data
+            # FIXME: Quite dirty solution
+            dependency = self._resolve_dependency(obj.typed_elems[0])
+
+            if dependency is not None:
+                return [
+                    dependency(**_obj.as_dict())
+                    for _obj in obj.typed_elems
+                ]
+
+            return obj.typed_elems
         if isinstance(obj, ProtocolBase):
-            if hasattr(self.Json, 'dependencies'):
-                name = obj.__class__.__name__
-                # FIXME: Having to define and call
-                # a @classmethod is so ugly
-                for dependency in self.Json.dependencies():
-                    _name = dependency.__name__
-                    # FIXME: This is hardcoded AF...
-                    _name = f'{_name}.json'.lower()
-                    if name == _name:
-                        return dependency(**obj.as_dict())
+            dependency = self._resolve_dependency(obj)
+
+            if dependency is not None:
+                return dependency(**obj.as_dict())
 
             return obj
 
