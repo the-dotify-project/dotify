@@ -19,7 +19,7 @@ class Track(base.Base):
 
         @classmethod
         def dependencies(cls):
-            return [models.Album, models.Artist]
+            return [models.Album, models.Artist, models.Image]
 
     class InvalidURL(base.Base.InvalidURL):
         pass
@@ -103,136 +103,140 @@ class Track(base.Base):
 
     #! Song Details:
 
-    #! 1. Name
+    # #! 1. Name
+    # @property
+    # def name(self) -> str:
+    #     """'
+    #     returns songs's name.
+    #     """
+
+    #     return self.__rawTrackMeta['name']
+
+    # #! 2. Track Number
+    # @property
+    # def track_number(self) -> int:
+    #     """
+    #     returns song's track number from album (as in weather its the first
+    #     or second or third or fifth track in the album)
+    #     """
+
+    #     return self.__rawTrackMeta['track_number']
+
+    # #! 3. Genres
+    # @property
+    # def genres(self) -> List[str]:
+    #     """
+    #     returns a list of possible genres for the given song, the first member
+    #     of the list is the most likely genre. returns None if genre data could
+    #     not be found.
+    #     """
+
+    #     return self.__rawAlbumMeta['genres'] + self.__rawArtistMeta['genres']
+
+    # #! 4. Duration
+    # @property
+    # def duration(self) -> float:
+    #     """
+    #     returns duration of song in seconds.
+    #     """
+
+    #     return round(self.__rawTrackMeta['duration_ms'] / 1000, ndigits=3)
+
     @property
-    def name(self) -> str:
-        """'
-        returns songs's name.
-        """
+    def artist(self):
+        return self.artists[0]
 
-        return self.__rawTrackMeta['name']
+    # #! 5. All involved artists
+    # @property
+    # def artists(self) -> List[str]:
+    #     """
+    #     returns a list of all artists who worked on the song.
+    #     The first member of the list is likely the main artist.
+    #     """
 
-    #! 2. Track Number
-    @property
-    def track_number(self) -> int:
-        """
-        returns song's track number from album (as in weather its the first
-        or second or third or fifth track in the album)
-        """
+    #     # we get rid of artist name that are in the song title so
+    #     # naming the song would be as easy as
+    #     # $contributingArtists + songName.mp3, we would want to end up with
+    #     # 'Jetta, Mastubs - I'd love to change the world (Mastubs remix).mp3'
+    #     # as a song name, it's dumb.
 
-        return self.__rawTrackMeta['track_number']
+    #     contributingArtists = []
 
-    #! 3. Genres
-    @property
-    def genres(self) -> List[str]:
-        """
-        returns a list of possible genres for the given song, the first member
-        of the list is the most likely genre. returns None if genre data could
-        not be found.
-        """
+    #     for artist in self.__rawTrackMeta['artists']:
+    #         contributingArtists.append(artist['name'])
 
-        return self.__rawAlbumMeta['genres'] + self.__rawArtistMeta['genres']
+    #     return contributingArtists
 
-    #! 4. Duration
-    @property
-    def duration(self) -> float:
-        """
-        returns duration of song in seconds.
-        """
+    # #! Album Details:
 
-        return round(self.__rawTrackMeta['duration_ms'] / 1000, ndigits=3)
+    # #! 1. Name
+    # @property
+    # def album_name(self) -> str:
+    #     """
+    #     returns name of the album that the song belongs to.
+    #     """
 
-    #! 5. All involved artists
-    @property
-    def artists(self) -> List[str]:
-        """
-        returns a list of all artists who worked on the song.
-        The first member of the list is likely the main artist.
-        """
+    #     return self.__rawTrackMeta['album']['name']
 
-        # we get rid of artist name that are in the song title so
-        # naming the song would be as easy as
-        # $contributingArtists + songName.mp3, we would want to end up with
-        # 'Jetta, Mastubs - I'd love to change the world (Mastubs remix).mp3'
-        # as a song name, it's dumb.
+    # #! 2. All involved artist
+    # @property
+    # def album_artists(self) -> List[str]:
+    #     """
+    #     returns list of all artists who worked on the album that
+    #     the song belongs to. The first member of the list is likely the main
+    #     artist.
+    #     """
 
-        contributingArtists = []
+    #     albumArtists = []
 
-        for artist in self.__rawTrackMeta['artists']:
-            contributingArtists.append(artist['name'])
+    #     for artist in self.__rawTrackMeta['album']['artists']:
+    #         albumArtists.append(artist['name'])
 
-        return contributingArtists
+    #     return albumArtists
 
-    #! Album Details:
+    # #! 3. Release Year/Date
+    # @property
+    # def album_release(self) -> str:
+    #     """
+    #     returns date/year of album release depending on what data is available.
+    #     """
 
-    #! 1. Name
-    @property
-    def album_name(self) -> str:
-        """
-        returns name of the album that the song belongs to.
-        """
+    #     return self.__rawTrackMeta['album']['release_date']
 
-        return self.__rawTrackMeta['album']['name']
+    # #! Utilities for genuine use and also for metadata freaks:
 
-    #! 2. All involved artist
-    @property
-    def album_artists(self) -> List[str]:
-        """
-        returns list of all artists who worked on the album that
-        the song belongs to. The first member of the list is likely the main
-        artist.
-        """
+    # #! 1. Album Art URL
+    # @property
+    # def album_cover_url(self) -> str:
+    #     """
+    #     returns url of the biggest album art image available.
+    #     """
 
-        albumArtists = []
+    #     return self.__rawTrackMeta['album']['images'][0]['url']
 
-        for artist in self.__rawTrackMeta['album']['artists']:
-            albumArtists.append(artist['name'])
+    # #! 2. All the details the spotify-api can provide
+    # @property
+    # def dump(self) -> dict:
+    #     """
+    #     returns a dictionary containing the spotify-api responses as-is. The
+    #     dictionary keys are as follows:
+    #         - rawTrackMeta      spotify-api track details
+    #         - rawAlbumMeta      spotify-api song's album details
+    #         - rawArtistMeta     spotify-api song's artist details
 
-        return albumArtists
+    #     Avoid using this function, it is implemented here only for those super
+    #     rare occasions where there is a need to look up other details. Why
+    #     have to look it up seperately when it's already been looked up once?
+    #     """
 
-    #! 3. Release Year/Date
-    @property
-    def album_release(self) -> str:
-        """
-        returns date/year of album release depending on what data is available.
-        """
+    #     #! internally the only reason this exists is that it helps in saving to disk
 
-        return self.__rawTrackMeta['album']['release_date']
-
-    #! Utilities for genuine use and also for metadata freaks:
-
-    #! 1. Album Art URL
-    @property
-    def album_cover_url(self) -> str:
-        """
-        returns url of the biggest album art image available.
-        """
-
-        return self.__rawTrackMeta['album']['images'][0]['url']
-
-    #! 2. All the details the spotify-api can provide
-    @property
-    def dump(self) -> dict:
-        """
-        returns a dictionary containing the spotify-api responses as-is. The
-        dictionary keys are as follows:
-            - rawTrackMeta      spotify-api track details
-            - rawAlbumMeta      spotify-api song's album details
-            - rawArtistMeta     spotify-api song's artist details
-
-        Avoid using this function, it is implemented here only for those super
-        rare occasions where there is a need to look up other details. Why
-        have to look it up seperately when it's already been looked up once?
-        """
-
-        #! internally the only reason this exists is that it helps in saving to disk
-
-        return {
-            'youtubeLink': self.__youtubeLink,
-            'rawTrackMeta': self.__rawTrackMeta,
-            'rawAlbumMeta': self.__rawAlbumMeta,
-            'rawArtistMeta': self.__rawArtistMeta
-        }
+    #     return {
+    #         'youtubeLink': self.__youtubeLink,
+    #         'rawTrackMeta': self.__rawTrackMeta,
+    #         'rawAlbumMeta': self.__rawAlbumMeta,
+    #         'rawArtistMeta': self.__rawArtistMeta
+    #     }
 
     @property
     def stream(self):

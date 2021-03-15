@@ -41,13 +41,7 @@ def search(client, query, limit, raw):
                 "name": html.unescape(result.artist.name).strip(),
                 "url": result.artist.url,
             },
-            "images": [{
-                'url': image.url,
-                'height': image.height,
-                'width': image.width
-            }
-                for image in result.images
-            ]
+            "images": result.images
         }
 
         if raw is True:

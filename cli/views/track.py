@@ -1,3 +1,4 @@
+import html
 from re import sub
 
 import click
@@ -30,15 +31,12 @@ def search(client, query, limit):
     for result in results:
         result = {
             "url": result.url,
-            "name": html.unescape(metadata["name"]).strip(),
+            "name": html.unescape(result.name).strip(),
             "album": {
-                "name": html.unescape(metadata["album"]["name"]).strip(),
-                "url": metadata["album"]["external_urls"]["spotify"],
-                "images": metadata["album"]["images"],
-                "artist": {
-                    "name": html.unescape(metadata["artists"][0]["name"]).strip(),
-                    "url": metadata["artists"][0]["external_urls"]["spotify"],
-                },
+                "name": html.unescape(result.album.name).strip(),
+                "url": result.album.external_urls.spotify,
+                "images": result.album.images,
+                "artist": html.unescape(result.artist.name).strip()
             }
         }
 
