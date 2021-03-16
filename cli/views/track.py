@@ -1,4 +1,5 @@
 import html
+from pprint import pprint
 from re import sub
 
 import click
@@ -21,8 +22,13 @@ def track(ctx):
     default=1, show_default=True,
     type=click.INT, help='search result limit'
 )
+@click.option(
+    '-r', '--raw',
+    default=False, show_default=True,
+    is_flag=True, help='output a dictionary'
+)
 @click.pass_obj
-def search(client, query, limit):
+def search(client, query, limit, raw):
     """Search for a Track"""
 
     results = client.Track.search(query, limit=limit)
@@ -40,7 +46,7 @@ def search(client, query, limit):
             }
         }
 
-        echo_dictionary(result)
+        echo_dictionary(result) if not raw else pprint(result, indent=4)
 
 
 @track.command()

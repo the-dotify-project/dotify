@@ -35,7 +35,7 @@ class Track(base.Base):
         return f'{self.artists[0]} - {self.name}'
 
     def __repr__(self):
-        return f'<Track "{self.artists[0]} - {self.name}">'
+        return f'<Track "{str(self)}">'
 
     #! constructors here are a bit mucky, there are two different constructors for two
     #! different use cases, hence the actual __init__ function does not exist

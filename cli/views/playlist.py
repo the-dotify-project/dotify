@@ -1,3 +1,5 @@
+import html
+from pprint import pprint
 from re import sub
 
 import click
@@ -20,14 +22,26 @@ def playlist(ctx):
     default=1, show_default=True,
     type=click.INT, help='search result limit'
 )
+@click.option(
+    '-r', '--raw',
+    default=False, show_default=True,
+    is_flag=True, help='output a dictionary'
+)
 @click.pass_obj
-def search(client, query, limit):
+def search(client, query, limit, raw):
     """Search for a Playlist"""
 
-    results = Playlist.search(client, query, limit=limit)
+    results = client.Playlist.search(query, limit=limit)
 
     for result in results:
-        echo_dictionary(result)
+        result = {
+            'url': result.url,
+            'name': html.unescape(result.name).strip(),
+            'description': html.unescape(result.description).strip(),
+            'images': result.images
+        }
+
+        echo_dictionary(result) if not raw else pprint(result, indent=4)
 
 
 @playlist.command()

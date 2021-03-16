@@ -44,11 +44,7 @@ def search(client, query, limit, raw):
             "images": result.images
         }
 
-        if raw is True:
-            pprint(result, indent=4)
-            continue
-
-        echo_dictionary(result)
+        echo_dictionary(result) if not raw else pprint(result, indent=4)
 
 
 @album.command()
