@@ -55,9 +55,9 @@ def search(client, query, limit, raw):
 def download(client, url):
     """Download a Track"""
 
-    track = Track.from_url(client, url)
+    track = client.Track.from_url(url)
 
-    artist, name = track.artists[0], track.name
+    artist, name = track.artist.name, track.name
     artist, name = artist.strip(), name.strip()
     artist, name = sub(r'\s+', '_', artist), sub(r'\s+', '_', name)
 

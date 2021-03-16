@@ -65,10 +65,10 @@ class Dotify:
     def Playlist(self):
         return self._construct_view('Playlist')
 
-    def search(self, query, type, limit=1):
+    def search(self, type, query, limit=1):
         results = self.client.search(query, type=type, limit=limit)
 
-        if len(results[f'{type}s']['items']) == 0:
-            raise self.NotFound
-
         return results[f'{type}s']['items']
+
+    def get(self, type, url):
+        return getattr(self.client, type)(url)

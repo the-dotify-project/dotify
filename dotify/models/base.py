@@ -20,7 +20,7 @@ class Base(JsonSerializable):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        name = self.view_name()
+        name = self.__class__.__name__
         if hasattr(self, 'client'):
             name = f'{self.client.logger.name}.{name}'
 
@@ -28,11 +28,11 @@ class Base(JsonSerializable):
 
     @classmethod
     def view_name(cls):
-        return cls.__name__
+        return cls.__name__.lower()
 
     @classmethod
     def assert_valid_url(cls, url):
-        view_name = cls.view_name().lower()
+        view_name = cls.view_name()
         pattern = f'https://open.spotify.com/{view_name}'
 
         try:
@@ -42,9 +42,25 @@ class Base(JsonSerializable):
 
     @classmethod
     def search(cls, query, limit=1):
-        view_name = cls.view_name().lower()
+        view_name = cls.view_name()
 
-        return map(
-            lambda kwargs: cls(**kwargs),
-            cls.client.search(query, view_name, limit=limit)
-        )
+        results = cls.client.search(view_name, query, limit=limit)
+
+        if not results:
+            raise cls.NotFound
+
+        return map(lambda kwargs: cls(**kwargs), results)
+
+    @classmethod
+    def get(cls, url):
+        view_name = cls.view_name()
+
+        try:
+            return cls.client.get(view_name, url)
+        except spotipy.exceptions.SpotifyException as e:
+            if e.http_status == 404:
+                raise cls.NotFound
+            elif e.http_status == 400:
+                raise cls.InvalidURL
+            else:
+                raise
