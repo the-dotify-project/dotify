@@ -6,25 +6,25 @@ from typing import List
 from urllib.request import urlopen
 
 import dotify.models as models
-import dotify.models.base as base
+from dotify.models.model import Model
 from mutagen.easyid3 import ID3, EasyID3
 from mutagen.id3 import APIC as AlbumCover
 from pytube import YouTube
 from youtubesearchpython import VideosSearch
 
 
-class Track(base.Base):
+class Track(Model):
     class Json:
-        schema = base.Base.Json.schema_dir / 'track.json'
+        schema = Model.Json.schema_dir / 'track.json'
 
         @classmethod
         def dependencies(cls):
             return [models.Album, models.Artist, models.Image]
 
-    class InvalidURL(base.Base.InvalidURL):
+    class InvalidURL(Model.InvalidURL):
         pass
 
-    class NotFound(base.Base.NotFound):
+    class NotFound(Model.NotFound):
         pass
 
     @property
@@ -41,7 +41,7 @@ class Track(base.Base):
     def __repr__(self):
         return f'<Track "{str(self)}">'
 
-    @classmethod
+    @Model.assert_valid_url
     def from_url(cls, url):
         cls.assert_valid_url(url)
 

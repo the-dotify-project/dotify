@@ -1,11 +1,11 @@
 from pathlib import Path
 
-import dotify.models.base as base
+import dotify.models.model as base
 
 
-class Artist(base.Base):
+class Artist(base.Model):
     class Json:
-        schema = base.Base.Json.schema_dir / 'artist.json'
+        schema = base.Model.Json.schema_dir / 'artist.json'
 
     @property
     def url(self):

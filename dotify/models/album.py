@@ -1,12 +1,12 @@
 from pathlib import Path
 
-import dotify.models.base as base
 import dotify.models as models
+from dotify.models.model import Model
 
 
-class Album(base.Base):
+class Album(Model):
     class Json:
-        schema = base.Base.Json.schema_dir / 'album.json'
+        schema = Model.Json.schema_dir / 'album.json'
 
         @classmethod
         def dependencies(cls):
@@ -26,10 +26,8 @@ class Album(base.Base):
     def __repr__(self):
         return f'<Album "{str(self)}">'
 
-    @classmethod
+    @Model.assert_valid_url
     def from_url(cls, url):
-        cls.assert_valid_url(url)
-
         metadata = cls.extract_metadata(self.client.client.album(url))
 
         results = self.client.client.album_tracks(url)

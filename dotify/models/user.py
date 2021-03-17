@@ -1,8 +1,8 @@
 from pathlib import Path
 
-import dotify.models.base as base
+import dotify.models.model as base
 
 
-class User(base.Base):
+class User(base.Model):
     class Json:
-        schema = base.Base.Json.schema_dir / 'user.json'
+        schema = base.Model.Json.schema_dir / 'user.json'

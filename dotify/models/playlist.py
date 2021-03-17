@@ -1,21 +1,21 @@
 from pathlib import Path
 
-import dotify.models.base as base
+from dotify.models.model import Model
 import dotify.models as models
 
 
-class Playlist(base.Base):
+class Playlist(Model):
     class Json:
-        schema = base.Base.Json.schema_dir / 'playlist.json'
+        schema = Model.Json.schema_dir / 'playlist.json'
 
         @classmethod
         def dependencies(cls):
             return [models.User, models.Image]
 
-    class InvalidURL(base.Base.InvalidURL):
+    class InvalidURL(Model.InvalidURL):
         pass
 
-    class NotFound(base.Base.NotFound):
+    class NotFound(Model.NotFound):
         pass
 
     def __str__(self):
@@ -24,10 +24,8 @@ class Playlist(base.Base):
     def __repr__(self):
         return f'<Playlist "{str(self)}">'
 
-    @classmethod
+    @Model.assert_valid_url
     def from_url(cls, spotify, url):
-        cls.assert_valid_url(url)
-
         metadata = cls.extract_metadata(spotify.client.playlist(url))
 
         results = spotify.client.playlist_tracks(url)

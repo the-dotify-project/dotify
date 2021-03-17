@@ -1,11 +1,12 @@
 import logging
+from functools import wraps
 from pathlib import Path
 from re import match
 
 from dotify.json_serializable import JsonSerializable, JsonSerializableMeta
 
 
-class Base(JsonSerializable):
+class Model(JsonSerializable):
     class Json:
         schema_dir = Path(__file__).parent / 'schema'
 
@@ -31,14 +32,21 @@ class Base(JsonSerializable):
         return cls.__name__.lower()
 
     @classmethod
-    def assert_valid_url(cls, url):
-        view_name = cls.view_name()
-        pattern = f'https://open.spotify.com/{view_name}'
+    def assert_valid_url(cls, method):
+        @classmethod
+        @wraps(method)
+        def wrapper(cls, url, *args, **kwargs):
+            view_name = cls.view_name()
+            pattern = f'https://open.spotify.com/{view_name}'
 
-        try:
-            assert match(pattern, url) is not None
-        except AssertionError:
-            cls.InvalidURL(f'{url} is not a valid spotify {view_name} url')
+            try:
+                assert match(pattern, url) is not None
+            except AssertionError:
+                cls.InvalidURL(f'{url} is not a valid spotify {view_name} url')
+
+            return method(cls, url, *args, **kwargs)
+
+        return wrapper
 
     @classmethod
     def search(cls, query, limit=1):
