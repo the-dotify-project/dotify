@@ -61,4 +61,4 @@ def download(client, url):
     artist, name = artist.strip(), name.strip()
     artist, name = sub(r'\s+', '_', artist), sub(r'\s+', '_', name)
 
-    track.download(f'{artist} - {name}.mp3')
+    track.as_mp3(f'{artist} - {name}.mp3')

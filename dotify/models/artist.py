@@ -10,3 +10,6 @@ class Artist(base.Model):
     @property
     def url(self):
         return self.external_urls.spotify
+
+    def __str__(self):
+        return self.name

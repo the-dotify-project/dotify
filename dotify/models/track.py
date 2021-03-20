@@ -1,14 +1,9 @@
-import html
-from os import remove
-from os import system as run_in_shell
 from pathlib import Path
-from typing import List
-from urllib.request import urlopen
 
 import dotify.models as models
 from dotify.models.model import Model
+from moviepy.editor import AudioFileClip
 from mutagen.easyid3 import ID3, EasyID3
-from mutagen.id3 import APIC as AlbumCover
 from pytube import YouTube
 from youtubesearchpython import VideosSearch
 
@@ -35,102 +30,88 @@ class Track(Model):
     def artist(self):
         return self.artists[0]
 
-    def __str__(self):
-        return f'{self.artists[0]} - {self.name}'
+    @property
+    def genres(self):
+        genres = []
+        for item in [self.album, self.artist]:
+            if hasattr(item, 'genres'):
+                genres.append(item.genres)
 
-    def __repr__(self):
-        return f'<Track "{str(self)}">'
+        return genres
 
-    @Model.assert_valid_url
-    def from_url(cls, url):
-        cls.assert_valid_url(url)
+    @property
+    def genre(self):
+        return self.genres[0] if self.genres else None
 
-        return cls(**cls.get(url))
+    def streams(self, limit=1):
+        results = VideosSearch(str(self), limit=limit).result()['result']
+
+        for result in results:
+            yield YouTube(result['link']).streams.get_audio_only()
 
     @property
     def stream(self):
-        video_search = VideosSearch(self.name, limit=1)
+        return next(self.streams(limit=1))
 
-        result = video_search.result()
+    @property
+    def id3_tags(self):
+        EasyID3.RegisterTextKey('albumcover', 'APIC')
 
-        youtube_url = result['result'][0]['link']
+        optional = {}
+        if self.genre is not None:
+            optional['genre'] = self.genre
 
-        return YouTube(youtube_url).streams.get_audio_only()
+        return {
+            **optional,
+            'title': self.name,
+            'titlesort': self.name,
+            'tracknumber': str(self.track_number),
+            'artist': [artist.name for artist in self.artists],
+            'album': self.album.name,
+            'albumartist': [artist.name for artist in self.album.artists],
+            'date': self.album.release_date,
+            'originaldate': self.album.release_date,
+            'albumcover': self.album.cover
+        }
 
-    def download(self, path, skip_existing=False):
-        # FIXME: remove, run_in_shell
-        # FIXME: genres
-        path = Path(path)
+    def __str__(self):
+        return f'{self.artist} - {self.name}'
 
-        downloaded_file_path = self.stream.download(
-            output_path=path.parent,
-            filename=path.stem,
+    def as_mp4(self, mp4_path, skip_existing=False):
+        mp4_path = Path(mp4_path)
+
+        return Path(self.stream.download(
+            output_path=mp4_path.parent,
+            filename=mp4_path.stem,
             skip_existing=skip_existing
-        )
+        ))
 
-        ffmpeg_cmd = 'ffmpeg -v quiet -y -i "%s" -acodec libmp3lame -abr true -af "apad=pad_dur=2, dynaudnorm, loudnorm=I=-17" "%s"'
+    def as_mp3(self, mp3_path, skip_existing=False, logger=None):
+        # FIXME: genres
+        # FIXME: progress bar and logging both for moviepy and pytube
 
-        run_in_shell(ffmpeg_cmd % (downloaded_file_path, path))
+        mp3_path = Path(mp3_path)
 
-        # ! Wait till converted file is actually created
-        while not path.exists():
-            pass
+        mp4_path = self.as_mp4(mp3_path, skip_existing=skip_existing)
 
-        # ! embed song details
-        # ! we save tags as both ID3 v2.3 and v2.4
+        audio_file_clip = AudioFileClip(str(mp4_path))
+        audio_file_clip.write_audiofile(str(mp3_path), logger=logger)
 
-        # ! The simple ID3 tags
-        audio_file = EasyID3(path)
+        mp4_path.unlink()
 
-        # ! Get rid of all existing ID3 tags (if any exist)
-        audio_file.delete()
+        easy_id3 = EasyID3(mp3_path)
 
-        # ! song name
-        audio_file['title'] = self.name
-        audio_file['titlesort'] = self.name
+        easy_id3.update(self.id3_tags)
 
-        # ! track number
-        audio_file['tracknumber'] = str(self.track_number)
+        easy_id3.save(v2_version=3)
 
-        # ! genres (pretty pointless if you ask me)
-        # ! we only apply the first available genre as ID3 v2.3 doesn't support multiple
-        # ! genres and ~80% of the world PC's run Windows - an OS with no ID3 v2.4 support
-        genres = self.genres
+        return mp3_path
 
-        if len(genres) > 0:
-            audio_file['genre'] = genres[0]
+    def download(self, mp3_path, skip_existing=False, logger=None):
+        return self.as_mp3(mp3_path, skip_existing=skip_existing, logger=logger)
 
-        # ! all involved artists
-        audio_file['artist'] = self.artists
-
-        # ! album name
-        audio_file['album'] = self.album_name
-
-        # ! album artist (all of 'em)
-        audio_file['albumartist'] = self.album_artists
-
-        # ! album release date (to what ever precision available)
-        audio_file['date'] = self.album_release
-        audio_file['originaldate'] = self.album_release
-
-        # ! save as both ID3 v2.3 & v2.4 as v2.3 isn't fully features and
-        # ! windows doesn't support v2.4 until later versions of Win10
-        audio_file.save(v2_version=3)
-
-        # ! setting the album art
-        audio_file = ID3(path)
-
-        rawAlbumArt = urlopen(self.album_cover_url).read()
-
-        audio_file['APIC'] = AlbumCover(
-            encoding=3,
-            mime='image/jpeg',
-            type=3,
-            desc='Cover',
-            data=rawAlbumArt
-        )
-
-        audio_file.save(v2_version=3)
-
-        # ! delete the unnecessary YouTube download File
-        remove(downloaded_file_path)
+    @classmethod
+    @Model.validate_url
+    @Model.convert_to_model_error
+    def from_url(cls, url):
+        return cls(**cls.client.track(url))

@@ -6,6 +6,12 @@ name = "pypi"
 [packages]
 python-jsonschema-objects = "*"
 youtube-search-python = "*"
+requests = "*"
+moviepy = "*"
+click = "*"
+spotipy = "*"
+mutagen = "*"
+pytube = "*"
 
 [dev-packages]
 autopep8 = "*"

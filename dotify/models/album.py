@@ -1,7 +1,9 @@
 from pathlib import Path
 
 import dotify.models as models
+import requests
 from dotify.models.model import Model
+from mutagen.id3 import APIC as AlbumCover
 
 
 class Album(Model):
@@ -20,39 +22,54 @@ class Album(Model):
     def url(self):
         return self.external_urls.spotify
 
+    @property
+    def cover(self):
+        response = requests.get(self.images[0].url)
+
+        assert response.status_code == 200, f"Failed to fetch {self.images[0].url}"
+
+        return AlbumCover(
+            encoding=3,
+            mime='image/jpeg',
+            type=3,
+            desc='Cover',
+            data=response.content
+        )
+
+    @property
+    def tracks(self):
+        response, offset = self.client.album_tracks(self.url), 0
+
+        while True:
+            for result in response['items']:
+                url = result['external_urls']['spotify']
+
+                yield self.client.Track.from_url(url)
+
+            offset += len(response['items'])
+
+            if response['next'] is None:
+                break
+
+            response = self.client.client.album_tracks(self.url, offset=offset)
+
     def __str__(self):
         return f'{self.artist} - {self.name}'
 
-    def __repr__(self):
-        return f'<Album "{str(self)}">'
-
-    @Model.assert_valid_url
-    def from_url(cls, url):
-        metadata = cls.extract_metadata(self.client.client.album(url))
-
-        results = self.client.client.album_tracks(url)
-
-        tracks = []
-        while True:
-            for result in results['items']:
-                url = result['external_urls']['spotify']
-                tracks.append(self.client.Track.from_url(url))
-
-            if not results['next']:
-                break
-
-            results = self.client.client.album_tracks(url, offset=len(tracks))
-
-        return cls(metadata, tracks)
-
-    def download(self, path):
+    def download(self, path, skip_existing=False, logger=None):
         path = Path(path)
-
         path.mkdir(parents=True, exist_ok=True)
 
         for track in self.tracks:
-            # FIXME: convert to `Artist`
-            artist = track.artists[0]
-            name = track.name
+            track.download(
+                path / f'{track}.mp3',
+                skip_existing=skip_existing, logger=logger
+            )
 
-            track.download(path / f'{artist} - {name}.mp3')
+        return path
+
+    @classmethod
+    @Model.validate_url
+    @Model.convert_to_model_error
+    def from_url(cls, url):
+        return cls(**cls.client.album(url))

@@ -1,50 +1,33 @@
-import json
 import logging
-from pathlib import Path
+from functools import wraps
 
 from spotipy import Spotify as Client
+from spotipy.client import logger
 from spotipy.oauth2 import SpotifyClientCredentials
 
 import dotify.models as models
 
 
-class Dotify:
+class Dotify(Client):
     def __init__(self, client_id, client_secret):
-        self.logger = logging.getLogger(self.__class__.__name__)
-
-        self.credential_manager = SpotifyClientCredentials(
-            client_id=client_id,
-            client_secret=client_secret
+        super().__init__(
+            client_credentials_manager=SpotifyClientCredentials(
+                client_id=client_id,
+                client_secret=client_secret
+            )
         )
 
-    def __del__(self):
-        if self.is_connected is True:
-            self.disconnect()
+        class_name = self.__class__.__name__
+        self.logger = logging.getLogger(f'{logger.name}.{class_name}')
 
     def __enter__(self):
-        self.connect()
-
         return self
 
     def __exit__(self, exc_type, exc_value, exc_trace):
-        self.disconnect()
+        self._session.close()
 
         if exc_type is not None:
             self.logger.exception(f'{exc_type.__name__}: {exc_value}')
-
-    def connect(self):
-        if self.is_connected is False:
-            self.client = Client(
-                client_credentials_manager=self.credential_manager
-            )
-
-    def disconnect(self):
-        if self.is_connected is True:
-            del self.client
-
-    @property
-    def is_connected(self):
-        return hasattr(self, 'client')
 
     def _construct_view(self, view_name):
         base = getattr(models, view_name)
@@ -66,9 +49,6 @@ class Dotify:
         return self._construct_view('Playlist')
 
     def search(self, type, query, limit=1):
-        results = self.client.search(query, type=type, limit=limit)
+        results = super().search(query, type=type, limit=limit)
 
         return results[f'{type}s']['items']
-
-    def get(self, type, url):
-        return getattr(self.client, type)(url)

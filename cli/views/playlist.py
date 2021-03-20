@@ -50,7 +50,7 @@ def search(client, query, limit, raw):
 def download(client, url):
     """Download a Playlist"""
 
-    playlist = Playlist.from_url(client, url)
+    playlist = client.Playlist.from_url(url)
 
     name = playlist.name
     name = name.strip()
