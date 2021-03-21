@@ -1,5 +1,7 @@
 # Dotify
 
+[![Build](https://github.com/billsioros/dotify/actions/workflows/build.yml/badge.svg)](https://github.com/billsioros/dotify/actions/workflows/build.yml)
+
 - [Dotify](#dotify)
   - [Installation](#installation)
     - [System Dependencies](#system-dependencies)
