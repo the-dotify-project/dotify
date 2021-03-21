@@ -19,6 +19,7 @@ flake8 = "*"
 pylint = "*"
 isort = "*"
 mypy = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.8"
