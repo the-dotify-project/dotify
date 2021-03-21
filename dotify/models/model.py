@@ -3,8 +3,9 @@ from functools import wraps
 from pathlib import Path
 from re import match
 
-from dotify.json_serializable import JsonSerializable
 from spotipy.exceptions import SpotifyException
+
+from dotify.json_serializable import JsonSerializable
 
 
 class Model(JsonSerializable):

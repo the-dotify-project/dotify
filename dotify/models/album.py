@@ -1,9 +1,10 @@
 from pathlib import Path
 
-import dotify.models as models
 import requests
-from dotify.models.model import Model
 from mutagen.id3 import APIC as AlbumCover
+
+import dotify.models as models
+from dotify.models.model import Model
 
 
 class Album(Model):

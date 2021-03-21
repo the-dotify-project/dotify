@@ -4,7 +4,6 @@ from shutil import rmtree
 from unittest import TestCase
 
 from dotify import Album, Dotify, Playlist, Track
-
 from tests.settings import DOTIFY_SETTINGS
 
 

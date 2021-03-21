@@ -1,11 +1,12 @@
 from pathlib import Path
 
-import dotify.models as models
-from dotify.models.model import Model
 from moviepy.editor import AudioFileClip
-from mutagen.easyid3 import ID3, EasyID3
+from mutagen.easyid3 import EasyID3
 from pytube import YouTube
 from youtubesearchpython import VideosSearch
+
+import dotify.models as models
+from dotify.models.model import Model
 
 
 class Track(Model):
