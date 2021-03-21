@@ -1,0 +1,14 @@
+name: "On Pull Request"
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: dangoslen/changelog-enforcer@v1.1.1
+        with:
+          changeLogPath: 'CHANGELOG.md'
+          skipLabel: 'skip-changelog'
