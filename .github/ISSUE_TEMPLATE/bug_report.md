@@ -1,38 +1,55 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## Expected Result
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+What you expected.
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Actual Result
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+What happened instead.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+## Reproduction Steps
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+```python
+from dotify import Dotify
 
-**Additional context**
-Add any other context about the problem here.
+client = Dotify(spotify_id, spotify_secret)
+
+```
+
+## Logs
+
+Run the snippet you provided, with the maximum verbosity level.
+
+<details>
+  <summary>Click to expand!</summary>
+
+  <pre>
+    <code>
+        PASTE_THE_LOGS_HERE
+    </code>
+  </pre>
+</details>
+
+## Stack Trace
+
+In case an unexpected error occurred, provide us with the program's Stack Trace.
+
+<details>
+  <summary>Click to expand!</summary>
+
+  <pre>
+    <code>
+        PASTE_THE_STACK_TRACE_HERE
+    </code>
+  </pre>
+</details>
+
+## System Information
+
+- Python version
+- Operating system
