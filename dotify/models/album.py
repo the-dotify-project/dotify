@@ -14,6 +14,9 @@ class Album(Model):
         def dependencies(cls):
             return [models.Track, models.Artist, models.Image]
 
+    def __str__(self):
+        return f'{self.artist} - {self.name}'
+
     @property
     def artist(self):
         return self.artists[0]
@@ -52,9 +55,6 @@ class Album(Model):
                 break
 
             response = self.client.client.album_tracks(self.url, offset=offset)
-
-    def __str__(self):
-        return f'{self.artist} - {self.name}'
 
     def download(self, path, skip_existing=False, logger=None):
         path = Path(path)

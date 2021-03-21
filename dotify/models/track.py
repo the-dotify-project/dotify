@@ -16,11 +16,8 @@ class Track(Model):
         def dependencies(cls):
             return [models.Album, models.Artist, models.Image]
 
-    class InvalidURL(Model.InvalidURL):
-        pass
-
-    class NotFound(Model.NotFound):
-        pass
+    def __str__(self):
+        return f'{self.artist} - {self.name}'
 
     @property
     def url(self) -> str:
@@ -73,9 +70,6 @@ class Track(Model):
             'originaldate': self.album.release_date,
             'albumcover': self.album.cover
         }
-
-    def __str__(self):
-        return f'{self.artist} - {self.name}'
 
     def as_mp4(self, mp4_path, skip_existing=False):
         mp4_path = Path(mp4_path)

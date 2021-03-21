@@ -3,7 +3,7 @@ from re import sub
 from shutil import rmtree
 from unittest import TestCase
 
-from dotify import Album, Playlist, Dotify, Track
+from dotify import Album, Dotify, Playlist, Track
 
 from tests.settings import DOTIFY_SETTINGS
 
@@ -21,50 +21,68 @@ class DotifyBaseTestCase(TestCase):
     def tearDown(self):
         rmtree(self.test_directory)
 
-    def _get_download_basename_track(self, track):
-        artist, name = track.artists[0], track.name
+    @staticmethod
+    def get_download_basename_track(track):
+        artist, name = track.artist.name, track.name
         artist, name = artist.strip(), name.strip()
         artist, name = sub(r'\s+', '_', artist), sub(r'\s+', '_', name)
 
         return f'{artist} - {name}.mp3'
 
-    def _get_download_basename_playlist(self, playlist):
+    @staticmethod
+    def get_download_basename_playlist(playlist):
         name = playlist.name
         name = name.strip()
         name = sub(r'\s+', ' ', name)
 
         return name
 
-    def _get_download_basename_album(self, album):
+    @staticmethod
+    def get_download_basename_album(album):
         artist, name = album.artist.name, album.name
         artist, name = artist.strip(), name.strip()
         artist, name = sub(r'\s+', ' ', artist), sub(r'\s+', ' ', name)
 
         return f'{artist} - {name}'
 
+    @staticmethod
+    def get_value(obj, attribute_path):
+        def get_value_recursive(obj, paths):
+            if len(paths) > 0:
+                return get_value_recursive(getattr(obj, paths[0]), paths[1:])
+
+            return obj
+
+        return get_value_recursive(obj, list(filter(None, attribute_path.split('.'))))
+
     def get_download_basename(self, obj):
         if isinstance(obj, Track):
-            return self._get_download_basename_track(obj)
+            return self.get_download_basename_track(obj)
         elif isinstance(obj, Playlist):
-            return self._get_download_basename_playlist(obj)
+            return self.get_download_basename_playlist(obj)
         elif isinstance(obj, Album):
-            return self._get_download_basename_album(obj)
+            return self.get_download_basename_album(obj)
         else:
             raise RuntimeError(f'`{obj}` is an instance of {type(obj)}')
 
-    def download(self, cls, url):
-        with self.client:
-            obj = cls.from_url(self.client, url)
+    def download(self, cls_name, url):
+        cls = getattr(self.client, cls_name)
 
-            download_basename = self.get_download_basename(obj)
-            download_fullpath = self.test_directory / download_basename
+        obj = cls.from_url(url)
 
-            obj.download(download_fullpath)
+        download_basename = self.get_download_basename(obj)
+        download_fullpath = self.test_directory / download_basename
 
-            self.assertTrue(download_fullpath.exists())
+        obj.download(download_fullpath)
 
-    def search(self, cls, query, metadata):
-        with self.client:
-            results = next(cls.search(self.client, query, limit=1))
+        self.assertTrue(download_fullpath.exists())
 
-            self.assertEqual(results, metadata)
+    def search(self, cls_name, query, metadata_list, limit=1):
+        self.assertEqual(len(metadata_list), limit)
+
+        cls = getattr(self.client, cls_name)
+
+        for result, metadata in zip(cls.search(query, limit=limit), metadata_list):
+            for name, value in metadata.items():
+                with self.subTest('Asserting metadata equality', **{name: value}):
+                    self.assertEqual(self.get_value(result, name), value)
