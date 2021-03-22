@@ -3,7 +3,8 @@
 > **Because OOP is the light**
 
 [![Build](https://github.com/billsioros/dotify/actions/workflows/build.yml/badge.svg)](https://github.com/billsioros/dotify/actions/workflows/build.yml)
-[![Codecov](https://github.com/billsioros/dotify/actions/workflows/codecov.yml/badge.svg)](https://github.com/billsioros/dotify/actions/workflows/codecov.yml)
+[![codecov](https://codecov.io/gh/billsioros/dotify/branch/master/graph/badge.svg?token=3F4OYLDW7P)](https://codecov.io/gh/billsioros/dotify)
+
 
 *🚧 Please, bear in mind that the project is undergoing heavy development*
 
