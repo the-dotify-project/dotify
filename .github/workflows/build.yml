@@ -43,14 +43,3 @@ jobs:
         SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
       run: |
         pipenv run pytest tests
-    - name: Generate the coverage report
-      env:
-        SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
-        SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
-      run: |
-        pipenv run pytest --cov=./ --cov-report=xml
-    - name: Upload the coverage report to Codecov
-      uses: codecov/codecov-action@v1
-      with:
-        fail_ci_if_error: true
-        verbose: true
