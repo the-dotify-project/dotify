@@ -19,7 +19,7 @@ class DotifySearchTestCase(DotifyBaseTestCase):
     def test_search_playlist(self):
         metadata = [
             {
-                'name': 'Playlist Ninho ',
+                'name': 'This Is Ninho',
                 'url': 'https://open.spotify.com/playlist/6A5oPdsnxqQVhpBhba8hXR',
                 'description': '',
             }
