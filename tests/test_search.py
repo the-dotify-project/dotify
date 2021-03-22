@@ -19,9 +19,9 @@ class DotifySearchTestCase(DotifyBaseTestCase):
     def test_search_playlist(self):
         metadata = [
             {
-                'name': 'This Is Ninho',
-                'url': 'https://open.spotify.com/playlist/6A5oPdsnxqQVhpBhba8hXR',
-                'description': '',
+                'name': 'The weirdest name for a playlist',
+                'url': 'https://open.spotify.com/playlist/4cCL1HpErVIoY7FXYTomWt',
+                'description': 'Some Symptoms Are: Amazing Music, Fuego Music, and Shookness because its that good',
             }
         ]
 
