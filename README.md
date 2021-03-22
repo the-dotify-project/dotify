@@ -16,7 +16,6 @@
 >>> results = client.Track.search("SAINt JHN 5 Thousand Singles", limit=1)
 >>> result = next(results)
 >>> result.download("SAINt JHN - 5 Thousand Singles.mp3")
-PosixPath('SAINt JHN 5 Thousand Singles.mp3')
 ```
 
 ## Installation
