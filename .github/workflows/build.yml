@@ -36,7 +36,7 @@ jobs:
         pipenv run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Check if imports are incorrectly sorted and/or formatted.
       run: |
-        pipenv run isort --check --diff --atomic dotify tests
+        pipenv run isort --check --diff --atomic ${{ github.event.repository.name }} tests
     - name: Test with pytest
       env:
         SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}

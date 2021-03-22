@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug Report
 about: Create a report to help us improve
 
 ---
@@ -30,7 +30,7 @@ Run the snippet you provided, with the maximum verbosity level.
 
   <pre>
     <code>
-        PASTE_THE_LOGS_HERE
+        PASTE THE LOGS HERE !
     </code>
   </pre>
 </details>
@@ -44,7 +44,7 @@ In case an unexpected error occurred, provide us with the program's Stack Trace.
 
   <pre>
     <code>
-        PASTE_THE_STACK_TRACE_HERE
+        PASTE THE STACK TRACE HERE !
     </code>
   </pre>
 </details>
