@@ -12,13 +12,13 @@ click = "*"
 spotipy = "*"
 mutagen = "*"
 pytube = "*"
+mypy = "*"
 
 [dev-packages]
 autopep8 = "*"
 flake8 = "*"
 pylint = "*"
 isort = "*"
-mypy = "*"
 pytest = "*"
 pytest-cov = "*"
 
