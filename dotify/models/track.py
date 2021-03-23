@@ -10,11 +10,14 @@ from dotify.models.model import Model
 
 
 class Track(Model):
+    """ """
     class Json:
+        """ """
         schema = Model.Json.schema_dir / 'track.json'
 
         @classmethod
         def dependencies(cls):
+            """ """
             return [models.Album, models.Artist, models.Image]
 
     def __str__(self):
@@ -22,14 +25,17 @@ class Track(Model):
 
     @property
     def url(self) -> str:
+        """ """
         return self.external_urls.spotify
 
     @property
     def artist(self):
+        """ """
         return self.artists[0]
 
     @property
     def genres(self):
+        """ """
         genres = []
         for item in [self.album, self.artist]:
             if hasattr(item, 'genres'):
@@ -39,9 +45,16 @@ class Track(Model):
 
     @property
     def genre(self):
+        """ """
         return self.genres[0] if self.genres else None
 
     def streams(self, limit=1):
+        """
+
+        :param limit:  (Default value = 1)
+
+        
+        """
         results = VideosSearch(str(self), limit=limit).result()['result']
 
         for result in results:
@@ -49,10 +62,12 @@ class Track(Model):
 
     @property
     def stream(self):
+        """ """
         return next(self.streams(limit=1))
 
     @property
     def id3_tags(self):
+        """ """
         EasyID3.RegisterTextKey('albumcover', 'APIC')
 
         optional = {}
@@ -73,6 +88,13 @@ class Track(Model):
         }
 
     def as_mp4(self, mp4_path, skip_existing=False):
+        """
+
+        :param mp4_path: 
+        :param skip_existing:  (Default value = False)
+
+        
+        """
         mp4_path = Path(mp4_path)
 
         return Path(self.stream.download(
@@ -82,6 +104,14 @@ class Track(Model):
         ))
 
     def as_mp3(self, mp3_path, skip_existing=False, logger=None):
+        """
+
+        :param mp3_path: 
+        :param skip_existing:  (Default value = False)
+        :param logger:  (Default value = None)
+
+        
+        """
         # FIXME: genres
         # FIXME: progress bar and logging both for moviepy and pytube
 
@@ -103,10 +133,24 @@ class Track(Model):
         return mp3_path
 
     def download(self, mp3_path, skip_existing=False, logger=None):
+        """
+
+        :param mp3_path: 
+        :param skip_existing:  (Default value = False)
+        :param logger:  (Default value = None)
+
+        
+        """
         return self.as_mp3(mp3_path, skip_existing=skip_existing, logger=logger)
 
     @classmethod
     @Model.validate_url
     @Model.convert_to_model_error
     def from_url(cls, url):
+        """
+
+        :param url: 
+
+        
+        """
         return cls(**cls.client.track(url))

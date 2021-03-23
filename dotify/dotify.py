@@ -9,6 +9,7 @@ import dotify.models as models
 
 
 class Dotify(Client):
+    """ """
     def __init__(self, client_id, client_secret):
         super().__init__(
             client_credentials_manager=SpotifyClientCredentials(
@@ -30,6 +31,12 @@ class Dotify(Client):
             self.logger.exception(f'{exc_type.__name__}: {exc_value}')
 
     def _construct_view(self, view_name):
+        """
+
+        :param view_name: 
+
+        
+        """
         base = getattr(models, view_name)
 
         return type(view_name, (base,), {
@@ -38,17 +45,28 @@ class Dotify(Client):
 
     @property
     def Track(self):
+        """ """
         return self._construct_view('Track')
 
     @property
     def Album(self):
+        """ """
         return self._construct_view('Album')
 
     @property
     def Playlist(self):
+        """ """
         return self._construct_view('Playlist')
 
     def search(self, type, query, limit=1):
+        """
+
+        :param type: 
+        :param query: 
+        :param limit:  (Default value = 1)
+
+        
+        """
         results = super().search(query, type=type, limit=limit)
 
         return results[f'{type}s']['items']

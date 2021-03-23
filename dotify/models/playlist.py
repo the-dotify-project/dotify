@@ -5,11 +5,14 @@ from dotify.models.model import Model
 
 
 class Playlist(Model):
+    """ """
     class Json:
+        """ """
         schema = Model.Json.schema_dir / 'playlist.json'
 
         @classmethod
         def dependencies(cls):
+            """ """
             return [models.User, models.Image]
 
     def __init__(self, **props):
@@ -23,10 +26,12 @@ class Playlist(Model):
 
     @property
     def url(self):
+        """ """
         return self.external_urls.spotify
 
     @property
     def tracks(self):
+        """ """
         response, offset = self.client.playlist_tracks(self.url), 0
 
         while True:
@@ -43,6 +48,14 @@ class Playlist(Model):
             response = self.client.playlist_tracks(self.url, offset=offset)
 
     def download(self, path, skip_existing=False, logger=None):
+        """
+
+        :param path: 
+        :param skip_existing:  (Default value = False)
+        :param logger:  (Default value = None)
+
+        
+        """
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
 
@@ -58,4 +71,10 @@ class Playlist(Model):
     @Model.validate_url
     @Model.convert_to_model_error
     def from_url(cls, url):
+        """
+
+        :param url: 
+
+        
+        """
         return cls(**cls.client.playlist(url))

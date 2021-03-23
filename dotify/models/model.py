@@ -9,17 +9,21 @@ from dotify.json_serializable import JsonSerializable
 
 
 class Model(JsonSerializable):
+    """ """
     # FIXME: Consider defining a metaclass
     # for dynamically importing string type dependencies
     class Json:
+        """ """
         schema_dir = Path(__file__).parent / 'schema'
 
     logger: logging.Logger
 
     class InvalidURL(Exception):
+        """ """
         pass
 
     class NotFound(Exception):
+        """ """
         pass
 
     def __init__(self, **kwargs):
@@ -36,10 +40,18 @@ class Model(JsonSerializable):
 
     @classmethod
     def view_name(cls):
+        """ """
         return cls.__name__.lower()
 
     @classmethod
     def search(cls, query, limit=1):
+        """
+
+        :param query: 
+        :param limit:  (Default value = 1)
+
+        
+        """
         view_name = cls.view_name()
 
         results = cls.client.search(view_name, query, limit=limit)
@@ -51,8 +63,22 @@ class Model(JsonSerializable):
 
     @classmethod
     def validate_url(cls, method):
+        """
+
+        :param method: 
+
+        
+        """
         @wraps(method)
         def wrapper(cls, url, *args, **kwargs):
+            """
+
+            :param url: 
+            :param *args: 
+            :param **kwargs: 
+
+            
+            """
             view_name = cls.view_name()
             pattern = f'https://open.spotify.com/{view_name}'
 
@@ -67,8 +93,21 @@ class Model(JsonSerializable):
 
     @classmethod
     def convert_to_model_error(cls, method):
+        """
+
+        :param method: 
+
+        
+        """
         @wraps(method)
         def wrapper(cls, *args, **kwargs):
+            """
+
+            :param *args: 
+            :param **kwargs: 
+
+            
+            """
             try:
                 return method(cls, *args, **kwargs)
             except SpotifyException as e:

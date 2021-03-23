@@ -10,6 +10,7 @@ from python_jsonschema_objects.wrapper_types import ArrayWrapper
 
 
 class JsonSerializableMeta(ABCMeta):
+    """ """
     def __new__(cls, name, bases, attrs):
         if 'Json' not in attrs:
             return super().__new__(cls, name, bases, attrs)
@@ -40,7 +41,9 @@ class JsonSerializableMeta(ABCMeta):
 
 
 class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
+    """ """
     class Json:
+        """ """
         pass
 
     def __setattr__(self, name, val):
@@ -53,6 +56,12 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
                 raise
 
     def _resolve_dependency(self, obj):
+        """
+
+        :param obj: 
+
+        
+        """
         if not hasattr(self.Json, 'dependencies'):
             return None
 

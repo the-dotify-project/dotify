@@ -8,11 +8,14 @@ from dotify.models.model import Model
 
 
 class Album(Model):
+    """ """
     class Json:
+        """ """
         schema = Model.Json.schema_dir / 'album.json'
 
         @classmethod
         def dependencies(cls):
+            """ """
             return [models.Track, models.Artist, models.Image]
 
     def __str__(self):
@@ -20,14 +23,17 @@ class Album(Model):
 
     @property
     def artist(self):
+        """ """
         return self.artists[0]
 
     @property
     def url(self):
+        """ """
         return self.external_urls.spotify
 
     @property
     def cover(self):
+        """ """
         response = requests.get(self.images[0].url)
 
         assert response.status_code == 200, f"Failed to fetch {self.images[0].url}"
@@ -42,6 +48,7 @@ class Album(Model):
 
     @property
     def tracks(self):
+        """ """
         response, offset = self.client.album_tracks(self.url), 0
 
         while True:
@@ -58,6 +65,14 @@ class Album(Model):
             response = self.client.client.album_tracks(self.url, offset=offset)
 
     def download(self, path, skip_existing=False, logger=None):
+        """
+
+        :param path: 
+        :param skip_existing:  (Default value = False)
+        :param logger:  (Default value = None)
+
+        
+        """
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
 
@@ -73,4 +88,10 @@ class Album(Model):
     @Model.validate_url
     @Model.convert_to_model_error
     def from_url(cls, url):
+        """
+
+        :param url: 
+
+        
+        """
         return cls(**cls.client.album(url))
