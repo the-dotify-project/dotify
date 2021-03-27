@@ -5,18 +5,33 @@ from re import match
 
 from spotipy.exceptions import SpotifyException
 
-from dotify.json_serializable import JsonSerializable
+from dotify.dotify import Dotify
+from dotify.json_serializable import (JsonSerializable, JsonSerializableMeta,
+                                      logger)
+
+logger = logging.getLogger(f'{logger.name}.{__name__}')
 
 
-class Model(JsonSerializable):
+class ModelMeta(JsonSerializableMeta):
+    """ """
+    BASE_DIR = Path(__file__).parent / 'models' / 'schema'
+
+    def __new__(cls, name, bases, attrs):
+        if 'Json' not in attrs:
+            return super().__new__(cls, name, bases, attrs)
+
+        if hasattr(attrs['Json'], 'schema'):
+            attrs['Json'].schema = ModelMeta.BASE_DIR / attrs['Json'].schema
+
+            return super().__new__(cls, name, bases, attrs)
+
+        return super().__new__(cls, name, bases, attrs)
+
+
+class Model(JsonSerializable, metaclass=ModelMeta):
     """ """
     # FIXME: Consider defining a metaclass
     # for dynamically importing string type dependencies
-    class Json:
-        """ """
-        schema_dir = Path(__file__).parent / 'schema'
-
-    logger: logging.Logger
 
     class InvalidURL(Exception):
         """ """
@@ -25,15 +40,6 @@ class Model(JsonSerializable):
     class NotFound(Exception):
         """ """
         pass
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        name = self.__class__.__name__
-        if hasattr(self, 'client'):
-            name = f'{self.client.logger.name}.{name}'
-
-        self.logger = logging.getLogger(name)
 
     def __repr__(self):
         return f'<{self.__class__.__name__} "{str(self)}">'
@@ -46,15 +52,10 @@ class Model(JsonSerializable):
     @classmethod
     def search(cls, query, limit=1):
         """
-
-        :param query: 
-        :param limit:  (Default value = 1)
-
-        
         """
         view_name = cls.view_name()
 
-        results = cls.client.search(view_name, query, limit=limit)
+        results = Dotify.get_context().search(view_name, query, limit=limit)
 
         if not results:
             raise cls.NotFound
@@ -64,21 +65,9 @@ class Model(JsonSerializable):
     @classmethod
     def validate_url(cls, method):
         """
-
-        :param method: 
-
-        
         """
         @wraps(method)
         def wrapper(cls, url, *args, **kwargs):
-            """
-
-            :param url: 
-            :param *args: 
-            :param **kwargs: 
-
-            
-            """
             view_name = cls.view_name()
             pattern = f'https://open.spotify.com/{view_name}'
 
@@ -94,20 +83,9 @@ class Model(JsonSerializable):
     @classmethod
     def convert_to_model_error(cls, method):
         """
-
-        :param method: 
-
-        
         """
         @wraps(method)
         def wrapper(cls, *args, **kwargs):
-            """
-
-            :param *args: 
-            :param **kwargs: 
-
-            
-            """
             try:
                 return method(cls, *args, **kwargs)
             except SpotifyException as e:
