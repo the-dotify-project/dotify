@@ -1,14 +1,18 @@
+import logging
 from pathlib import Path
 
 import dotify.models as models
-from dotify.models.model import Model
+from dotify.dotify import Dotify
+from dotify.model import Model, logger
+
+logger = logging.getLogger(f'{logger.name}.{__name__}')
 
 
 class Playlist(Model):
     """ """
     class Json:
         """ """
-        schema = Model.Json.schema_dir / 'playlist.json'
+        schema = 'playlist.json'
 
         @classmethod
         def dependencies(cls):
@@ -32,29 +36,29 @@ class Playlist(Model):
     @property
     def tracks(self):
         """ """
-        response, offset = self.client.playlist_tracks(self.url), 0
+        response, offset = Dotify.get_context().playlist_tracks(self.url), 0
 
         while True:
             for result in response['items']:
                 url = result['track']['external_urls']['spotify']
 
-                yield self.client.Track.from_url(url)
+                yield models.Track.from_url(url)
 
             offset += len(response['items'])
 
             if response['next'] is None:
                 break
 
-            response = self.client.playlist_tracks(self.url, offset=offset)
+            response = Dotify.get_context().playlist_tracks(self.url, offset=offset)
 
     def download(self, path, skip_existing=False, logger=None):
         """
 
-        :param path: 
-        :param skip_existing:  (Default value = False)
-        :param logger:  (Default value = None)
 
-        
+
+
+
+
         """
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
@@ -73,8 +77,8 @@ class Playlist(Model):
     def from_url(cls, url):
         """
 
-        :param url: 
 
-        
+
+
         """
-        return cls(**cls.client.playlist(url))
+        return cls(**Dotify.get_context().playlist(url))

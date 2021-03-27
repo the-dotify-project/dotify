@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 from moviepy.editor import AudioFileClip
@@ -5,15 +6,18 @@ from mutagen.easyid3 import EasyID3
 from pytube import YouTube
 from youtubesearchpython import VideosSearch
 
+from dotify.dotify import Dotify
 import dotify.models as models
-from dotify.models.model import Model
+from dotify.model import Model, logger
+
+logger = logging.getLogger(f'{logger.name}.{__name__}')
 
 
 class Track(Model):
     """ """
     class Json:
         """ """
-        schema = Model.Json.schema_dir / 'track.json'
+        schema = 'track.json'
 
         @classmethod
         def dependencies(cls):
@@ -50,10 +54,6 @@ class Track(Model):
 
     def streams(self, limit=1):
         """
-
-        :param limit:  (Default value = 1)
-
-        
         """
         results = VideosSearch(str(self), limit=limit).result()['result']
 
@@ -89,11 +89,6 @@ class Track(Model):
 
     def as_mp4(self, mp4_path, skip_existing=False):
         """
-
-        :param mp4_path: 
-        :param skip_existing:  (Default value = False)
-
-        
         """
         mp4_path = Path(mp4_path)
 
@@ -105,12 +100,6 @@ class Track(Model):
 
     def as_mp3(self, mp3_path, skip_existing=False, logger=None):
         """
-
-        :param mp3_path: 
-        :param skip_existing:  (Default value = False)
-        :param logger:  (Default value = None)
-
-        
         """
         # FIXME: genres
         # FIXME: progress bar and logging both for moviepy and pytube
@@ -134,12 +123,6 @@ class Track(Model):
 
     def download(self, mp3_path, skip_existing=False, logger=None):
         """
-
-        :param mp3_path: 
-        :param skip_existing:  (Default value = False)
-        :param logger:  (Default value = None)
-
-        
         """
         return self.as_mp3(mp3_path, skip_existing=skip_existing, logger=logger)
 
@@ -148,9 +131,5 @@ class Track(Model):
     @Model.convert_to_model_error
     def from_url(cls, url):
         """
-
-        :param url: 
-
-        
         """
-        return cls(**cls.client.track(url))
+        return cls(**Dotify.get_context().track(url))

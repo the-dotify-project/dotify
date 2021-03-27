@@ -1,10 +1,12 @@
-from pathlib import Path
+import logging
 
-import dotify.models.model as base
+from dotify.model import Model, logger
+
+logger = logging.getLogger(f'{logger.name}.{__name__}')
 
 
-class Image(base.Model):
+class Image(Model):
     """ """
     class Json:
         """ """
-        schema = base.Model.Json.schema_dir / 'image.json'
+        schema = 'image.json'

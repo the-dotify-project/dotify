@@ -11,11 +11,15 @@
 ## Example
 
 ```python
->>> from dotify import Dotify
->>> client = Dotify(SPOTIFY_CLIENT, SPOTIFY_SECRET)
->>> results = client.Track.search("SAINt JHN 5 Thousand Singles", limit=1)
->>> result = next(results)
+>>> from dotify import Dotify, Track
+>>> with Dotify(SPOTIFY_CLIENT, SPOTIFY_SECRET):
+>>>     result = next(Track.search("SAINt JHN 5 Thousand Singles", limit=1))
+>>> result
+<Track "SAINt JHN - 5 Thousand Singles">
+>>> result.url
+'https://open.spotify.com/track/0fFWxRZGKR7HDW2xBMOZgW'
 >>> result.download("SAINt JHN - 5 Thousand Singles.mp3")
+PosixPath('SAINt JHN - 5 Thousand Singles.mp3')
 ```
 
 ## Installation
@@ -24,7 +28,7 @@
 pip install git+https://github.com/billsioros/dotify.git@master
 ```
 
-*Will be publishing to PyPy soon !*
+*Will be publishing to PyPI soon !*
 
 ## License
 

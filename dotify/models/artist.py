@@ -1,13 +1,15 @@
-from pathlib import Path
+import logging
 
-import dotify.models.model as base
+from dotify.model import Model, logger
+
+logger = logging.getLogger(f'{logger.name}.{__name__}')
 
 
-class Artist(base.Model):
+class Artist(Model):
     """ """
     class Json:
         """ """
-        schema = base.Model.Json.schema_dir / 'artist.json'
+        schema = 'artist.json'
 
     @property
     def url(self):

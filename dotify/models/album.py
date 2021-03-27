@@ -1,17 +1,21 @@
+import logging
 from pathlib import Path
 
+import dotify.models as models
 import requests
+
+from dotify.dotify import Dotify
+from dotify.model import Model, logger
 from mutagen.id3 import APIC as AlbumCover
 
-import dotify.models as models
-from dotify.models.model import Model
+logger = logging.getLogger(f'{logger.name}.{__name__}')
 
 
 class Album(Model):
     """ """
     class Json:
         """ """
-        schema = Model.Json.schema_dir / 'album.json'
+        schema = 'album.json'
 
         @classmethod
         def dependencies(cls):
@@ -49,29 +53,23 @@ class Album(Model):
     @property
     def tracks(self):
         """ """
-        response, offset = self.client.album_tracks(self.url), 0
+        response, offset = Dotify.get_context().album_tracks(self.url), 0
 
         while True:
             for result in response['items']:
                 url = result['external_urls']['spotify']
 
-                yield self.client.Track.from_url(url)
+                yield models.Track.from_url(url)
 
             offset += len(response['items'])
 
             if response['next'] is None:
                 break
 
-            response = self.client.client.album_tracks(self.url, offset=offset)
+            response = Dotify.get_context().album_tracks(self.url, offset=offset)
 
     def download(self, path, skip_existing=False, logger=None):
         """
-
-        :param path: 
-        :param skip_existing:  (Default value = False)
-        :param logger:  (Default value = None)
-
-        
         """
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
@@ -89,9 +87,5 @@ class Album(Model):
     @Model.convert_to_model_error
     def from_url(cls, url):
         """
-
-        :param url: 
-
-        
         """
-        return cls(**cls.client.album(url))
+        return cls(**Dotify.get_context().album(url))
