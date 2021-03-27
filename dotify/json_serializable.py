@@ -1,12 +1,13 @@
 import json
+import logging
 from abc import ABCMeta
-from pathlib import Path
-from re import fullmatch
 
 from python_jsonschema_objects import ObjectBuilder
 from python_jsonschema_objects.classbuilder import LiteralValue, ProtocolBase
 from python_jsonschema_objects.validators import ValidationError
 from python_jsonschema_objects.wrapper_types import ArrayWrapper
+
+logger = logging.getLogger(__name__)
 
 
 class JsonSerializableMeta(ABCMeta):
@@ -58,9 +59,9 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
     def _resolve_dependency(self, obj):
         """
 
-        :param obj: 
 
-        
+
+
         """
         if not hasattr(self.Json, 'dependencies'):
             return None
