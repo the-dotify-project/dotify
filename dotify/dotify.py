@@ -1,15 +1,17 @@
 import logging
-from functools import wraps
+import threading
 
 from spotipy import Spotify as Client
 from spotipy.client import logger
 from spotipy.oauth2 import SpotifyClientCredentials
 
-import dotify.models as models
+logger = logging.getLogger(f'{logger.name}.{__name__}')
 
 
 class Dotify(Client):
     """ """
+    __context = threading.local()
+
     def __init__(self, client_id, client_secret):
         super().__init__(
             client_credentials_manager=SpotifyClientCredentials(
@@ -18,54 +20,38 @@ class Dotify(Client):
             )
         )
 
-        class_name = self.__class__.__name__
-        self.logger = logging.getLogger(f'{logger.name}.{class_name}')
+    def __del__(self):
+        if hasattr(self, '_session'):
+            super().__del__()
 
     def __enter__(self):
+        type(self).get_contexts().append(self)
+
         return self
 
     def __exit__(self, exc_type, exc_value, exc_trace):
-        self._session.close()
+        type(self).get_contexts().pop()
 
         if exc_type is not None:
-            self.logger.exception(f'{exc_type.__name__}: {exc_value}')
+            logger.error('%s: %s', exc_type.__name__, exc_value)
 
-    def _construct_view(self, view_name):
-        """
+    @classmethod
+    def get_contexts(cls):
+        if not hasattr(cls.__context, 'stack'):
+            cls.__context.stack = []
 
-        :param view_name: 
+        return cls.__context.stack
 
-        
-        """
-        base = getattr(models, view_name)
-
-        return type(view_name, (base,), {
-            'client': self
-        })
-
-    @property
-    def Track(self):
-        """ """
-        return self._construct_view('Track')
-
-    @property
-    def Album(self):
-        """ """
-        return self._construct_view('Album')
-
-    @property
-    def Playlist(self):
-        """ """
-        return self._construct_view('Playlist')
+    @classmethod
+    def get_context(cls):
+        """Return the deepest context on the stack."""
+        try:
+            return cls.get_contexts()[-1]
+        except IndexError:
+            raise TypeError("No context on context stack")
 
     def search(self, type, query, limit=1):
         """
-
-        :param type: 
-        :param query: 
-        :param limit:  (Default value = 1)
-
-        
         """
         results = super().search(query, type=type, limit=limit)
 
