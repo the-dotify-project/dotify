@@ -1,10 +1,12 @@
 import logging
 from functools import wraps
+from importlib import import_module
 from pathlib import Path
 from re import match
 
 from spotipy.exceptions import SpotifyException
 
+from dotify.decorators import cached_classproperty
 from dotify.dotify import Dotify
 from dotify.json_serializable import (JsonSerializable, JsonSerializableMeta,
                                       logger)
@@ -14,25 +16,42 @@ logger = logging.getLogger(f'{logger.name}.{__name__}')
 
 class ModelMeta(JsonSerializableMeta):
     """ """
-    BASE_DIR = Path(__file__).parent / 'models' / 'schema'
+    schema_dir = Path(__file__).parent / 'models' / 'schema'
+
+    @classmethod
+    def name_resolver(cls, name):
+        return f'{name.lower()}.json'
 
     def __new__(cls, name, bases, attrs):
-        if 'Json' not in attrs:
-            return super().__new__(cls, name, bases, attrs)
+        if 'Json' in attrs:
+            attrs['Json'].schema = cls.schema_dir / cls.name_resolver(name)
 
-        if hasattr(attrs['Json'], 'schema'):
-            attrs['Json'].schema = ModelMeta.BASE_DIR / attrs['Json'].schema
+            if hasattr(attrs['Json'], 'dependencies'):
+                dependency_names = attrs['Json'].dependencies
 
-            return super().__new__(cls, name, bases, attrs)
+                @cached_classproperty
+                def dependencies(_):
+                    types = []
+                    for dependency in dependency_names:
+                        module, _, type = dependency.rpartition('.')
+
+                        module = import_module(module)
+                        type = getattr(module, type)
+
+                        types.append(type)
+
+                    return {
+                        cls.name_resolver(dependency.__name__): dependency
+                        for dependency in types
+                    }
+
+                attrs['Json'].dependencies = dependencies
 
         return super().__new__(cls, name, bases, attrs)
 
 
 class Model(JsonSerializable, metaclass=ModelMeta):
     """ """
-    # FIXME: Consider defining a metaclass
-    # for dynamically importing string type dependencies
-
     class InvalidURL(Exception):
         """ """
         pass

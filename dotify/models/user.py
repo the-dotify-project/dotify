@@ -9,4 +9,3 @@ class User(Model):
     """ """
     class Json:
         """ """
-        schema = 'user.json'

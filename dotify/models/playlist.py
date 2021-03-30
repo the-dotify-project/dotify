@@ -12,12 +12,7 @@ class Playlist(Model):
     """ """
     class Json:
         """ """
-        schema = 'playlist.json'
-
-        @classmethod
-        def dependencies(cls):
-            """ """
-            return [models.User, models.Image]
+        dependencies = ['dotify.models.User', 'dotify.models.Image']
 
     def __init__(self, **props):
         if 'tracks' in props:

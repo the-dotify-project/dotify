@@ -9,4 +9,3 @@ class Image(Model):
     """ """
     class Json:
         """ """
-        schema = 'image.json'

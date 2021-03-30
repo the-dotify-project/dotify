@@ -56,29 +56,11 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             else:
                 raise
 
-    def _resolve_dependency(self, obj):
+    @classmethod
+    def resolve_dependency(cls, obj):
         """
-
-
-
-
         """
-        if not hasattr(self.Json, 'dependencies'):
-            return None
-
-        name = obj.__class__.__name__
-        # FIXME: Having to define and call
-        # a @classmethod. It's so ugly
-        # FIXME: The for loop can be replaced
-        # by dict look ups
-        for dependency in self.Json.dependencies():
-            _name = dependency.__name__
-            # FIXME: This is hardcoded AF...
-            _name = f'{_name}.json'.lower()
-            if name == _name:
-                return dependency
-
-        return None
+        return cls.Json.dependencies.get(obj.__class__.__name__, None)
 
     def __getattribute__(self, name):
         obj = super().__getattribute__(name)
@@ -86,18 +68,17 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
         if isinstance(obj, LiteralValue):
             return obj._value
         if isinstance(obj, ArrayWrapper):
-            # FIXME: Quite dirty solution
-            dependency = self._resolve_dependency(obj.typed_elems[0])
+            array = []
+            for element in obj.typed_elems:
+                dependency = self.resolve_dependency(element)
+                if dependency is None:
+                    array.append(element)
+                else:
+                    array.append(dependency(**element.as_dict()))
 
-            if dependency is not None:
-                return [
-                    dependency(**_obj.as_dict())
-                    for _obj in obj.typed_elems
-                ]
-
-            return obj.typed_elems
+            return array
         if isinstance(obj, ProtocolBase):
-            dependency = self._resolve_dependency(obj)
+            dependency = self.resolve_dependency(obj)
 
             if dependency is not None:
                 return dependency(**obj.as_dict())

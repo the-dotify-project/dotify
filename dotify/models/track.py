@@ -7,7 +7,6 @@ from pytube import YouTube
 from youtubesearchpython import VideosSearch
 
 from dotify.dotify import Dotify
-import dotify.models as models
 from dotify.model import Model, logger
 
 logger = logging.getLogger(f'{logger.name}.{__name__}')
@@ -17,12 +16,11 @@ class Track(Model):
     """ """
     class Json:
         """ """
-        schema = 'track.json'
-
-        @classmethod
-        def dependencies(cls):
-            """ """
-            return [models.Album, models.Artist, models.Image]
+        dependencies = [
+            'dotify.models.Album',
+            'dotify.models.Artist',
+            'dotify.models.Image'
+        ]
 
     def __str__(self):
         return f'{self.artist} - {self.name}'

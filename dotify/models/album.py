@@ -15,12 +15,11 @@ class Album(Model):
     """ """
     class Json:
         """ """
-        schema = 'album.json'
-
-        @classmethod
-        def dependencies(cls):
-            """ """
-            return [models.Track, models.Artist, models.Image]
+        dependencies = [
+            'dotify.models.Track',
+            'dotify.models.Artist',
+            'dotify.models.Image'
+        ]
 
     def __str__(self):
         return f'{self.artist} - {self.name}'

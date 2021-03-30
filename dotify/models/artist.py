@@ -9,7 +9,6 @@ class Artist(Model):
     """ """
     class Json:
         """ """
-        schema = 'artist.json'
 
     @property
     def url(self):
