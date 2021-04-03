@@ -65,7 +65,7 @@ class Album(Model):
             if response['next'] is None:
                 break
 
-            response = cls.context.album_tracks(self.url, offset=offset)
+            response = self.context.album_tracks(self.url, offset=offset)
 
     def download(self, path, skip_existing=False, logger=None):
         """
