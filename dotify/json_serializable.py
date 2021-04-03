@@ -13,32 +13,24 @@ logger = logging.getLogger(__name__)
 class JsonSerializableMeta(ABCMeta):
     """ """
     def __new__(cls, name, bases, attrs):
-        if 'Json' not in attrs:
+        if 'Json' not in attrs or not hasattr(attrs['Json'], 'schema'):
             return super().__new__(cls, name, bases, attrs)
 
-        Json = attrs['Json']
-        if hasattr(Json, 'schema'):
-            path = Json.schema.absolute()
-            with path.open() as file:
-                json_schema = json.load(file)
+        path = attrs['Json'].schema.absolute()
+        with path.open() as file:
+            json_schema = json.load(file)
 
-                resolver = None
-                if hasattr(Json, 'resolver'):
-                    resolver = Json.resolver(f'{path}', json_schema)
+            builder = ObjectBuilder(str(path))
 
-                builder = ObjectBuilder(f'{path}', resolver=resolver)
+            classes = builder.build_classes(
+                strict=True,
+                named_only=True,
+                standardize_names=False
+            )
 
-                classes = builder.build_classes(
-                    strict=True,
-                    named_only=True,
-                    standardize_names=False
-                )
+            json_schema = getattr(classes, name)
 
-                json_schema = getattr(classes, name)
-
-            return super().__new__(cls, name, (*bases, json_schema), attrs)
-
-        return super().__new__(cls, name, bases, attrs)
+        return super().__new__(cls, name, (*bases, json_schema), attrs)
 
 
 class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
