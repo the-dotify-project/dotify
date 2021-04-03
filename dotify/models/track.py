@@ -6,7 +6,6 @@ from mutagen.easyid3 import EasyID3
 from pytube import YouTube
 from youtubesearchpython import VideosSearch
 
-from dotify.dotify import Dotify
 from dotify.model import Model, logger
 
 logger = logging.getLogger(f'{logger.name}.{__name__}')

@@ -4,7 +4,6 @@ from pathlib import Path
 import dotify.models as models
 import requests
 
-from dotify.dotify import Dotify
 from dotify.model import Model, logger
 from mutagen.id3 import APIC as AlbumCover
 
@@ -23,6 +22,9 @@ class Album(Model):
 
     def __str__(self):
         return f'{self.artist} - {self.name}'
+
+    def __iter__(self):
+        return self.tracks
 
     @property
     def artist(self):

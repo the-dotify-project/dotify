@@ -2,7 +2,6 @@ import logging
 from pathlib import Path
 
 import dotify.models as models
-from dotify.dotify import Dotify
 from dotify.model import Model, logger
 
 logger = logging.getLogger(f'{logger.name}.{__name__}')
@@ -22,6 +21,9 @@ class Playlist(Model):
 
     def __str__(self):
         return self.name
+
+    def __iter__(self):
+        return self.tracks
 
     @property
     def url(self):
