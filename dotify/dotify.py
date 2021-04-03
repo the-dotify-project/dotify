@@ -49,7 +49,7 @@ class Dotify(Client):
             logger.error('%s: %s', exc_type.__name__, exc_value)
 
     @classmethod
-    def get_contexts(cls) -> List[Dotify]:
+    def get_contexts(cls) -> List["Dotify"]:
         """Get the `Dotify` context stack
 
         Returns:
@@ -61,7 +61,7 @@ class Dotify(Client):
         return cls.__context.stack
 
     @classmethod
-    def get_context(cls) -> Dotify:
+    def get_context(cls) -> "Dotify":
         """Get the topmost context from the stack
 
         Raises:
@@ -75,7 +75,7 @@ class Dotify(Client):
         except IndexError:
             raise TypeError("No context on context stack")
 
-    def search(self, type: str, query: str, limit: int = 1) -> List[Dict[Any]]:
+    def search(self, type: str, query: str, limit: int = 1) -> List[Dict[str, Any]]:
         """Perform a Spotify search given a `query`
 
         Args:
@@ -84,7 +84,7 @@ class Dotify(Client):
             limit (int, optional): the number of items to return. Defaults to 1.
 
         Returns:
-            List[Dict[Any]]: A list containing the search results
+            List[Dict[str, Any]]: A list containing the search results
         """
         results = super().search(query, type=type, limit=limit)
 
