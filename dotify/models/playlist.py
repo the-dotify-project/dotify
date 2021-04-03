@@ -31,7 +31,7 @@ class Playlist(Model):
     @property
     def tracks(self):
         """ """
-        response, offset = Dotify.get_context().playlist_items(self.url, additional_types=("track",)), 0
+        response, offset = self.context.playlist_items(self.url, additional_types=("track",)), 0
 
         while True:
             for result in response['items']:
@@ -44,7 +44,8 @@ class Playlist(Model):
             if response['next'] is None:
                 break
 
-            response = Dotify.get_context().playlist_items(self.url, additional_types=("track",), offset=offset)
+            response = self.context.playlist_items(
+                self.url, additional_types=("track",), offset=offset)
 
     def download(self, path, skip_existing=False, logger=None):
         """
@@ -66,4 +67,4 @@ class Playlist(Model):
     def from_url(cls, url):
         """
         """
-        return cls(**Dotify.get_context().playlist(url))
+        return cls(**cls.context.playlist(url))

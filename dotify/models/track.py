@@ -130,4 +130,4 @@ class Track(Model):
     def from_url(cls, url):
         """
         """
-        return cls(**Dotify.get_context().track(url))
+        return cls(**cls.context.track(url))

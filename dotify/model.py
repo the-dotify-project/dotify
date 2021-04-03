@@ -6,7 +6,7 @@ from re import match
 
 from spotipy.exceptions import SpotifyException
 
-from dotify.decorators import cached_classproperty
+from dotify.decorators import cached_classproperty, classproperty
 from dotify.dotify import Dotify
 from dotify.json_serializable import (JsonSerializable, JsonSerializableMeta,
                                       logger)
@@ -18,13 +18,13 @@ class ModelMeta(JsonSerializableMeta):
     """ """
     schema_dir = Path(__file__).parent / 'models' / 'schema'
 
-    @classmethod
-    def name_resolver(cls, name):
-        return f'{name.lower()}.json'
+    @staticmethod
+    def dependency_basename(class_name):
+        return f'{class_name.lower()}.json'
 
     def __new__(cls, name, bases, attrs):
         if 'Json' in attrs:
-            attrs['Json'].schema = cls.schema_dir / cls.name_resolver(name)
+            attrs['Json'].schema = cls.schema_dir / cls.dependency_basename(name)
 
             if hasattr(attrs['Json'], 'dependencies'):
                 dependency_names = attrs['Json'].dependencies
@@ -41,7 +41,7 @@ class ModelMeta(JsonSerializableMeta):
                         types.append(type)
 
                     return {
-                        cls.name_resolver(dependency.__name__): dependency
+                        cls.dependency_basename(dependency.__name__): dependency
                         for dependency in types
                     }
 
@@ -63,6 +63,10 @@ class Model(JsonSerializable, metaclass=ModelMeta):
     def __repr__(self):
         return f'<{self.__class__.__name__} "{str(self)}">'
 
+    @classproperty
+    def context(cls):
+        return Dotify.get_context()
+
     @classmethod
     def view_name(cls):
         """ """
@@ -74,7 +78,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         """
         view_name = cls.view_name()
 
-        results = Dotify.get_context().search(view_name, query, limit=limit)
+        results = cls.context.search(view_name, query, limit=limit)
 
         if not results:
             raise cls.NotFound

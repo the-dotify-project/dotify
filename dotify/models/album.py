@@ -52,7 +52,7 @@ class Album(Model):
     @property
     def tracks(self):
         """ """
-        response, offset = Dotify.get_context().album_tracks(self.url), 0
+        response, offset = self.context.album_tracks(self.url), 0
 
         while True:
             for result in response['items']:
@@ -65,7 +65,7 @@ class Album(Model):
             if response['next'] is None:
                 break
 
-            response = Dotify.get_context().album_tracks(self.url, offset=offset)
+            response = cls.context.album_tracks(self.url, offset=offset)
 
     def download(self, path, skip_existing=False, logger=None):
         """
@@ -87,4 +87,4 @@ class Album(Model):
     def from_url(cls, url):
         """
         """
-        return cls(**Dotify.get_context().album(url))
+        return cls(**cls.context.album(url))
