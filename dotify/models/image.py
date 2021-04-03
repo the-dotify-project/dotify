@@ -9,3 +9,6 @@ class Image(Model):
     """ """
     class Json:
         """ """
+
+    def __str__(self):
+        return self.url
