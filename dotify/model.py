@@ -3,6 +3,7 @@ from functools import wraps
 from importlib import import_module
 from pathlib import Path
 from re import match
+from typing import Iterator
 
 from spotipy.exceptions import SpotifyException
 
@@ -19,7 +20,7 @@ class ModelMeta(JsonSerializableMeta):
     schema_dir = Path(__file__).parent / 'models' / 'schema'
 
     @staticmethod
-    def dependency_basename(class_name):
+    def dependency_basename(class_name: str) -> str:
         return f'{class_name.lower()}.json'
 
     def __new__(cls, name, bases, attrs):
@@ -68,12 +69,12 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         return Dotify.get_context()
 
     @classmethod
-    def view_name(cls):
+    def view_name(cls) -> str:
         """ """
         return cls.__name__.lower()
 
     @classmethod
-    def search(cls, query, limit=1):
+    def search(cls, query: str, limit: int = 1) -> Iterator["Model"]:
         """
         """
         view_name = cls.view_name()
