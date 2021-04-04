@@ -1,6 +1,7 @@
 import json
 import logging
 from abc import ABCMeta
+from typing import Any, Dict, Optional
 
 from python_jsonschema_objects import ObjectBuilder
 from python_jsonschema_objects.classbuilder import LiteralValue, ProtocolBase
@@ -37,9 +38,9 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
     """ """
     class Json:
         """ """
-        pass
+        dependencies: Dict[str, "JsonSerializable"]
 
-    def __setattr__(self, name, val):
+    def __setattr__(self, name: str, val: Any) -> None:
         try:
             super().__setattr__(name, val)
         except ValidationError:
@@ -49,12 +50,12 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
                 raise
 
     @classmethod
-    def resolve_dependency(cls, obj):
+    def resolve_dependency(cls, obj: Any) -> Optional["JsonSerializable"]:
         """
         """
         return cls.Json.dependencies.get(obj.__class__.__name__, None)
 
-    def __getattribute__(self, name):
+    def __getattribute__(self, name: str) -> Any:
         obj = super().__getattribute__(name)
 
         if isinstance(obj, LiteralValue):
@@ -79,7 +80,7 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
 
         return obj
 
-    def __getattr__(self, name):
+    def __getattr__(self, name: str):
         if name in self.__prop_names__:
             return self._properties[name]
         if name in self._extended_properties:

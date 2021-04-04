@@ -15,5 +15,5 @@ class Artist(Model):
         """ """
         return self.external_urls.spotify
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name

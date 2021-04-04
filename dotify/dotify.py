@@ -19,7 +19,7 @@ class Dotify(Client):
     """
     __context = threading.local()
 
-    def __init__(self, client_id: str, client_secret: str):
+    def __init__(self, client_id: str, client_secret: str) -> None:
         """Create a `Dotify` instance
 
         Args:
@@ -37,12 +37,12 @@ class Dotify(Client):
         if hasattr(self, '_session'):
             super().__del__()
 
-    def __enter__(self):
+    def __enter__(self) -> "Dotify":
         type(self).get_contexts().append(self)
 
         return self
 
-    def __exit__(self, exc_type, exc_value, exc_trace):
+    def __exit__(self, exc_type: None, exc_value: None, exc_trace: None) -> None:
         type(self).get_contexts().pop()
 
         if exc_type is not None:

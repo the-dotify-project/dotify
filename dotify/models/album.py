@@ -1,13 +1,18 @@
 import logging
+from os import PathLike
 from pathlib import Path
+from typing import TYPE_CHECKING, Any, Iterator
 
 import dotify.models as models
 import requests
-
 from dotify.model import Model, logger
-from mutagen.id3 import APIC as AlbumCover
+from mutagen.id3 import APIC
 
 logger = logging.getLogger(f'{logger.name}.{__name__}')
+
+if TYPE_CHECKING is True:
+    from dotify.models.artist import Artist
+    from dotify.models.track import Track
 
 
 class Album(Model):
@@ -27,7 +32,7 @@ class Album(Model):
         return self.tracks
 
     @property
-    def artist(self):
+    def artist(self) -> "Artist":
         """ """
         return self.artists[0]
 
@@ -37,13 +42,13 @@ class Album(Model):
         return self.external_urls.spotify
 
     @property
-    def cover(self):
+    def cover(self) -> Any:
         """ """
         response = requests.get(self.images[0].url)
 
         assert response.status_code == 200, f"Failed to fetch {self.images[0].url}"
 
-        return AlbumCover(
+        return APIC(
             encoding=3,
             mime='image/jpeg',
             type=3,
@@ -52,7 +57,7 @@ class Album(Model):
         )
 
     @property
-    def tracks(self):
+    def tracks(self) -> Iterator["Track"]:
         """ """
         response, offset = self.context.album_tracks(self.url), 0
 
@@ -69,7 +74,7 @@ class Album(Model):
 
             response = self.context.album_tracks(self.url, offset=offset)
 
-    def download(self, path, skip_existing=False, logger=None):
+    def download(self, path: PathLike, skip_existing: bool = False, logger: None = None) -> PathLike:
         """
         """
         path = Path(path)
@@ -86,7 +91,7 @@ class Album(Model):
     @classmethod
     @Model.validate_url
     @Model.convert_to_model_error
-    def from_url(cls, url):
+    def from_url(cls, url: str) -> "Album":
         """
         """
         return cls(**cls.context.album(url))

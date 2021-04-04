@@ -1,10 +1,15 @@
 import logging
+from os import PathLike
 from pathlib import Path
+from typing import TYPE_CHECKING, Iterator
 
 import dotify.models as models
 from dotify.model import Model, logger
 
 logger = logging.getLogger(f'{logger.name}.{__name__}')
+
+if TYPE_CHECKING is True:
+    from dotify.models.track import Track
 
 
 class Playlist(Model):
@@ -13,7 +18,7 @@ class Playlist(Model):
         """ """
         dependencies = ['dotify.models.User', 'dotify.models.Image']
 
-    def __init__(self, **props):
+    def __init__(self, **props) -> None:
         if 'tracks' in props:
             del props['tracks']
 
@@ -31,7 +36,7 @@ class Playlist(Model):
         return self.external_urls.spotify
 
     @property
-    def tracks(self):
+    def tracks(self) -> Iterator["Track"]:
         """ """
         response, offset = self.context.playlist_items(self.url, additional_types=("track",)), 0
 
@@ -49,7 +54,7 @@ class Playlist(Model):
             response = self.context.playlist_items(
                 self.url, additional_types=("track",), offset=offset)
 
-    def download(self, path, skip_existing=False, logger=None):
+    def download(self, path: PathLike, skip_existing: bool = False, logger: None = None) -> PathLike:
         """
         """
         path = Path(path)
@@ -66,7 +71,7 @@ class Playlist(Model):
     @classmethod
     @Model.validate_url
     @Model.convert_to_model_error
-    def from_url(cls, url):
+    def from_url(cls, url: str) -> "Playlist":
         """
         """
         return cls(**cls.context.playlist(url))

@@ -1,14 +1,20 @@
 import logging
 from pathlib import Path
+from typing import TYPE_CHECKING, Any, Dict, List
 
+from dotify.model import Model, logger
 from moviepy.editor import AudioFileClip
 from mutagen.easyid3 import EasyID3
 from pytube import YouTube
+from pytube.streams import Stream
 from youtubesearchpython import VideosSearch
 
-from dotify.model import Model, logger
-
 logger = logging.getLogger(f'{logger.name}.{__name__}')
+
+EasyID3.RegisterTextKey('albumcover', 'APIC')
+
+if TYPE_CHECKING is True:
+    from dotify.models.artist import Artist
 
 
 class Track(Model):
@@ -21,7 +27,7 @@ class Track(Model):
             'dotify.models.Image'
         ]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.artist} - {self.name}'
 
     @property
@@ -30,12 +36,12 @@ class Track(Model):
         return self.external_urls.spotify
 
     @property
-    def artist(self):
+    def artist(self) -> "Artist":
         """ """
         return self.artists[0]
 
     @property
-    def genres(self):
+    def genres(self) -> List[Any]:
         """ """
         genres = []
         for item in [self.album, self.artist]:
@@ -45,7 +51,7 @@ class Track(Model):
         return genres
 
     @property
-    def genre(self):
+    def genre(self) -> None:
         """ """
         return self.genres[0] if self.genres else None
 
@@ -58,16 +64,14 @@ class Track(Model):
             yield YouTube(result['link']).streams.get_audio_only()
 
     @property
-    def stream(self):
+    def stream(self) -> Stream:
         """ """
         return next(self.streams(limit=1))
 
     @property
-    def id3_tags(self):
+    def id3_tags(self) -> Dict[str, Any]:
         """ """
-        EasyID3.RegisterTextKey('albumcover', 'APIC')
-
-        optional = {}
+        optional: Dict[str, Any] = {}
         if self.genre is not None:
             optional['genre'] = self.genre
 
@@ -84,7 +88,7 @@ class Track(Model):
             'albumcover': self.album.cover
         }
 
-    def as_mp4(self, mp4_path, skip_existing=False):
+    def as_mp4(self, mp4_path: Path, skip_existing: bool = False) -> Path:
         """
         """
         mp4_path = Path(mp4_path)
@@ -95,7 +99,7 @@ class Track(Model):
             skip_existing=skip_existing
         ))
 
-    def as_mp3(self, mp3_path, skip_existing=False, logger=None):
+    def as_mp3(self, mp3_path: Path, skip_existing: bool = False, logger: None = None) -> Path:
         """
         """
         # FIXME: genres
@@ -118,7 +122,7 @@ class Track(Model):
 
         return mp3_path
 
-    def download(self, mp3_path, skip_existing=False, logger=None):
+    def download(self, mp3_path: Path, skip_existing: bool = False, logger: None = None) -> Path:
         """
         """
         return self.as_mp3(mp3_path, skip_existing=skip_existing, logger=logger)
@@ -126,7 +130,7 @@ class Track(Model):
     @classmethod
     @Model.validate_url
     @Model.convert_to_model_error
-    def from_url(cls, url):
+    def from_url(cls, url: str) -> "Track":
         """
         """
         return cls(**cls.context.track(url))
