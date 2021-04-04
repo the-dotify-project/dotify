@@ -129,7 +129,7 @@ class Track(Model):
 
     @classmethod
     @Model.validate_url
-    @Model.convert_to_model_error
+    @Model.http_safeguard
     def from_url(cls, url: str) -> "Track":
         """
         """
