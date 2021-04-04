@@ -1,6 +1,7 @@
 import logging
 from functools import wraps
 from importlib import import_module
+from os import PathLike
 from pathlib import Path
 from re import match
 from typing import Any, Callable, Iterator
@@ -18,13 +19,14 @@ logger = logging.getLogger(f'{logger.name}.{__name__}')
 class ModelMeta(JsonSerializableMeta):
     """
     A metaclass serving as an abstraction layer over
-    the `JsonSerializableMeta` metaclass
+    the `JsonSerializableMeta` metaclass, that automatically
+    resolves the path to the `Model`'s JSON schema, as well as
+    builds the `dependency` dictionary
     """
-    schema_dir = Path(__file__).parent / 'models' / 'schema'
-
-    @staticmethod
-    def dependency_basename(model_name: str) -> str:
-        """Given the name of a `Model` resolve its corresponding json schema
+    @classmethod
+    def dependency_basename(cls, model_name: str) -> str:
+        """Given the name of a `Model` resolve the basename of
+        the corresponding json schema
 
         Args:
             model_name (str): the name of a `Model`
@@ -34,9 +36,22 @@ class ModelMeta(JsonSerializableMeta):
         """
         return f'{model_name.lower()}.json'
 
+    @classmethod
+    def dependency_path(cls, model_name: str) -> PathLike:
+        """Given the name of a `Model` resolve the path to
+        the corresponding json schema
+
+        Args:
+            model_name (str): the name of a `Model`
+
+        Returns:
+            PathLike: the path to the file containing the json schema
+        """
+        return Path(__file__).parent / 'models' / 'schema' / cls.dependency_basename(model_name)
+
     def __new__(cls, name, bases, attrs):
         if 'Json' in attrs:
-            attrs['Json'].schema = cls.schema_dir / cls.dependency_basename(name)
+            attrs['Json'].schema = cls.dependency_path(name)
 
             if hasattr(attrs['Json'], 'dependencies'):
                 dependency_names = attrs['Json'].dependencies
@@ -65,7 +80,15 @@ class ModelMeta(JsonSerializableMeta):
 class Model(JsonSerializable, metaclass=ModelMeta):
     """
     The base class for every Spotify Web API entity
+
+    Example Usage:
+    --------------
+
+    >>> class Foo(Model):
+    >>>     class Json:
+    >>>         dependencies = ['path.to.Bar']
     """
+
     class UnexpectedError(Exception):
         """An exception indicating an unexpected error"""
         pass
