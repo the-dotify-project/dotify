@@ -80,13 +80,6 @@ class ModelMeta(JsonSerializableMeta):
 class Model(JsonSerializable, metaclass=ModelMeta):
     """
     The base class for every Spotify Web API entity
-
-    Example Usage:
-    --------------
-
-    >>> class Foo(Model):
-    >>>     class Json:
-    >>>         dependencies = ['path.to.Bar']
     """
 
     class UnexpectedError(Exception):
