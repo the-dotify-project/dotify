@@ -1,6 +1,7 @@
 import json
 import logging
 from abc import ABCMeta
+from os import PathLike
 from typing import Any, Dict, Optional
 
 from python_jsonschema_objects import ObjectBuilder
@@ -12,7 +13,10 @@ logger = logging.getLogger(__name__)
 
 
 class JsonSerializableMeta(ABCMeta):
-    """ """
+    """
+    A metaclass responsible for resolving a class' JSON schema
+    and defining the class at hand based on it
+    """
     def __new__(cls, name, bases, attrs):
         if 'Json' not in attrs or not hasattr(attrs['Json'], 'schema'):
             return super().__new__(cls, name, bases, attrs)
@@ -35,9 +39,11 @@ class JsonSerializableMeta(ABCMeta):
 
 
 class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
-    """ """
+    """
+    A class providing JSON serialization and de-serialization
+    """
     class Json:
-        """ """
+        schema: PathLike
         dependencies: Dict[str, "JsonSerializable"]
 
     def __setattr__(self, name: str, val: Any) -> None:
@@ -50,9 +56,18 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
                 raise
 
     @classmethod
-    def resolve_dependency(cls, obj: Any) -> Optional["JsonSerializable"]:
+    def _resolve_dependency(cls, obj: Any) -> Optional["JsonSerializable"]:
+        """Given a `python_jsonschema_objects` it returns
+        the `JsonSerializable` dependency that has been registered
+        with it, given that it's available
+
+        Returns:
+            Optional["JsonSerializable"]: the corresponding `JsonSerializable`
+            dependency
         """
-        """
+        if not hasattr(cls.Json, 'dependencies'):
+            return None
+
         return cls.Json.dependencies.get(obj.__class__.__name__, None)
 
     def __getattribute__(self, name: str) -> Any:
@@ -63,7 +78,7 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
         if isinstance(obj, ArrayWrapper):
             array = []
             for element in obj.typed_elems:
-                dependency = self.resolve_dependency(element)
+                dependency = self._resolve_dependency(element)
                 if dependency is None:
                     array.append(element)
                 else:
@@ -71,7 +86,7 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
 
             return array
         if isinstance(obj, ProtocolBase):
-            dependency = self.resolve_dependency(obj)
+            dependency = self._resolve_dependency(obj)
 
             if dependency is not None:
                 return dependency(**obj.as_dict())
