@@ -1,9 +1,31 @@
 from functools import update_wrapper
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 
 
 class classproperty:
-    def __init__(self, method):
+    """
+    A decorator that converts a method to a `classproperty`
+
+    Example Usage:
+    --------------
+
+    >>> from random import random
+    >>> class Foo:
+    ...     @classproperty
+    ...     def bar(cls):
+    ...         return
+    ...
+    >>> Foo.bar
+    0.6597781045639168
+    >>> Foo.bar
+    0.45628230476739395
+    """
+    def __init__(self, method: Callable[..., Any]) -> None:
+        """Create a `classproperty` instance
+
+        Args:
+            method (Callable[..., Any]): the method being decorated
+        """
         self.method = method
 
         update_wrapper(self, method)
@@ -13,7 +35,31 @@ class classproperty:
 
 
 class cached_classproperty(classproperty):
-    def __init__(self, method):
+    """
+    A decorator that converts a method to a `cached_classproperty`.
+    As indicated by the name, once the method is called, its
+    return value is cached and is therefore returned unchanged.
+
+    Example Usage:
+    --------------
+
+    >>> from random import random
+    >>> class Foo:
+    ...     @cached_classproperty
+    ...     def bar(cls):
+    ...         return
+    ...
+    >>> Foo.bar
+    0.6597781045639168
+    >>> Foo.bar
+    0.6597781045639168
+    """
+    def __init__(self, method: Callable[..., Any]) -> None:
+        """Create a `cached_classproperty` instance
+
+        Args:
+            method (Callable[..., Any]): the method being decorated
+        """
         super().__init__(method)
 
         self.cache = None
