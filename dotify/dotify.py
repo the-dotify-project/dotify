@@ -13,9 +13,9 @@ class Dotify(Client):
     """
     Example Usage:
         >>> from dotify import Dotify
-        >>> with Dotify(spotify_client, spotify_secret):
-        >>>     for result in Track.search(query):
-        >>>         ...
+        ... with Dotify(spotify_client, spotify_secret):
+        ...     for result in Track.search(query):
+        ...         ...
     """
     _context = threading.local()
 
