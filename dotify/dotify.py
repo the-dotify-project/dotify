@@ -17,7 +17,7 @@ class Dotify(Client):
         >>>     for result in Track.search(query):
         >>>         ...
     """
-    __context = threading.local()
+    _context = threading.local()
 
     def __init__(self, client_id: str, client_secret: str) -> None:
         """Create a `Dotify` instance
@@ -55,10 +55,10 @@ class Dotify(Client):
         Returns:
             List[Dotify]: the `Dotify` context stack
         """
-        if not hasattr(cls.__context, 'stack'):
-            cls.__context.stack = []
+        if not hasattr(cls._context, 'stack'):
+            cls._context.stack = []
 
-        return cls.__context.stack
+        return cls._context.stack
 
     @classmethod
     def get_context(cls) -> "Dotify":
