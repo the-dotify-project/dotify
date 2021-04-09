@@ -3,10 +3,11 @@ from os import PathLike
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Iterator
 
-import dotify.models as models
 import requests
-from dotify.model import Model, logger
 from mutagen.id3 import APIC
+
+import dotify.models as models
+from dotify.model import Model, logger
 
 logger = logging.getLogger(f'{logger.name}.{__name__}')
 

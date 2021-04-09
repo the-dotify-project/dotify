@@ -2,12 +2,13 @@ import logging
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List
 
-from dotify.model import Model, logger
 from moviepy.editor import AudioFileClip
 from mutagen.easyid3 import EasyID3
 from pytube import YouTube
 from pytube.streams import Stream
 from youtubesearchpython import VideosSearch
+
+from dotify.model import Model, logger
 
 logger = logging.getLogger(f'{logger.name}.{__name__}')
 
