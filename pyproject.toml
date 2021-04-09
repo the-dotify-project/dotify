@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "dotify"
+version = "0.1.0"
+description = "🐍🎶 Yet another Spotify Web API Python library"
+authors = ["billsioros <billsioros97@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+python-jsonschema-objects = "*"
+youtube-search-python = "*"
+requests = "*"
+moviepy = "*"
+spotipy = "*"
+mutagen = "*"
+pytube = "*"
+mypy = "*"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "*"
+flake8 = "*"
+pylint = "*"
+isort = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-monkeytype = "*"
+monkeytype = "*"
+tox = "^3.23.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
