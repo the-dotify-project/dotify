@@ -14,10 +14,8 @@ moviepy = "*"
 spotipy = "*"
 mutagen = "*"
 pytube = "*"
-mypy = "*"
 
 [tool.poetry.dev-dependencies]
-autopep8 = "*"
 flake8 = "*"
 pylint = "*"
 isort = "*"
@@ -26,6 +24,10 @@ pytest-cov = "*"
 pytest-monkeytype = "*"
 monkeytype = "*"
 tox = "^3.23.0"
+tox-poetry-installer = {extras = ["poetry"], version = "^0.6.4"}
+mypy = "^0.812"
+black = "^20.8b1"
+wemake-python-styleguide = "^0.15.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
