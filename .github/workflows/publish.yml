@@ -1,0 +1,15 @@
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Publish to PyPI
+      uses: JRubics/poetry-publish@v1
+      with:
+        pypi_token: ${{ secrets.DOTIFY_TOKEN }}
