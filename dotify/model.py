@@ -10,8 +10,7 @@ from spotipy.exceptions import SpotifyException
 
 from dotify.decorators import cached_classproperty
 from dotify.dotify import Dotify
-from dotify.json_serializable import (JsonSerializable, JsonSerializableMeta,
-                                      logger)
+from dotify.json_serializable import JsonSerializable, JsonSerializableMeta, logger
 
 logger = logging.getLogger(f"{logger.name}.{__name__}")
 
