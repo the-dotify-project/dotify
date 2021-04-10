@@ -6,7 +6,7 @@ from spotipy import Spotify as Client
 from spotipy.client import logger
 from spotipy.oauth2 import SpotifyClientCredentials
 
-logger = logging.getLogger(f'{logger.name}.{__name__}')
+logger = logging.getLogger(f"{logger.name}.{__name__}")
 
 
 class Dotify(Client):
@@ -17,6 +17,7 @@ class Dotify(Client):
         ...     for result in Track.search(query):
         ...         ...
     """
+
     _context = threading.local()
 
     def __init__(self, client_id: str, client_secret: str) -> None:
@@ -28,13 +29,12 @@ class Dotify(Client):
         """
         super().__init__(
             client_credentials_manager=SpotifyClientCredentials(
-                client_id=client_id,
-                client_secret=client_secret
+                client_id=client_id, client_secret=client_secret
             )
         )
 
     def __del__(self):
-        if hasattr(self, '_session'):
+        if hasattr(self, "_session"):
             super().__del__()
 
     def __enter__(self) -> "Dotify":
@@ -46,7 +46,7 @@ class Dotify(Client):
         type(self).get_contexts().pop()
 
         if exc_type is not None:
-            logger.error('%s: %s', exc_type.__name__, exc_value)
+            logger.error("%s: %s", exc_type.__name__, exc_value)
 
     @classmethod
     def get_contexts(cls) -> List["Dotify"]:
@@ -55,7 +55,7 @@ class Dotify(Client):
         Returns:
             List[Dotify]: the `Dotify` context stack
         """
-        if not hasattr(cls._context, 'stack'):
+        if not hasattr(cls._context, "stack"):
             cls._context.stack = []
 
         return cls._context.stack
@@ -88,4 +88,4 @@ class Dotify(Client):
         """
         results = super().search(query, type=type, limit=limit)
 
-        return results[f'{type}s']['items']
+        return results[f"{type}s"]["items"]

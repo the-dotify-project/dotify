@@ -20,6 +20,7 @@ class classproperty:
     >>> Foo.bar
     0.45628230476739395
     """
+
     def __init__(self, method: Callable[..., Any]) -> None:
         """Create a `classproperty` instance
 
@@ -54,6 +55,7 @@ class cached_classproperty(classproperty):
     >>> Foo.bar
     0.6597781045639168
     """
+
     def __init__(self, method: Callable[..., Any]) -> None:
         """Create a `cached_classproperty` instance
 

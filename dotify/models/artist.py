@@ -2,11 +2,12 @@ import logging
 
 from dotify.model import Model, logger
 
-logger = logging.getLogger(f'{logger.name}.{__name__}')
+logger = logging.getLogger(f"{logger.name}.{__name__}")
 
 
 class Artist(Model):
     """ """
+
     class Json:
         """ """
 

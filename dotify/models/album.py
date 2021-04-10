@@ -9,7 +9,7 @@ from mutagen.id3 import APIC
 import dotify.models as models
 from dotify.model import Model, logger
 
-logger = logging.getLogger(f'{logger.name}.{__name__}')
+logger = logging.getLogger(f"{logger.name}.{__name__}")
 
 if TYPE_CHECKING is True:
     from dotify.models.artist import Artist
@@ -18,16 +18,18 @@ if TYPE_CHECKING is True:
 
 class Album(Model):
     """ """
+
     class Json:
         """ """
+
         dependencies = [
-            'dotify.models.Track',
-            'dotify.models.Artist',
-            'dotify.models.Image'
+            "dotify.models.Track",
+            "dotify.models.Artist",
+            "dotify.models.Image",
         ]
 
     def __str__(self):
-        return f'{self.artist} - {self.name}'
+        return f"{self.artist} - {self.name}"
 
     def __iter__(self):
         return self.tracks
@@ -50,11 +52,7 @@ class Album(Model):
         assert response.status_code == 200, f"Failed to fetch {self.images[0].url}"
 
         return APIC(
-            encoding=3,
-            mime='image/jpeg',
-            type=3,
-            desc='Cover',
-            data=response.content
+            encoding=3, mime="image/jpeg", type=3, desc="Cover", data=response.content
         )
 
     @property
@@ -63,28 +61,28 @@ class Album(Model):
         response, offset = self.context.album_tracks(self.url), 0
 
         while True:
-            for result in response['items']:
-                url = result['external_urls']['spotify']
+            for result in response["items"]:
+                url = result["external_urls"]["spotify"]
 
                 yield models.Track.from_url(url)
 
-            offset += len(response['items'])
+            offset += len(response["items"])
 
-            if response['next'] is None:
+            if response["next"] is None:
                 break
 
             response = self.context.album_tracks(self.url, offset=offset)
 
-    def download(self, path: PathLike, skip_existing: bool = False, logger: None = None) -> PathLike:
-        """
-        """
+    def download(
+        self, path: PathLike, skip_existing: bool = False, logger: None = None
+    ) -> PathLike:
+        """"""
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
 
         for track in self.tracks:
             track.download(
-                path / f'{track}.mp3',
-                skip_existing=skip_existing, logger=logger
+                path / f"{track}.mp3", skip_existing=skip_existing, logger=logger
             )
 
         return path
@@ -93,6 +91,5 @@ class Album(Model):
     @Model.validate_url
     @Model.http_safeguard
     def from_url(cls, url: str) -> "Album":
-        """
-        """
+        """"""
         return cls(**cls.context.album(url))

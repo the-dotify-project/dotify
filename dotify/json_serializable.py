@@ -17,20 +17,19 @@ class JsonSerializableMeta(ABCMeta):
     A metaclass responsible for resolving a class' JSON schema
     and defining the class at hand based on it
     """
+
     def __new__(cls, name, bases, attrs):
-        if 'Json' not in attrs or not hasattr(attrs['Json'], 'schema'):
+        if "Json" not in attrs or not hasattr(attrs["Json"], "schema"):
             return super().__new__(cls, name, bases, attrs)
 
-        path = attrs['Json'].schema.absolute()
+        path = attrs["Json"].schema.absolute()
         with path.open() as file:
             json_schema = json.load(file)
 
             builder = ObjectBuilder(str(path))
 
             classes = builder.build_classes(
-                strict=True,
-                named_only=True,
-                standardize_names=False
+                strict=True, named_only=True, standardize_names=False
             )
 
             json_schema = getattr(classes, name)
@@ -42,6 +41,7 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
     """
     A class providing JSON serialization and de-serialization
     """
+
     class Json:
         schema: PathLike
         dependencies: Dict[str, "JsonSerializable"]
@@ -50,7 +50,7 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
         try:
             super().__setattr__(name, val)
         except ValidationError:
-            if hasattr(self, '__annotations__') and name in self.__annotations__:
+            if hasattr(self, "__annotations__") and name in self.__annotations__:
                 self.__dict__[name] = val
             else:
                 raise
@@ -65,7 +65,7 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             Optional["JsonSerializable"]: the corresponding `JsonSerializable`
             dependency
         """
-        if not hasattr(cls.Json, 'dependencies'):
+        if not hasattr(cls.Json, "dependencies"):
             return None
 
         return cls.Json.dependencies.get(obj.__class__.__name__, None)

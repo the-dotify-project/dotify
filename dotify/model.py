@@ -13,7 +13,7 @@ from dotify.dotify import Dotify
 from dotify.json_serializable import (JsonSerializable, JsonSerializableMeta,
                                       logger)
 
-logger = logging.getLogger(f'{logger.name}.{__name__}')
+logger = logging.getLogger(f"{logger.name}.{__name__}")
 
 
 class ModelMeta(JsonSerializableMeta):
@@ -23,6 +23,7 @@ class ModelMeta(JsonSerializableMeta):
     resolves the path to the `Model`'s JSON schema, as well as
     builds the `dependency` dictionary
     """
+
     @classmethod
     def dependency_basename(cls, model_name: str) -> str:
         """Given the name of a `Model` resolve the basename of
@@ -34,7 +35,7 @@ class ModelMeta(JsonSerializableMeta):
         Returns:
             str: the basename of the file containing the json schema
         """
-        return f'{model_name.lower()}.json'
+        return f"{model_name.lower()}.json"
 
     @classmethod
     def dependency_path(cls, model_name: str) -> PathLike:
@@ -47,20 +48,25 @@ class ModelMeta(JsonSerializableMeta):
         Returns:
             PathLike: the path to the file containing the json schema
         """
-        return Path(__file__).parent / 'models' / 'schema' / cls.dependency_basename(model_name)
+        return (
+            Path(__file__).parent
+            / "models"
+            / "schema"
+            / cls.dependency_basename(model_name)
+        )
 
     def __new__(cls, name, bases, attrs):
-        if 'Json' in attrs:
-            attrs['Json'].schema = cls.dependency_path(name)
+        if "Json" in attrs:
+            attrs["Json"].schema = cls.dependency_path(name)
 
-            if hasattr(attrs['Json'], 'dependencies'):
-                dependency_names = attrs['Json'].dependencies
+            if hasattr(attrs["Json"], "dependencies"):
+                dependency_names = attrs["Json"].dependencies
 
                 @cached_classproperty
                 def dependencies(_):
                     types = []
                     for dependency in dependency_names:
-                        module, _, type = dependency.rpartition('.')
+                        module, _, type = dependency.rpartition(".")
 
                         module = import_module(module)
                         type = getattr(module, type)
@@ -72,7 +78,7 @@ class ModelMeta(JsonSerializableMeta):
                         for dependency in types
                     }
 
-                attrs['Json'].dependencies = dependencies
+                attrs["Json"].dependencies = dependencies
 
         return super().__new__(cls, name, bases, attrs)
 
@@ -84,6 +90,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     class UnexpectedError(Exception):
         """An exception indicating an unexpected error"""
+
         pass
 
     class InvalidURL(Exception):
@@ -91,6 +98,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         An exception thrown if the provided URL does not
         correspond to a valid Spotify URL
         """
+
         pass
 
     class NotFound(Exception):
@@ -98,6 +106,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         An exception thrown if an operation fails to
         retrieve the necessary information
         """
+
         pass
 
     def __repr__(self):
@@ -159,10 +168,11 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         Returns:
             Callable[..., Any]: the  decorated method
         """
+
         @wraps(method)
         def wrapper(cls, url, *args, **kwargs):
             view_name = cls.view_name()
-            pattern = f'https://open.spotify.com/{view_name}'
+            pattern = f"https://open.spotify.com/{view_name}"
 
             try:
                 assert match(pattern, url) is not None
@@ -190,6 +200,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         Returns:
             Callable[..., Any]: the decorated method
         """
+
         @wraps(method)
         def wrapper(cls, *args, **kwargs):
             try:
