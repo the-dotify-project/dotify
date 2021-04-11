@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dotify"
-version = "0.1.1"
+version = "0.1.2"
 description = "🐍🎶 Yet another Spotify Web API Python library"
 readme = "README.md"
 authors = ["billsioros <billsioros97@gmail.com>"]
