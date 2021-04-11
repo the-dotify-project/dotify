@@ -4,7 +4,7 @@
 
 [![Build](https://github.com/billsioros/dotify/actions/workflows/build.yml/badge.svg)](https://github.com/billsioros/dotify/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/billsioros/dotify/branch/master/graph/badge.svg?token=3F4OYLDW7P)](https://codecov.io/gh/billsioros/dotify)
-
+![PyPI](https://img.shields.io/pypi/v/dotify)
 
 *🚧 The project is under development 🚧*
 
@@ -25,7 +25,7 @@ PosixPath('SAINt JHN - 5 Thousand Singles.mp3')
 ## Installation
 
 ```bash
-pip install git+https://github.com/billsioros/dotify.git@master
+pip install dotify
 ```
 
 *Will be publishing to PyPI soon !*
