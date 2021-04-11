@@ -1,13 +1,8 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/flask
-# Edit at https://www.toptal.com/developers/gitignore?templates=flask
+# Created by https://www.toptal.com/developers/gitignore/api/python
+# Edit at https://www.toptal.com/developers/gitignore?templates=python
 
-### Flask ###
-instance/*
-!instance/.gitignore
-.webassets-cache
-
-### Flask.Python Stack ###
+### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -24,8 +19,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
 sdist/
 var/
@@ -74,6 +67,7 @@ db.sqlite3-journal
 
 # Flask stuff:
 instance/
+.webassets-cache
 
 # Scrapy stuff:
 .scrapy
@@ -102,6 +96,9 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
+# poetry
+#poetry.lock
+
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
@@ -113,8 +110,9 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
-.venv
+# .env
+.env/
+.venv/
 env/
 venv/
 ENV/
@@ -143,15 +141,26 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# operating system-related files
+*.DS_Store #file properties cache/storage on macOS
+Thumbs.db #thumbnail cache on Windows
+
 # profiling data
 .prof
 
-# End of https://www.toptal.com/developers/gitignore/api/flask
+
+# End of https://www.toptal.com/developers/gitignore/api/python
 
 # Custom
 
+# Editor specific files
 .vscode
+
+# Output files
 *.mp3
+*.mp4
+
+# Secrets/Credentials Files
 settings.json
 
 
