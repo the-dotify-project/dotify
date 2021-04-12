@@ -1,3 +1,8 @@
+# Version: v0.1.4
+
+* [#7](https://github.com/billsioros/dotify/pull/7): Syncing branches
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
