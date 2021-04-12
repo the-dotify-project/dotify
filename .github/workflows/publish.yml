@@ -23,9 +23,10 @@ jobs:
       - name: Get the project's current version
         run: |
           VERSION="$(poetry version -s)"
+
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create Release
-        uses: fregante/release-with-changelog@v3
+        - uses: fregante/release-with-changelog@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

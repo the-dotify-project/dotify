@@ -7,7 +7,7 @@ authors = ["billsioros <billsioros97@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.8"
 python-jsonschema-objects = "*"
 youtube-search-python = "*"
 requests = "*"
