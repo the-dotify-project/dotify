@@ -11,9 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run Changelog CI
-        uses: saadmk11/changelog-ci@v0.8.0
+      - name: Update Changelog
+        uses: thomaseizinger/keep-a-changelog-new-release@1.1.0
         with:
-          changelog_filename: CHANGELOG.md
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          version: ${{ github.event.inputs.version }}
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Updated the Changelog
