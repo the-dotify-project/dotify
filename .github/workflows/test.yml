@@ -31,7 +31,7 @@ jobs:
         poetry install
 
     - name: Test with tox
-      run: tox
+      run: poetry run tox
 
     - name: Generate the coverage report
       env:
