@@ -1,20 +1,29 @@
-name: Changelog CI
+name: Generate Changelog
 
 on:
   pull_request:
     types: [ opened, reopened ]
 
 jobs:
-  build:
+  generate-changelog:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2.0.0
+
+      - name: Get the project's current version
+        run: |
+          VERSION="$(poetry version -s)"
+
+          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Update Changelog
         uses: thomaseizinger/keep-a-changelog-new-release@1.1.0
         with:
-          version: ${{ github.event.inputs.version }}
+          version: ${{ env.RELEASE_VERSION }}
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
