@@ -28,14 +28,14 @@ jobs:
       env:
           SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
           SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
-      run: poetry run tox
+      run: poetry run python -m tox
 
     - name: Generate the coverage report
       env:
         SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
         SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
       run: |
-        poetry run pytest --cov=./ --cov-report=xml
+        poetry run python -m pytest --cov=./ --cov-report=xml
 
     - name: Upload the coverage report to Codecov
       uses: codecov/codecov-action@v1
