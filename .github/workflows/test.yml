@@ -25,14 +25,14 @@ jobs:
       uses: snok/install-poetry@v1.1.3
 
     - name: Test with tox
-      run: poetry run tox
+      run: tox
 
     - name: Generate the coverage report
       env:
         SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
         SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
       run: |
-        poetry run pytest --cov=./ --cov-report=xml
+        pytest --cov=./ --cov-report=xml
 
     - name: Upload the coverage report to Codecov
       uses: codecov/codecov-action@v1
