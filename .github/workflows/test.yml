@@ -25,6 +25,9 @@ jobs:
       uses: snok/install-poetry@v1.1.3
 
     - name: Test with tox
+      env:
+          SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
+          SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
       run: tox
 
     - name: Generate the coverage report
