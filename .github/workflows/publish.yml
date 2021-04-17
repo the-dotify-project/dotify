@@ -51,4 +51,3 @@ jobs:
         uses: fregante/release-with-changelog@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: v${{ env.RELEASE_VERSION }}
