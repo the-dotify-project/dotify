@@ -32,7 +32,7 @@ jobs:
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Update Changelog
-        uses: thomaseizinger/keep-a-changelog-new-release@1.1.0
+        uses: thomaseizinger/keep-a-changelog-new-release@v1
         with:
           version: v${{ env.RELEASE_VERSION }}
 
