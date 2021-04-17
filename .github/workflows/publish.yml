@@ -15,10 +15,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Publish to PyPI
-        uses: JRubics/poetry-publish@v1
+      # - name: Publish to PyPI
+      #   uses: JRubics/poetry-publish@v1
+      #   with:
+      #     pypi_token: ${{ secrets.DOTIFY_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          pypi_token: ${{ secrets.DOTIFY_TOKEN }}
+          python-version: 3.8
+
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: 1.1.6
 
       - name: Get the project's current version
         run: |
@@ -30,4 +40,4 @@ jobs:
         uses: fregante/release-with-changelog@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ env.RELEASE_VERSION }}
+          tag: v${{ env.RELEASE_VERSION }}
