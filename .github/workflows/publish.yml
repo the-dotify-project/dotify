@@ -36,6 +36,12 @@ jobs:
 
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
 
+      - name: Push tag
+        uses: mathieudutour/github-tag-action@v5.4
+        with:
+          custom_tag: v${{ env.RELEASE_VERSION }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish a new Release
         uses: fregante/release-with-changelog@v3
         with:
