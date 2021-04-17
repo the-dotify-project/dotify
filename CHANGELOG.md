@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v0.1.5] - 2021-04-17
 
-## [v0.1.5] - 2021-04-17
+## [v0.1.4] - 2021-04-17
 
 [Unreleased]: https://github.com/billsioros/dotify/compare/v0.1.5...HEAD
 
