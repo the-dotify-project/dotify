@@ -4,7 +4,7 @@
 
 [![Test](https://github.com/billsioros/dotify/actions/workflows/test.yml/badge.svg)](https://github.com/billsioros/dotify/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/billsioros/dotify/branch/master/graph/badge.svg?token=3F4OYLDW7P)](https://codecov.io/gh/billsioros/dotify)
-![PyPI](https://img.shields.io/pypi/v/dotify)
+[![PyPI](https://img.shields.io/pypi/v/dotify)](https://pypi.org/project/dotify/)
 
 *🚧 The project is under development 🚧*
 
@@ -28,15 +28,13 @@ PosixPath('SAINt JHN - 5 Thousand Singles.mp3')
 pip install dotify
 ```
 
-*Will be publishing to PyPI soon !*
-
 ## License
 
 <img align="right" src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png">
 
 The project is licensed under the [MIT License](http://opensource.org/licenses/MIT):
 
-Copyright &copy; 2020 [Vasileios Sioros](https://github.com/billsioros)
+Copyright &copy; 2021 [Vasileios Sioros](https://github.com/billsioros)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
