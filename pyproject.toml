@@ -1,3 +1,7 @@
+[tool.semantic_release]
+version_toml = "pyproject.toml:tool.poetry.version"
+changelog_components = "semantic_release.changelog.changelog_headers,semantic_release.changelog.compare_url"
+
 [tool.poetry]
 name = "dotify"
 version = "0.1.5"
@@ -32,6 +36,7 @@ tox-gh-actions = "^2.5.0"
 pre-commit = "^2.12.1"
 mkdocs = "^1.1.2"
 commitizen = "^2.17.4"
+python-semantic-release = "^7.15.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
