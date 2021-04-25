@@ -17,34 +17,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      # Run semantic release:
+      # - Update CHANGELOG.md
+      # - Update version in code
+      # - Create git tag
+      # - Create Github release
+      # - Publish to PyPI
+      - name: Python Semantic Release
+        uses: relekang/python-semantic-release@v7.15.0
         with:
-          python-version: 3.8
-
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: 1.1.6
-
-      - name: Get the project's current version
-        run: |
-          VERSION="$(poetry version -s)"
-
-          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Push tag
-        uses: mathieudutour/github-tag-action@v5.4
-        with:
-          custom_tag: ${{ env.RELEASE_VERSION }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish a new Release
-        uses: fregante/release-with-changelog@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish to PyPI
-        uses: JRubics/poetry-publish@v1
-        with:
           pypi_token: ${{ secrets.DOTIFY_TOKEN }}

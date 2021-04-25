@@ -7,9 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+<!--next-version-placeholder-->
+
 ## [v0.1.5] - 2021-04-17
 
+### Added
+
+- Enabled automatic releases via [GitHub Actions](.github/workflows/publish.yml)
+- Enabled automatic `Changelog` generation via [GitHub Actions](.github/workflows/generate-changelog.yml)
+
 ## [v0.1.4] - 2021-04-17
+
+🎂🎉 Initial Release 🎂🎉
 
 [Unreleased]: https://github.com/billsioros/dotify/compare/v0.1.5...HEAD
 
