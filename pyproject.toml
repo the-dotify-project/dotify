@@ -4,7 +4,7 @@ changelog_components = "semantic_release.changelog.changelog_headers,semantic_re
 
 [tool.poetry]
 name = "dotify"
-version = "0.1.5"
+version = "0.2.0"
 description = "🐍🎶 Yet another Spotify Web API Python library"
 readme = "README.md"
 authors = ["billsioros <billsioros97@gmail.com>"]

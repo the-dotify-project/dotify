@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (2021-04-26)
+### Feature
+* **mkdocs.yml:** Removed ([`0b87161`](https://github.com/billsioros/dotify/commit/0b87161f052f3f188545bf09876db1aac1f53300))
+
+### Documentation
+* **README.md:** Added `BetterCodeHub` badge ([`5c813db`](https://github.com/billsioros/dotify/commit/5c813db54525cc4c4fb7f168874d06172e420066))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.1.5...v0.2.0)**
+
 ## [v0.1.5] - 2021-04-17
 
 ### Added
