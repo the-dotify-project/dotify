@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.3.4 (2021-04-27)
+### Fix
+* **pyproject.toml:** Added support for python **3.6** ([`10e9f6f`](https://github.com/billsioros/dotify/commit/10e9f6f74c52597db8b9c555589eebdfb5ccd483))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.3...v0.3.4)**
+
 ## v0.3.3 (2021-04-27)
 ### Fix
 * **pyproject.toml:** Added `python -m` prefix in `build_command` ([`3075358`](https://github.com/billsioros/dotify/commit/3075358814f923e9abfb5777d18cdebdbe66c997))
