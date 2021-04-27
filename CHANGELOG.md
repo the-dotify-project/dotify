@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.3.5 (2021-04-27)
+### Fix
+* **publish.yml:** Publishing via another gh-action ([`8487eb7`](https://github.com/billsioros/dotify/commit/8487eb7dc5f24ede32f5300f6f0d640fd0b21c0c))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.4...v0.3.5)**
+
+## v0.3.4 (2021-04-27)
+### Fix
+* **pyproject.toml:** Added support for python **3.6** ([`10e9f6f`](https://github.com/billsioros/dotify/commit/10e9f6f74c52597db8b9c555589eebdfb5ccd483))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.3...v0.3.4)**
+
+## v0.3.3 (2021-04-27)
+### Fix
+* **pyproject.toml:** Added `python -m` prefix in `build_command` ([`3075358`](https://github.com/billsioros/dotify/commit/3075358814f923e9abfb5777d18cdebdbe66c997))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.2...v0.3.3)**
+
+## v0.3.2 (2021-04-27)
+### Fix
+* **CHANGELOG.md:** Triggering release ([`2e57722`](https://github.com/billsioros/dotify/commit/2e57722765ac88adb20f447efa7fa476ed924081))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.1...v0.3.2)**
+
 ## v0.1.5 (2021-04-17)
 ### Feature
 
