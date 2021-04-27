@@ -4,7 +4,6 @@ changelog_components = "semantic_release.changelog.changelog_headers,semantic_re
 build_command = "poetry build"
 upload_to_release = false
 
-
 [tool.poetry]
 name = "dotify"
 version = "0.2.5"
