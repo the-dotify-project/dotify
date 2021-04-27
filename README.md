@@ -2,7 +2,7 @@
 
 > **Because OOP is the light**
 
-[![Test](https://github.com/billsioros/dotify/actions/workflows/test.yml/badge.svg)](https://github.com/billsioros/dotify/actions/workflows/test.yml)
+[![CI](https://github.com/billsioros/dotify/actions/workflows/ci.yml/badge.svg)](https://github.com/billsioros/dotify/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/billsioros/dotify/branch/master/graph/badge.svg?token=3F4OYLDW7P)](https://codecov.io/gh/billsioros/dotify)
 [![BCH compliance](https://bettercodehub.com/edge/badge/billsioros/dotify?branch=master)](https://bettercodehub.com/)
 [![PyPI](https://img.shields.io/pypi/v/dotify)](https://pypi.org/project/dotify/)
