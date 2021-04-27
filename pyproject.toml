@@ -2,6 +2,8 @@
 version_toml = "pyproject.toml:tool.poetry.version"
 changelog_components = "semantic_release.changelog.changelog_headers,semantic_release.changelog.compare_url"
 build_command = "poetry build"
+upload_to_release = false
+
 
 [tool.poetry]
 name = "dotify"
