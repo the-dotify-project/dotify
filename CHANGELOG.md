@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.3.2 (2021-04-27)
+### Fix
+* **CHANGELOG.md:** Triggering release ([`2e57722`](https://github.com/billsioros/dotify/commit/2e57722765ac88adb20f447efa7fa476ed924081))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.1...v0.3.2)**
+
 ## v0.1.5 (2021-04-17)
 ### Feature
 
