@@ -17,6 +17,11 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                python-version: 3.8
+
             - name: Create a GitHub Release & Publish to PyPI
               uses: relekang/python-semantic-release@v7.15.3
               with:
