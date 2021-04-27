@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.2.3 (2021-04-27)
+### Fix
+* **publish.yml:** Removed `mathieudutour/github-tag-action` ([`cfd5a38`](https://github.com/billsioros/dotify/commit/cfd5a38993709515e093994037db78b14683f3df))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.2.2...v0.2.3)**
+
 ## v0.2.2 (2021-04-27)
 ### Fix
 * **publish.yml:** Dependencies were being skipped ([`407af5d`](https://github.com/billsioros/dotify/commit/407af5d17e8aa51a47458eedfa792dad36ad956e))
