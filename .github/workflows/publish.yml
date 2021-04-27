@@ -17,7 +17,12 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Bump the project's version
+            - name: Install Poetry
+              uses: abatilo/actions-poetry@v2.0.0
+              with:
+                  poetry-version: 1.1.6
+
+            - name: Create a GitHub Release & Publish to PyPI
               uses: relekang/python-semantic-release@v7.15.3
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
