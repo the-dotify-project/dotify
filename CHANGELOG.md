@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.3.1 (2021-04-27)
+### Fix
+* **publish.yml:** Added `pip install poetry` to `build_command` ([`9e52d1c`](https://github.com/billsioros/dotify/commit/9e52d1ca228e8f88ee45b3b09e031181d06efaa2))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.0...v0.3.1)**
+
 ## v0.3.0 (2021-04-27)
 ### Feature
 * **pyproject.toml:** Manually changing version ([`c2dd3b2`](https://github.com/billsioros/dotify/commit/c2dd3b2370b8c55fd43fd90fcc84eff7240b0ee5))
