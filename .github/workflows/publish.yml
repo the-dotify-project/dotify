@@ -38,14 +38,8 @@ jobs:
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Bump the project's version
-        uses: relekang/python-semantic-release@v7.15.0
+        uses: relekang/python-semantic-release@v7.15.3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push tag
-        uses: mathieudutour/github-tag-action@v5.4
-        with:
-          custom_tag: ${{ env.RELEASE_VERSION }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish a new Release
