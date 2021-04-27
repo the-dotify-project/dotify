@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.2.5 (2021-04-27)
+### Fix
+* **pyproject.toml:** Comitting to trigger release ([`cba5835`](https://github.com/billsioros/dotify/commit/cba5835a24ec341f6292d42d0f222d58cf7484ea))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.2.4...v0.2.5)**
+
 ## v0.2.4 (2021-04-27)
 ### Fix
 * **publish.yml:** Testing `publish.yml` ([`f44d77a`](https://github.com/billsioros/dotify/commit/f44d77acce341a868c1c7d8eb8774028634c93ce))

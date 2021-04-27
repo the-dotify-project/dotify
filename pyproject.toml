@@ -7,7 +7,7 @@ upload_to_release = false
 
 [tool.poetry]
 name = "dotify"
-version = "0.2.4"
+version = "0.2.5"
 description = "🐍🎶 Yet another Spotify Web API Python library"
 readme = "README.md"
 authors = ["billsioros <billsioros97@gmail.com>"]
