@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.2.2 (2021-04-27)
+### Fix
+* **publish.yml:** Dependencies were being skipped ([`407af5d`](https://github.com/billsioros/dotify/commit/407af5d17e8aa51a47458eedfa792dad36ad956e))
+* **pyproject.toml:** Testing new `publish.yml` ([`5064621`](https://github.com/billsioros/dotify/commit/506462114591cd8d0457d294e6dea638fcc17681))
+
+### Documentation
+* **README.md:** Fixed badge dangling reference ([`0269f18`](https://github.com/billsioros/dotify/commit/0269f184ad562f4b07c0fe05a34b048b4d7e70c5))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.2.1...v0.2.2)**
+
 ## v0.2.1 (2021-04-26)
 ### Fix
 * **pyproject.toml:** Added `semantic-version` `build_command` ([`6d8801f`](https://github.com/billsioros/dotify/commit/6d8801f911e900ff5ad98c61beac74ec2d73e325))
