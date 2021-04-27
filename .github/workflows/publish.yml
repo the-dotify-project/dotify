@@ -1,62 +1,24 @@
 name: Publish
 
 on:
-  pull_request:
-    branches:
-      - master
-    types:
-      - closed
+    pull_request:
+        branches:
+            - master
+        types:
+            - closed
 
 jobs:
-  publish:
-    name: Publish
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+    publish:
+        name: Publish
+        runs-on: ubuntu-latest
+        if: github.event.pull_request.merged == true
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: 1.1.6
-
-      - name: Install dependencies
-        run: |
-            poetry install
-
-      - name: Get the project's new release
-        run: |
-          VERSION="$(poetry run semantic-release print-version)"
-
-          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Bump the project's version
-        uses: relekang/python-semantic-release@v7.15.3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish a new Release
-        uses: fregante/release-with-changelog@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Update the Changelog
-        run: |
-            poetry run git-changelog . -s angular -t keepachangelog -o CHANGELOG.md
-
-      - name: Commit the Changelog
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Updated the Changelog
-
-      - name: Publish to PyPI
-        uses: JRubics/poetry-publish@v1
-        with:
-          pypi_token: ${{ secrets.DOTIFY_TOKEN }}
+            - name: Bump the project's version
+              uses: relekang/python-semantic-release@v7.15.3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  pypi_token: ${{ secrets.DOTIFY_TOKEN }}
