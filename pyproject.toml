@@ -1,7 +1,7 @@
 [tool.semantic_release]
 version_toml = "pyproject.toml:tool.poetry.version"
 changelog_components = "semantic_release.changelog.changelog_headers,semantic_release.changelog.compare_url"
-build_command = "poetry build"
+build_command = "pip install poetry && poetry build"
 upload_to_release = false
 
 [tool.poetry]
