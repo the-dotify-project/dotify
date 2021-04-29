@@ -2,7 +2,6 @@
 version_toml = "pyproject.toml:tool.poetry.version"
 changelog_components = "semantic_release.changelog.changelog_headers,semantic_release.changelog.compare_url"
 build_command = "python -m pip install poetry && poetry build"
-# upload_to_release = false
 upload_to_pypi = false
 
 [tool.poetry]
@@ -12,9 +11,14 @@ description = "🐍🎶 Yet another Spotify Web API Python library"
 readme = "README.md"
 authors = ["billsioros <billsioros97@gmail.com>"]
 license = "MIT"
+homepage = "https://billsioros.github.io/dotify/"
+repository = "https://github.com/billsioros/dotify/"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/billsioros/dotify/issues"
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.7"
 python-jsonschema-objects = "*"
 youtube-search-python = "*"
 requests = "*"
@@ -42,6 +46,7 @@ python-semantic-release = "^7.15.3"
 mkdocs-material = "^7.1.3"
 mkdocstrings = "^0.15.0"
 mkdocs-minify-plugin = "^0.4.0"
+tox-pyenv = "^1.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
