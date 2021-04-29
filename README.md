@@ -4,11 +4,12 @@
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dotify)](https://www.python.org/)
 [![PyPI](https://img.shields.io/pypi/v/dotify)](https://pypi.org/project/dotify/)
-[![PyPI - License](https://img.shields.io/pypi/l/dotify)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/billsioros/dotify/actions/workflows/ci.yml/badge.svg)](https://github.com/billsioros/dotify/actions/workflows/ci.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/573685a448c6422d49de/maintainability)](https://codeclimate.com/github/billsioros/dotify/maintainability)
 [![codecov](https://codecov.io/gh/billsioros/dotify/branch/master/graph/badge.svg?token=3F4OYLDW7P)](https://codecov.io/gh/billsioros/dotify)
 [![BCH compliance](https://bettercodehub.com/edge/badge/billsioros/dotify?branch=master)](https://bettercodehub.com/)
+[![PyPI - License](https://img.shields.io/pypi/l/dotify)](https://opensource.org/licenses/MIT)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 *🚧 The project is under development 🚧*
 
