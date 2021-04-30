@@ -25,5 +25,5 @@ jobs:
             - name: Create a GitHub Release
               uses: relekang/python-semantic-release@v7.15.4
               with:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  PYPI_TOKEN: ${{ secrets.DOTIFY_TOKEN }}
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  pypi_token: ${{ secrets.DOTIFY_TOKEN }}
