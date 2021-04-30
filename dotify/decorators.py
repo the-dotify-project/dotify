@@ -6,19 +6,17 @@ class classproperty:
     """
     A decorator that converts a method to a `classproperty`
 
-    Example Usage:
-    --------------
-
-    >>> from random import random
-    >>> class Foo:
-    ...     @classproperty
-    ...     def bar(cls):
-    ...         return
-    ...
-    >>> Foo.bar
-    0.6597781045639168
-    >>> Foo.bar
-    0.45628230476739395
+    Examples:
+        >>> from random import random
+        >>> class Foo:
+        ...     @classproperty
+        ...     def bar(cls):
+        ...         return
+        ...
+        >>> Foo.bar
+        0.6597781045639168
+        >>> Foo.bar
+        0.45628230476739395
     """
 
     def __init__(self, method: Callable[..., Any]) -> None:
@@ -41,19 +39,17 @@ class cached_classproperty(classproperty):
     As indicated by the name, once the method is called, its
     return value is cached and is therefore returned unchanged.
 
-    Example Usage:
-    --------------
-
-    >>> from random import random
-    >>> class Foo:
-    ...     @cached_classproperty
-    ...     def bar(cls):
-    ...         return
-    ...
-    >>> Foo.bar
-    0.6597781045639168
-    >>> Foo.bar
-    0.6597781045639168
+    Examples:
+        >>> from random import random
+        >>> class Foo:
+        ...     @cached_classproperty
+        ...     def bar(cls):
+        ...         return
+        ...
+        >>> Foo.bar
+        0.6597781045639168
+        >>> Foo.bar
+        0.6597781045639168
     """
 
     def __init__(self, method: Callable[..., Any]) -> None:
