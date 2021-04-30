@@ -1,0 +1,62 @@
+site_name: Dotify
+site_description: "🐍🎶 Yet another Spotify Web API Python library."
+# site_url: "https://mkdocstrings.github.io/"
+repo_url: "https://github.com/billsioros/dotify"
+# edit_uri: "tree/master/docs"
+repo_name: "billsioros/dotify"
+copyright: |
+  Copyright &copy; 2021 <a href="https://github.com/billsioros"  target="_blank" rel="noopener">Vasileios Sioros</a>
+
+nav:
+  - Overview: index.md
+  - Code Reference:
+    - Dotify: dotify.md
+    - Models:
+      - Album: models/album.md
+      - Playlist: models/playlist.md
+      - Track: models/track.md
+
+theme:
+  name: material
+
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+plugins:
+- search
+- mkdocstrings:
+    default_handler: python
+    handlers:
+      python:
+        rendering:
+          show_source: false
+- minify:
+    minify_html: true
+
+markdown_extensions:
+- admonition
+- pymdownx.emoji
+- pymdownx.magiclink
+- pymdownx.snippets:
+    check_paths: true
+- pymdownx.superfences
+- pymdownx.tabbed
+- pymdownx.tasklist
+- toc:
+    permalink: "¤"

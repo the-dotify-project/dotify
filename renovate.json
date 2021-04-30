@@ -2,5 +2,9 @@
   "extends": [
     "config:base",
     "schedule:weekly"
-  ]
+  ],
+  "assignees": [
+    "billsioros"
+  ],
+  "automerge": true
 }

@@ -23,11 +23,7 @@ jobs:
                 python-version: 3.8
 
             - name: Create a GitHub Release
-              uses: relekang/python-semantic-release@v7.15.3
+              uses: relekang/python-semantic-release@v7.15.4
               with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-
-            - name: Publish to PyPI
-              uses: JRubics/poetry-publish@v1
-              with:
-                pypi_token: ${{ secrets.DOTIFY_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  PYPI_TOKEN: ${{ secrets.DOTIFY_TOKEN }}

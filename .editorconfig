@@ -13,15 +13,16 @@ end_of_line = lf
 [*.py]
 max_line_length = 99
 
-[*.bat]
-indent_style = tab
-end_of_line = crlf
+[*.json]
+indent_size = 2
 
-[LICENSE]
-insert_final_newline = false
+[*.yml]
+indent_size = 2
 
-[Makefile]
-indent_style = tab
+[*.yaml]
+indent_size = 2
 
-[*.{diff,patch}]
-trim_trailing_whitespace = false
+[*.md]
+charset = unset
+end_of_line = unset
+indent_size = unset
