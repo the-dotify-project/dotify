@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.3.7 (2021-04-30)
+### Fix
+* **docs.yml:** Running `mkdocs` via poetry ([`9475e73`](https://github.com/billsioros/dotify/commit/9475e7322cae23e66acb895d1fd471dc7f161eba))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.6...v0.3.7)**
+
 ## v0.3.6 (2021-04-30)
 ### Fix
 * **publish.yml:** Attempting to publish via `python-semantic-release` ([`ace92ca`](https://github.com/billsioros/dotify/commit/ace92caa7dfc55518883d01adb5355af5defc0e1))
