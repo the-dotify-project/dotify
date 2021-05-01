@@ -1,0 +1,39 @@
+name: Code Coverage
+
+on:
+  workflow_run:
+    workflows: ["Publish"]
+    types:
+      - completed
+
+jobs:
+  codecov:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+
+        - name: Set up Python 3.8
+          uses: actions/setup-python@v2
+          with:
+            python-version: 3.8
+
+        - name: Install Poetry
+          uses: abatilo/actions-poetry@v2.0.0
+          with:
+            poetry-version: 1.1.6
+
+        - name: Install dependencies
+          run: |
+            poetry install
+
+        - name: Generate the coverage report
+          env:
+            SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
+            SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
+          run: |
+            poetry run python -m pytest --cov=./ --cov-report=xml
+
+        - name: Publish the coverage report to Code Climate
+          uses: paambaati/codeclimate-action@v2.7.5
+          env:
+            CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
