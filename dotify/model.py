@@ -4,7 +4,7 @@ from importlib import import_module
 from os import PathLike
 from pathlib import Path
 from re import match
-from typing import Any, Callable, Iterator
+from typing import Any, Callable, Iterator, Optional
 
 from spotipy.exceptions import SpotifyException
 
@@ -112,13 +112,16 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         return f'<{self.__class__.__name__} "{str(self)}">'
 
     @cached_classproperty
-    def context(cls) -> Dotify:
+    def context(cls) -> Optional[Dotify]:
         """Get the current `Dotify` context
 
         Returns:
-            Dotify: the current `Dotify` context
+            Optional[Dotify]: the current `Dotify` context
         """
-        return Dotify.get_context()
+        try:
+            return Dotify.get_context()
+        except TypeError:
+            return None
 
     @classmethod
     def view_name(cls) -> str:

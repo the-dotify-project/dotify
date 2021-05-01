@@ -10,6 +10,7 @@
 [![BCH compliance](https://bettercodehub.com/edge/badge/billsioros/dotify?branch=master)](https://bettercodehub.com/)
 [![PyPI - License](https://img.shields.io/pypi/l/dotify)](https://opensource.org/licenses/MIT)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![docs](https://github.com/billsioros/dotify/actions/workflows/docs.yml/badge.svg)](https://billsioros.github.io/dotify/)
 
 *🚧 The project is under development 🚧*
 
@@ -26,6 +27,10 @@
 >>> result.download("SAINt JHN - 5 Thousand Singles.mp3")
 PosixPath('SAINt JHN - 5 Thousand Singles.mp3')
 ```
+
+## Documentation
+
+The project's documentation can be found [here](https://billsioros.github.io/dotify/).
 
 ## Installation
 

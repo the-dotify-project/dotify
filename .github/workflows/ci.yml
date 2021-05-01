@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   test:
@@ -14,37 +14,24 @@ jobs:
         platform: [ubuntu-latest, macos-latest, windows-latest]
         python-version: [3.7, 3.8, 3.9]
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install Poetry
-      uses: abatilo/actions-poetry@v2.0.0
-      with:
-        poetry-version: 1.1.6
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: 1.1.6
 
-    - name: Install dependencies
-      run: |
-        poetry install
+      - name: Install dependencies
+        run: |
+          poetry install
 
-    - name: Test with tox
-      env:
+      - name: Test with tox
+        env:
           SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
           SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
-      run: poetry run python -m tox
-
-    - name: Generate the coverage report
-      env:
-        SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
-        SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
-      run: |
-        poetry run python -m pytest --cov=./ --cov-report=xml
-
-    - name: Upload the coverage report to Codecov
-      uses: codecov/codecov-action@v1
-      with:
-        fail_ci_if_error: true
-        verbose: true
+        run: poetry run python -m tox
