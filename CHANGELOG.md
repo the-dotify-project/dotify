@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v0.3.8 (2021-05-01)
+### Fix
+* **model.py:** `context` now does not throw ([`82f93d9`](https://github.com/billsioros/dotify/commit/82f93d92e16860e3dd751125e0c5f72125781231))
+
+### Documentation
+* **README.md:** Added `docs` link & badge ([`42d4abe`](https://github.com/billsioros/dotify/commit/42d4abe9b050f0cca20db6ea002e3cea07dcb6ab))
+
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.7...v0.3.8)**
+
 ## v0.3.5 (2021-04-27)
 ### Fix
 * **publish.yml:** Publishing via another gh-action ([`8487eb7`](https://github.com/billsioros/dotify/commit/8487eb7dc5f24ede32f5300f6f0d640fd0b21c0c))
