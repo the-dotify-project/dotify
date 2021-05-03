@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 * **README.md:** Added `docs` link & badge ([`42d4abe`](https://github.com/billsioros/dotify/commit/42d4abe9b050f0cca20db6ea002e3cea07dcb6ab))
 
-**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.7...v0.3.8)**
+**[See all commits in this version](https://github.com/billsioros/dotify/compare/v0.3.5...v0.3.8)**
 
 ## v0.3.5 (2021-04-27)
 ### Fix

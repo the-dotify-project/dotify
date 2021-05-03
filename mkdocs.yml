@@ -1,8 +1,8 @@
 site_name: Dotify
 site_description: "🐍🎶 Yet another Spotify Web API Python library."
-# site_url: "https://mkdocstrings.github.io/"
+site_url: "https://billsioros.github.io/dotify/"
 repo_url: "https://github.com/billsioros/dotify"
-# edit_uri: "tree/master/docs"
+edit_uri: "edit/master/docs/"
 repo_name: "billsioros/dotify"
 copyright: |
   Copyright &copy; 2021 <a href="https://github.com/billsioros"  target="_blank" rel="noopener">Vasileios Sioros</a>
