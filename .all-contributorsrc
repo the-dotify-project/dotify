@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "billsioros",
+      "name": "Vasilis Sioros",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33862937?v=4",
+      "profile": "https://www.linkedin.com/in/vasileios-sioros/",
+      "contributions": [
+        "maintenance",
+        "projectManagement",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "dotify",
+  "projectOwner": "billsioros",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
