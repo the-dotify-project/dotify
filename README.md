@@ -1,4 +1,4 @@
-![Dotify](/docs/img/logo.png)
+![Dotify](https://raw.githubusercontent.com/billsioros/dotify/master/docs/img/logo.png)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dotify)](https://www.python.org/)
 [![PyPI](https://img.shields.io/pypi/v/dotify)](https://pypi.org/project/dotify/)
@@ -25,7 +25,7 @@
 PosixPath('SAINt JHN - 5 Thousand Singles.mp3')
 ```
 
-Feel free to check the [examples](/examples) folder for more use case!
+Feel free to check the [examples](/examples) folder for more use cases!
 
 ## Features
 
@@ -50,7 +50,7 @@ pip install dotify
 
 ## Contributing
 
-If you would like to contribute to the project, please go through the [Contributing Guidelines](/CONTRIBUTING.md) first.
+If you would like to contribute to the project, please go through the [Contributing Guidelines](https://billsioros.github.io/dotify/contributing) first.
 
 ## Contributors ✨
 
