@@ -1,9 +1,4 @@
-# Dotify
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-> **Because OOP is the light**
+![Dotify](/docs/img/logo.png)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dotify)](https://www.python.org/)
 [![PyPI](https://img.shields.io/pypi/v/dotify)](https://pypi.org/project/dotify/)
@@ -12,15 +7,15 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/573685a448c6422d49de/maintainability)](https://codeclimate.com/github/billsioros/dotify/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/573685a448c6422d49de/test_coverage)](https://codeclimate.com/github/billsioros/dotify/test_coverage)
 [![PyPI - License](https://img.shields.io/pypi/l/dotify)](/LICENSE)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![GitHub commits since latest release (by SemVer)](https://img.shields.io/github/commits-since/billsioros/dotify/latest?style=flat-square)](https://github.com/billsioros/dotify/commits)
 
-*🚧 The project is under development 🚧*
+> _🚧 The project is currently under heavy development 🚧_
 
-## Example
+## Example Usage
 
 ```python
 >>> from dotify import Dotify, Track
->>> with Dotify(SPOTIFY_CLIENT, SPOTIFY_SECRET):
+>>> with Dotify(SPOTIFY_ID, SPOTIFY_SECRET):
 >>>     result = next(Track.search("SAINt JHN 5 Thousand Singles", limit=1))
 >>> result
 <Track "SAINt JHN - 5 Thousand Singles">
@@ -29,6 +24,19 @@
 >>> result.download("SAINt JHN - 5 Thousand Singles.mp3")
 PosixPath('SAINt JHN - 5 Thousand Singles.mp3')
 ```
+
+Feel free to check the [examples](/examples) folder for more use case!
+
+## Features
+
+- Searching for
+  - Tracks
+  - Playlists
+  - Albums
+- Downloading
+  - Tracks
+  - Playlists
+  - Albums
 
 ## Documentation
 
