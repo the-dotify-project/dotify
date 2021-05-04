@@ -20,6 +20,7 @@ This project follows the [all-contributors](https://allcontributors.org/) specif
       - [(Optional) Installing pyenv](#optional-installing-pyenv)
     - [Documenting your changes](#documenting-your-changes)
     - [Writing your commit message](#writing-your-commit-message)
+    - [Creating a pull request](#creating-a-pull-request)
 
 ## Code of Conduct
 
@@ -47,11 +48,11 @@ If you find an Issue that addresses the problem you're having, please add your o
 PRs can be a quick way to get your fix or improvement slated for the next release. In general, PRs should:
 
 - Only fix/add the functionality in question **OR** address wide-spread whitespace/style issues, not both.
-- Add unit or integration tests for fixed or changed functionality (if a test suite already exists).
 - Address a single concern in the least number of changed lines as possible.
 - Be accompanied by a complete Pull Request template (loaded automatically when a PR is created).
+- Add [unit or integration tests](/tests) for added or changed functionality.
 - Any code related changes should be accompanied by corresponding changes to the project's documentation.
-- If your pull request introduces a new feature, the corresponding [README section](/README.md#features) must be updated to reflect this.
+- If your pull request introduces a new feature, the corresponding `README` [section](/README.md#features) must be updated to reflect this. Make sure you also include [an example](/examples), showcasing this new functionality.
 - Write clear, concise commit message(s) using [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md). [Why?](#writing-your-commit-message)
 - If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
 
@@ -134,3 +135,7 @@ Having made your changes, please run `mkdocs server` and make sure that no error
 ### Writing your commit message
 
 The project's version number and [Changelog](/CHANGELOG.md), depend on a consistent commit history. As a result, your commit message's format is extremely important. Before opening a pull request, please make sure that your commits strictly follow the [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md).
+
+### Creating a pull request
+
+Make sure you review our [Pull Request Guidelines](#pull-requests), before initiating a PR.
