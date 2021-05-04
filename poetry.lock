@@ -918,6 +918,23 @@ jsmin = ">=2.2.2"
 mkdocs = ">=1.0.4"
 
 [[package]]
+name = "mkdocs-redirects"
+version = "1.0.3"
+description = "A MkDocs plugin for dynamic page redirects to prevent broken links."
+category = "dev"
+optional = false
+python-versions = ">=2.7"
+
+[package.dependencies]
+mkdocs = ">=1.0.4,<2"
+six = ">=1.15.0,<2"
+
+[package.extras]
+dev = ["pytest (<5)", "twine (>=1.13.0,<2)"]
+release = ["twine (>=1.13.0,<2)"]
+test = ["pytest (<5)"]
+
+[[package]]
 name = "mkdocstrings"
 version = "0.15.0"
 description = "Automatic documentation from sources, for MkDocs."
@@ -1879,7 +1896,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "fa019d4908a68c7b2dee4d292cb249a7a4a17e518071b87af5614d561dbb738b"
+content-hash = "98bb8aa4a97eeb13f7db0099fb64aaa2d8d5022c5b29b1ee0f8334e4c1fcdfb7"
 
 [metadata.files]
 appdirs = [
@@ -2336,6 +2353,9 @@ mkdocs-material-extensions = [
 mkdocs-minify-plugin = [
     {file = "mkdocs-minify-plugin-0.4.0.tar.gz", hash = "sha256:b975ab8e72b9aeadaa8ba2e2901be401475b280a1d8f1789653d66734ea7d8cc"},
     {file = "mkdocs_minify_plugin-0.4.0-py2-none-any.whl", hash = "sha256:8893aef8410458a2c1d6454342fc6d1db30439d60f7850c144803932262fd89c"},
+]
+mkdocs-redirects = [
+    {file = "mkdocs-redirects-1.0.3.tar.gz", hash = "sha256:db413e1d1ef5e88d8427c0a259d72ae85e74a2b51f6cd7605c2a8db358fe340f"},
 ]
 mkdocstrings = [
     {file = "mkdocstrings-0.15.0-py3-none-any.whl", hash = "sha256:a9891420c6b9e91903a4cdf4eaf5b79dab71f3af992f7871fb43fb0f869bb26f"},

@@ -6,22 +6,6 @@ Reading and following these guidelines will help us make the contribution proces
 
 This project follows the [all-contributors](https://allcontributors.org/) specification. You can read more [here](https://allcontributors.org/docs/en/bot/usage).
 
-- [Contributing](#contributing)
-  - [Code of Conduct](#code-of-conduct)
-  - [Getting Help](#getting-help)
-  - [Getting Started](#getting-started)
-    - [Issues](#issues)
-    - [Pull Requests](#pull-requests)
-  - [Setting up a local development environment](#setting-up-a-local-development-environment)
-    - [Installing Poetry](#installing-poetry)
-    - [Creating & Using Spotify client credentials](#creating--using-spotify-client-credentials)
-    - [Installing pre-commit hooks](#installing-pre-commit-hooks)
-    - [Formatting, Linting and Testing](#formatting-linting-and-testing)
-      - [(Optional) Installing pyenv](#optional-installing-pyenv)
-    - [Documenting your changes](#documenting-your-changes)
-    - [Writing your commit message](#writing-your-commit-message)
-    - [Creating a pull request](#creating-a-pull-request)
-
 ## Code of Conduct
 
 By participating and contributing to this project, you agree to uphold our [Code of Conduct](/CODE_OF_CONDUCT.md).
