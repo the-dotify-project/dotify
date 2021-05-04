@@ -15,6 +15,10 @@ nav:
       - Album: models/album.md
       - Playlist: models/playlist.md
       - Track: models/track.md
+  - Contributing Guidelines: contributing.md
+  - Code Of Conduct: code_of_conduct.md
+  - Changelog: changelog.md
+  - License: license.md
 
 theme:
   name: material
