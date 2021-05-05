@@ -1,13 +1,55 @@
 ![Dotify](https://raw.githubusercontent.com/billsioros/dotify/master/docs/img/logo.png)
 
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dotify)](https://www.python.org/)
-[![PyPI](https://img.shields.io/pypi/v/dotify)](https://pypi.org/project/dotify/)
-[![CI](https://github.com/billsioros/dotify/actions/workflows/ci.yml/badge.svg)](https://github.com/billsioros/dotify/actions/workflows/ci.yml)
-[![docs](https://github.com/billsioros/dotify/actions/workflows/docs.yml/badge.svg)](https://billsioros.github.io/dotify/)
-[![Maintainability](https://api.codeclimate.com/v1/badges/573685a448c6422d49de/maintainability)](https://codeclimate.com/github/billsioros/dotify/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/573685a448c6422d49de/test_coverage)](https://codeclimate.com/github/billsioros/dotify/test_coverage)
-[![PyPI - License](https://img.shields.io/pypi/l/dotify)](/LICENSE)
-[![GitHub commits since latest release (by SemVer)](https://img.shields.io/github/commits-since/billsioros/dotify/latest?style=flat-square)](https://github.com/billsioros/dotify/commits)
+<p align="center">
+  <a href="https://www.python.org/">
+    <img
+      src="https://img.shields.io/pypi/pyversions/dotify"
+      alt="PyPI - Python Version"
+    />
+  </a>
+  <a href="https://pypi.org/project/dotify/">
+    <img
+      src="https://img.shields.io/pypi/v/dotify"
+      alt="PyPI"
+    />
+  </a>
+  <a href="https://github.com/billsioros/dotify/actions/workflows/ci.yml">
+    <img
+      src="https://github.com/billsioros/dotify/actions/workflows/ci.yml/badge.svg"
+      alt="CI"
+    />
+  </a>
+  <a href="https://billsioros.github.io/dotify/">
+    <img
+      src="https://github.com/billsioros/dotify/actions/workflows/docs.yml/badge.svg"
+      alt="docs"
+    />
+  </a>
+  <a href="https://codeclimate.com/github/billsioros/dotify/maintainability">
+    <img
+      src="https://api.codeclimate.com/v1/badges/573685a448c6422d49de/maintainability"
+      alt="Maintainability"
+    />
+  </a>
+  <a href="https://codeclimate.com/github/billsioros/dotify/test_coverage">
+    <img
+      src="https://api.codeclimate.com/v1/badges/573685a448c6422d49de/test_coverage"
+      alt="Test Coverage"
+    />
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img
+      src="https://img.shields.io/pypi/l/dotify"
+      alt="PyPI - License"
+    />
+  </a>
+  <a href="https://github.com/billsioros/dotify/commits">
+    <img
+      src="https://img.shields.io/github/commits-since/billsioros/dotify/latest?style=flat-square"
+      alt="GitHub commits since latest release (by SemVer)"
+    />
+  </a>
+</p>
 
 > _🚧 The project is currently under heavy development 🚧_
 
