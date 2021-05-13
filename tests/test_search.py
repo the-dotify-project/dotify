@@ -25,7 +25,10 @@ class DotifySearchTestCase(DotifyBaseTestCase):
             {
                 "name": "The weirdest name for a playlist",
                 "url": "https://open.spotify.com/playlist/4cCL1HpErVIoY7FXYTomWt",
-                "description": "Some Symptoms Are: Amazing Music, Fuego Music, and Shookness because its that good",
+                "description": (
+                    "Some Symptoms Are: Amazing Music, Fuego Music, and "
+                    "Shookness because its that good"
+                ),
             }
         ]
 

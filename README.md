@@ -1,4 +1,4 @@
-![Dotify](https://raw.githubusercontent.com/billsioros/dotify/master/docs/img/logo.png)
+![Dotify](https://raw.githubusercontent.com/the-dotify-project/dotify/master/docs/img/logo.png)
 
 <p align="center">
   <a href="https://www.python.org/">
@@ -13,25 +13,25 @@
       alt="PyPI"
     />
   </a>
-  <a href="https://github.com/billsioros/dotify/actions/workflows/ci.yml">
+  <a href="https://github.com/the-dotify-project/dotify/actions/workflows/ci.yml">
     <img
-      src="https://github.com/billsioros/dotify/actions/workflows/ci.yml/badge.svg"
+      src="https://github.com/the-dotify-project/dotify/actions/workflows/ci.yml/badge.svg"
       alt="CI"
     />
   </a>
-  <a href="https://billsioros.github.io/dotify/">
+  <a href="https://the-dotify-project.github.io/dotify/">
     <img
-      src="https://github.com/billsioros/dotify/actions/workflows/docs.yml/badge.svg"
+      src="https://github.com/the-dotify-project/dotify/actions/workflows/docs.yml/badge.svg"
       alt="docs"
     />
   </a>
-  <a href="https://codeclimate.com/github/billsioros/dotify/maintainability">
+  <a href="https://codeclimate.com/github/the-dotify-project/dotify/maintainability">
     <img
       src="https://api.codeclimate.com/v1/badges/573685a448c6422d49de/maintainability"
       alt="Maintainability"
     />
   </a>
-  <a href="https://codeclimate.com/github/billsioros/dotify/test_coverage">
+  <a href="https://codeclimate.com/github/the-dotify-project/dotify/test_coverage">
     <img
       src="https://api.codeclimate.com/v1/badges/573685a448c6422d49de/test_coverage"
       alt="Test Coverage"
@@ -43,9 +43,9 @@
       alt="PyPI - License"
     />
   </a>
-  <a href="https://github.com/billsioros/dotify/commits">
+  <a href="https://github.com/the-dotify-project/dotify/commits">
     <img
-      src="https://img.shields.io/github/commits-since/billsioros/dotify/latest?style=flat-square"
+      src="https://img.shields.io/github/commits-since/the-dotify-project/dotify/latest?style=flat-square"
       alt="GitHub commits since latest release (by SemVer)"
     />
   </a>
@@ -82,7 +82,7 @@ Feel free to check the [examples](/examples) folder for more use cases!
 
 ## Documentation
 
-The project's documentation can be found [here](https://billsioros.github.io/dotify/).
+The project's documentation can be found [here](https://the-dotify-project.github.io/dotify/).
 
 ## Installation
 
@@ -92,7 +92,7 @@ pip install dotify
 
 ## Contributing
 
-If you would like to contribute to the project, please go through the [Contributing Guidelines](https://billsioros.github.io/dotify/contributing) first.
+If you would like to contribute to the project, please go through the [Contributing Guidelines](/docs/CONTRIBUTING.md) first.
 
 ## Contributors ✨
 

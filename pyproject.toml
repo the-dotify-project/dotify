@@ -10,11 +10,11 @@ description = "🐍🎶 Yet another Spotify Web API Python library"
 readme = "README.md"
 authors = ["billsioros <billsioros97@gmail.com>"]
 license = "MIT"
-homepage = "https://billsioros.github.io/dotify/"
-repository = "https://github.com/billsioros/dotify/"
+homepage = "https://the-dotify-project.github.io/dotify/"
+repository = "https://github.com/the-dotify-project/dotify/"
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/billsioros/dotify/issues"
+"Bug Tracker" = "https://github.com/the-dotify-project/dotify/issues"
 
 [tool.poetry.dependencies]
 python = "^3.7"
