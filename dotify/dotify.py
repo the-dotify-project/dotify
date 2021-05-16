@@ -10,7 +10,7 @@ logger = logging.getLogger(f"{logger.name}.{__name__}")
 
 
 class Dotify(Client):
-    """
+    """.
     Examples:
         >>> from dotify import Dotify
         ... with Dotify(spotify_client, spotify_secret):
@@ -21,7 +21,7 @@ class Dotify(Client):
     _context = threading.local()
 
     def __init__(self, client_id: str, client_secret: str) -> None:
-        """Create a `Dotify` instance
+        """Create a `Dotify` instance.
 
         Args:
             client_id (str): your Spotify API client ID
@@ -29,8 +29,9 @@ class Dotify(Client):
         """
         super().__init__(
             client_credentials_manager=SpotifyClientCredentials(
-                client_id=client_id, client_secret=client_secret
-            )
+                client_id=client_id,
+                client_secret=client_secret,
+            ),
         )
 
     def __del__(self):
@@ -50,7 +51,7 @@ class Dotify(Client):
 
     @classmethod
     def get_contexts(cls) -> List["Dotify"]:
-        """Get the `Dotify` context stack
+        """Get the `Dotify` context stack.
 
         Returns:
             List[Dotify]: the `Dotify` context stack
@@ -62,7 +63,7 @@ class Dotify(Client):
 
     @classmethod
     def get_context(cls) -> "Dotify":
-        """Get the topmost context from the stack
+        """Get the topmost context from the stack.
 
         Raises:
             TypeError: if the context stack is empty
@@ -76,7 +77,7 @@ class Dotify(Client):
             raise TypeError("No context on context stack")
 
     def search(self, type: str, query: str, limit: int = 1) -> List[Dict[str, Any]]:
-        """Perform a Spotify search given a `query`
+        """Perform a Spotify search given a `query`.
 
         Args:
             type (str): One of 'artist', 'album', 'track', 'playlist'

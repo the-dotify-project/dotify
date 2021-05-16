@@ -14,7 +14,7 @@ class DotifySearchTestCase(DotifyBaseTestCase):
                 "album.url": "https://open.spotify.com/album/0ufGvePLRPce9olVIZhRyE",
                 "artist.name": "SAINt JHN",
                 "artist.url": "https://open.spotify.com/artist/0H39MdGGX6dbnnQPt6NQkZ",
-            }
+            },
         ]
 
         self.search("Track", metadata[0]["name"], metadata)
@@ -27,9 +27,9 @@ class DotifySearchTestCase(DotifyBaseTestCase):
                 "url": "https://open.spotify.com/playlist/4cCL1HpErVIoY7FXYTomWt",
                 "description": (
                     "Some Symptoms Are: Amazing Music, Fuego Music, and "
-                    "Shookness because its that good"
+                    + "Shookness because its that good"
                 ),
-            }
+            },
         ]
 
         self.search("Playlist", metadata[0]["name"], metadata)
@@ -42,7 +42,7 @@ class DotifySearchTestCase(DotifyBaseTestCase):
                 "url": "https://open.spotify.com/album/3MKvhQoFSrR2PrxXXBHe9B",
                 "artist.name": "Eminem",
                 "artist.url": "https://open.spotify.com/artist/7dGJo4pcD2V6oG8kP0tJRR",
-            }
+            },
         ]
 
         self.search("Album", metadata[0]["name"], metadata)

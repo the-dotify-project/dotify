@@ -16,7 +16,8 @@ logger = logging.getLogger(f"{logger.name}.{__name__}")
 
 
 class ModelMeta(JsonSerializableMeta):
-    """
+    """A class handling any model metadata.
+
     A metaclass serving as an abstraction layer over
     the `JsonSerializableMeta` metaclass, that automatically
     resolves the path to the `Model`'s JSON schema, as well as
@@ -25,8 +26,7 @@ class ModelMeta(JsonSerializableMeta):
 
     @classmethod
     def dependency_basename(cls, model_name: str) -> str:
-        """Given the name of a `Model` resolve the basename of
-        the corresponding json schema
+        """Given the name of a `Model` resolve the basename of the corresponding json schema.
 
         Args:
             model_name (str): the name of a `Model`
@@ -38,8 +38,7 @@ class ModelMeta(JsonSerializableMeta):
 
     @classmethod
     def dependency_path(cls, model_name: str) -> PathLike:
-        """Given the name of a `Model` resolve the path to
-        the corresponding json schema
+        """Given the name of a `Model` resolve the path to the corresponding json schema.
 
         Args:
             model_name (str): the name of a `Model`
@@ -83,28 +82,20 @@ class ModelMeta(JsonSerializableMeta):
 
 
 class Model(JsonSerializable, metaclass=ModelMeta):
-    """
-    The base class for every Spotify Web API entity
-    """
+    """The base class for every Spotify Web API entity."""
 
     class UnexpectedError(Exception):
-        """An exception indicating an unexpected error"""
+        """An exception indicating an unexpected error."""
 
         pass
 
     class InvalidURL(Exception):
-        """
-        An exception thrown if the provided URL does not
-        correspond to a valid Spotify URL
-        """
+        """An exception thrown if the provided URL does not correspond to a valid Spotify URL."""
 
         pass
 
     class NotFound(Exception):
-        """
-        An exception thrown if an operation fails to
-        retrieve the necessary information
-        """
+        """An exception thrown if an operation fails to retrieve the necessary information."""
 
         pass
 
@@ -113,7 +104,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @cached_classproperty
     def context(cls) -> Optional[Dotify]:
-        """Get the current `Dotify` context
+        """Get the current `Dotify` context.
 
         Returns:
             Optional[Dotify]: the current `Dotify` context
@@ -125,7 +116,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def view_name(cls) -> str:
-        """Return the name of the Spotify view corresponding to the `Model`
+        """Return the name of the Spotify view corresponding to the `Model`.
 
         Returns:
             str: the name of the Spotify view
@@ -134,7 +125,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def search(cls, query: str, limit: int = 1) -> Iterator["Model"]:
-        """Perform a Spotify search given a `query`
+        """Perform a Spotify search given a `query`.
 
         Args:
             query (str): the search `query`
@@ -158,8 +149,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def validate_url(cls, method: Callable[..., Any]) -> Callable[..., Any]:
-        """A decorator that validates the supplied `URL`
-        before executing the decorated method
+        """A decorator that validates the supplied `URL` before executing the decorated method.
 
         Args:
             method (Callable[..., Any]): the method being decorated
@@ -187,8 +177,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def http_safeguard(cls, method: Callable[..., Any]) -> Callable[..., Any]:
-        """A decorator that converts http exceptions to `Model` level
-        exceptions
+        """A decorator that converts http exceptions to `Model` level exceptions.
 
         Args:
             method (Callable[..., Any]): the method being decorated

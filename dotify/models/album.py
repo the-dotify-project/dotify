@@ -52,7 +52,11 @@ class Album(Model):
         assert response.status_code == 200, f"Failed to fetch {self.images[0].url}"
 
         return APIC(
-            encoding=3, mime="image/jpeg", type=3, desc="Cover", data=response.content
+            encoding=3,
+            mime="image/jpeg",
+            type=3,
+            desc="Cover",
+            data=response.content,
         )
 
     @property
@@ -74,7 +78,10 @@ class Album(Model):
             response = self.context.album_tracks(self.url, offset=offset)
 
     def download(
-        self, path: PathLike, skip_existing: bool = False, logger: None = None
+        self,
+        path: PathLike,
+        skip_existing: bool = False,
+        logger: None = None,
     ) -> PathLike:
         """"""
         path = Path(path)
@@ -82,7 +89,9 @@ class Album(Model):
 
         for track in self.tracks:
             track.download(
-                path / f"{track}.mp3", skip_existing=skip_existing, logger=logger
+                path / f"{track}.mp3",
+                skip_existing=skip_existing,
+                logger=logger,
             )
 
         return path

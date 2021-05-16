@@ -14,7 +14,8 @@ class DotifyBaseTestCase(TestCase):
     def setUp(self):
         """ """
         self.client = Dotify(
-            DOTIFY_SETTINGS["spotify_id"], DOTIFY_SETTINGS["spotify_secret"]
+            DOTIFY_SETTINGS["spotify_id"],
+            DOTIFY_SETTINGS["spotify_secret"],
         )
 
         self.test_directory = Path(__file__).parent / "tmp"

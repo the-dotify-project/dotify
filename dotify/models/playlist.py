@@ -57,11 +57,16 @@ class Playlist(Model):
                 break
 
             response = self.context.playlist_items(
-                self.url, additional_types=("track",), offset=offset
+                self.url,
+                additional_types=("track",),
+                offset=offset,
             )
 
     def download(
-        self, path: PathLike, skip_existing: bool = False, logger: None = None
+        self,
+        path: PathLike,
+        skip_existing: bool = False,
+        logger: None = None,
     ) -> PathLike:
         """"""
         path = Path(path)
@@ -69,7 +74,9 @@ class Playlist(Model):
 
         for track in self.tracks:
             track.download(
-                path / f"{track}.mp3", skip_existing=skip_existing, logger=logger
+                path / f"{track}.mp3",
+                skip_existing=skip_existing,
+                logger=logger,
             )
 
         return path

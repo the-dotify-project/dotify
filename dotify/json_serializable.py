@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class JsonSerializableMeta(ABCMeta):
-    """
+    """.
     A metaclass responsible for resolving a class' JSON schema
     and defining the class at hand based on it
     """
@@ -29,7 +29,9 @@ class JsonSerializableMeta(ABCMeta):
             builder = ObjectBuilder(str(path))
 
             classes = builder.build_classes(
-                strict=True, named_only=True, standardize_names=False
+                strict=True,
+                named_only=True,
+                standardize_names=False,
             )
 
             json_schema = getattr(classes, name)
@@ -38,9 +40,7 @@ class JsonSerializableMeta(ABCMeta):
 
 
 class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
-    """
-    A class providing JSON serialization and de-serialization
-    """
+    """A class providing JSON serialization and de-serialization."""
 
     class Json:
         schema: PathLike
@@ -57,7 +57,9 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
 
     @classmethod
     def _resolve_dependency(cls, obj: Any) -> Optional["JsonSerializable"]:
-        """Given a `python_jsonschema_objects` it returns
+        """Resolve a class dependency.
+
+        Given a `python_jsonschema_objects` it returns
         the `JsonSerializable` dependency that has been registered
         with it, given that it's available
 

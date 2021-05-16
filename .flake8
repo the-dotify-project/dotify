@@ -1,4 +1,3 @@
 [flake8]
 max-line-length = 99
-# This ignore is required by black.
-extend-ignore = E203
+extend-ignore = E203 WPS431 Q000 WPS529

@@ -4,7 +4,7 @@ from typing import Any, Callable, Optional
 
 class classproperty:
     """
-    A decorator that converts a method to a `classproperty`
+    A decorator that converts a method to a `classproperty`.
 
     Examples:
         >>> from random import random
@@ -20,7 +20,7 @@ class classproperty:
     """
 
     def __init__(self, method: Callable[..., Any]) -> None:
-        """Create a `classproperty` instance
+        """Create a `classproperty` instance.
 
         Args:
             method (Callable[..., Any]): the method being decorated
@@ -53,7 +53,7 @@ class cached_classproperty(classproperty):
     """
 
     def __init__(self, method: Callable[..., Any]) -> None:
-        """Create a `cached_classproperty` instance
+        """Create a `cached_classproperty` instance.
 
         Args:
             method (Callable[..., Any]): the method being decorated

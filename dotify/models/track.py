@@ -99,11 +99,14 @@ class Track(Model):
                 output_path=mp4_path.parent,
                 filename=mp4_path.stem,
                 skip_existing=skip_existing,
-            )
+            ),
         )
 
     def as_mp3(
-        self, mp3_path: Path, skip_existing: bool = False, logger: None = None
+        self,
+        mp3_path: Path,
+        skip_existing: bool = False,
+        logger: None = None,
     ) -> Path:
         """"""
         # FIXME: genres
@@ -127,7 +130,10 @@ class Track(Model):
         return mp3_path
 
     def download(
-        self, mp3_path: Path, skip_existing: bool = False, logger: None = None
+        self,
+        mp3_path: Path,
+        skip_existing: bool = False,
+        logger: None = None,
     ) -> Path:
         """"""
         return self.as_mp3(mp3_path, skip_existing=skip_existing, logger=logger)
