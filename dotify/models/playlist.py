@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Iterator
 import dotify.models as models
 from dotify.model import Model, logger
 
-logger = logging.getLogger(f"{logger.name}.{__name__}")
+logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 if TYPE_CHECKING is True:
     from dotify.models.track import Track
@@ -74,7 +74,10 @@ class Playlist(Model):
 
         for track in self.tracks:
             track.download(
-                path / f"{track}.mp3",
+                path
+                / "{0}.mp3".format(
+                    track,
+                ),
                 skip_existing=skip_existing,
                 logger=logger,
             )

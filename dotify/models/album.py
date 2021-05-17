@@ -9,7 +9,7 @@ from mutagen.id3 import APIC
 import dotify.models as models
 from dotify.model import Model, logger
 
-logger = logging.getLogger(f"{logger.name}.{__name__}")
+logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 if TYPE_CHECKING is True:
     from dotify.models.artist import Artist
@@ -29,7 +29,7 @@ class Album(Model):
         ]
 
     def __str__(self):
-        return f"{self.artist} - {self.name}"
+        return "{0} - {1}".format(self.artist, self.name)
 
     def __iter__(self):
         return self.tracks
@@ -50,7 +50,11 @@ class Album(Model):
         response = requests.get(self.images[0].url)
 
         if response.status_code != 200:
-            raise ConnectionError(f"Failed to fetch {self.images[0].url}")
+            raise ConnectionError(
+                "Failed to fetch {0}".format(
+                    self.images[0].url,
+                )
+            )
 
         return APIC(
             encoding=3,
@@ -90,7 +94,10 @@ class Album(Model):
 
         for track in self.tracks:
             track.download(
-                path / f"{track}.mp3",
+                path
+                / "{0}.mp3".format(
+                    track,
+                ),
                 skip_existing=skip_existing,
                 logger=logger,
             )

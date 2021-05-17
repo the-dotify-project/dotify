@@ -2,7 +2,7 @@ import logging
 
 from dotify.model import Model, logger
 
-logger = logging.getLogger(f"{logger.name}.{__name__}")
+logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 
 class Image(Model):

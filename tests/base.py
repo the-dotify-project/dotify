@@ -32,7 +32,7 @@ class DotifyBaseTestCase(TestCase):
         artist, name = artist.strip(), name.strip()
         artist, name = sub(r"\s+", "_", artist), sub(r"\s+", "_", name)
 
-        return f"{artist} - {name}.mp3"
+        return "{0} - {1}.mp3".format(artist, name)
 
     @staticmethod
     def get_download_basename_playlist(playlist):
@@ -50,7 +50,7 @@ class DotifyBaseTestCase(TestCase):
         artist, name = artist.strip(), name.strip()
         artist, name = sub(r"\s+", " ", artist), sub(r"\s+", " ", name)
 
-        return f"{artist} - {name}"
+        return "{0} - {1}".format(artist, name)
 
     @staticmethod
     def get_value(obj, attribute_path):
@@ -74,7 +74,7 @@ class DotifyBaseTestCase(TestCase):
         elif isinstance(obj, Album):
             return self.get_download_basename_album(obj)
         else:
-            raise RuntimeError(f"`{obj}` is an instance of {type(obj)}")
+            raise RuntimeError("`{0}` is an instance of {1}".format(obj, type(obj)))
 
     def download(self, cls_name, url):
         """"""

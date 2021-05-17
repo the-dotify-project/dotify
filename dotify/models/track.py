@@ -10,7 +10,7 @@ from youtubesearchpython import VideosSearch
 
 from dotify.model import Model, logger
 
-logger = logging.getLogger(f"{logger.name}.{__name__}")
+logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 EasyID3.RegisterTextKey("albumcover", "APIC")
 
@@ -31,7 +31,7 @@ class Track(Model):
         ]
 
     def __str__(self) -> str:
-        return f"{self.artist} - {self.name}"
+        return "{0} - {1}".format(self.artist, self.name)
 
     @property
     def url(self) -> str:

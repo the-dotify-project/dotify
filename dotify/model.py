@@ -12,7 +12,7 @@ from dotify.decorators import cached_classproperty
 from dotify.dotify import Dotify
 from dotify.json_serializable import JsonSerializable, JsonSerializableMeta, logger
 
-logger = logging.getLogger(f"{logger.name}.{__name__}")
+logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 
 class ModelMeta(JsonSerializableMeta):
@@ -34,7 +34,9 @@ class ModelMeta(JsonSerializableMeta):
         Returns:
             str: the basename of the file containing the json schema
         """
-        return f"{model_name.lower()}.json"
+        return "{0}.json".format(
+            model_name.lower(),
+        )
 
     @classmethod
     def dependency_path(cls, model_name: str) -> PathLike:
@@ -100,7 +102,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         pass
 
     def __repr__(self):
-        return f'<{self.__class__.__name__} "{str(self)}">'
+        return '<{0} "{1}">'.format(self.__class__.__name__, str(self))
 
     @cached_classproperty
     def context(cls) -> Optional[Dotify]:
@@ -164,7 +166,9 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         @wraps(method)
         def wrapper(cls, url, *args, **kwargs):
             view_name = cls.view_name()
-            pattern = f"https://open.spotify.com/{view_name}"
+            pattern = "https://open.spotify.com/{0}".format(
+                view_name,
+            )
 
             if match(pattern, url) is None:
                 raise cls.InvalidURL from None

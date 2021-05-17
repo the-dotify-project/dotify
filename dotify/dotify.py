@@ -6,7 +6,7 @@ from spotipy import Spotify as Client
 from spotipy.client import logger
 from spotipy.oauth2 import SpotifyClientCredentials
 
-logger = logging.getLogger(f"{logger.name}.{__name__}")
+logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 
 class Dotify(Client):
@@ -89,4 +89,8 @@ class Dotify(Client):
         """
         results = super().search(query, type=type, limit=limit)
 
-        return results[f"{type}s"]["items"]
+        return results[
+            "{0}s".format(
+                type,
+            )
+        ]["items"]
