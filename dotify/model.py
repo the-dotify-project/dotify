@@ -66,12 +66,12 @@ class ModelMeta(JsonSerializableMeta):
                 def dependencies(_):
                     types = []
                     for dependency in dependency_names:
-                        module, _, type = dependency.rpartition(".")
+                        module, _, model_type = dependency.rpartition(".")
 
                         module = import_module(module)
-                        type = getattr(module, type)
+                        model_type = getattr(module, model_type)
 
-                        types.append(type)
+                        types.append(model_type)
 
                     return {
                         cls.dependency_basename(dependency.__name__): dependency

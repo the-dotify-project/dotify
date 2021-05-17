@@ -78,21 +78,21 @@ class Dotify(Client):
         except IndexError:
             raise TypeError("No context on context stack")
 
-    def search(self, type: str, query: str, limit: int = 1) -> List[Dict[str, Any]]:
+    def search(self, model_type: str, query: str, limit: int = 1) -> List[Dict[str, Any]]:
         """Perform a Spotify search given a `query`.
 
         Args:
-            type (str): One of 'artist', 'album', 'track', 'playlist'
+            model_type (str): One of 'artist', 'album', 'track', 'playlist'
             query (str): the search `query`
             limit (int, optional): the number of items to return. Defaults to 1.
 
         Returns:
             List[Dict[str, Any]]: A list containing the search results
         """
-        results = super().search(query, type=type, limit=limit)
+        results = super().search(query, type=model_type, limit=limit)
 
         return results[
             "{0}s".format(
-                type,
+                model_type,
             )
         ]["items"]
