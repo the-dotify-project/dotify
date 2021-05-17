@@ -49,7 +49,8 @@ class Album(Model):
         """ """
         response = requests.get(self.images[0].url)
 
-        assert response.status_code == 200, f"Failed to fetch {self.images[0].url}"
+        if response.status_code != 200:
+            raise ConnectionError(f"Failed to fetch {self.images[0].url}")
 
         return APIC(
             encoding=3,

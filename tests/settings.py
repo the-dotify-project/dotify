@@ -13,7 +13,8 @@ else:
         "spotify_secret": os.environ.get("SPOTIFY_SECRET"),
     }
 
-assert DOTIFY_SETTINGS["spotify_id"] is not None, "Failed to retrieve Spotify API ID"
-assert (
-    DOTIFY_SETTINGS["spotify_secret"] is not None
-), "Failed to retrieve Spotify API Secret"
+if DOTIFY_SETTINGS["spotify_id"] is None:
+    raise AssertionError("Failed to retrieve Spotify API ID")
+
+if DOTIFY_SETTINGS["spotify_secret"] is None:
+    raise AssertionError("Failed to retrieve Spotify API Secret")

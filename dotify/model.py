@@ -166,9 +166,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
             view_name = cls.view_name()
             pattern = f"https://open.spotify.com/{view_name}"
 
-            try:
-                assert match(pattern, url) is not None
-            except AssertionError:
+            if match(pattern, url) is None:
                 raise cls.InvalidURL from None
 
             return method(cls, url, *args, **kwargs)
