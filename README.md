@@ -67,7 +67,7 @@
 PosixPath('SAINt JHN - 5 Thousand Singles.mp3')
 ```
 
-Feel free to check the [examples](/examples) folder for more use cases!
+Feel free to check the [examples](https://github.com/the-dotify-project/dotify/tree/master/examples) folder for more use cases!
 
 ## Features
 
