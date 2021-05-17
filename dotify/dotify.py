@@ -12,6 +12,7 @@ logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 class Dotify(Client):
     """.
     Examples:
+
         >>> from dotify import Dotify
         ... with Dotify(spotify_client, spotify_secret):
         ...     for result in Track.search(query):
