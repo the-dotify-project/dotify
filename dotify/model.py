@@ -198,10 +198,10 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         def wrapper(cls, *args, **kwargs):
             try:
                 return method(cls, *args, **kwargs)
-            except SpotifyException as e:
-                if e.http_status == 404:
+            except SpotifyException as exception:
+                if exception.http_status == 404:
                     raise cls.NotFound from None
-                elif e.http_status == 400:
+                elif exception.http_status == 400:
                     raise cls.InvalidURL from None
                 else:
                     raise cls.UnexpectedError from None
