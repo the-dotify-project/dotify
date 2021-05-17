@@ -8,7 +8,7 @@ logger = logging.getLogger(f"{logger.name}.{__name__}")
 class Artist(Model):
     """ """
 
-    class Json:
+    class Json(object):
         """ """
 
     @property

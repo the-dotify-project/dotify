@@ -21,7 +21,7 @@ if TYPE_CHECKING is True:
 class Track(Model):
     """ """
 
-    class Json:
+    class Json(object):
         """ """
 
         dependencies = [

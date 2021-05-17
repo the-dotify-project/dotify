@@ -8,7 +8,7 @@ logger = logging.getLogger(f"{logger.name}.{__name__}")
 class Image(Model):
     """ """
 
-    class Json:
+    class Json(object):
         """ """
 
     def __str__(self):

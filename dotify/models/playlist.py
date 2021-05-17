@@ -15,7 +15,7 @@ if TYPE_CHECKING is True:
 class Playlist(Model):
     """ """
 
-    class Json:
+    class Json(object):
         """ """
 
         dependencies = ["dotify.models.User", "dotify.models.Image"]

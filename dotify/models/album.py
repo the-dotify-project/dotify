@@ -19,7 +19,7 @@ if TYPE_CHECKING is True:
 class Album(Model):
     """ """
 
-    class Json:
+    class Json(object):
         """ """
 
         dependencies = [

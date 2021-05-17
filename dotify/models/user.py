@@ -8,7 +8,7 @@ logger = logging.getLogger(f"{logger.name}.{__name__}")
 class User(Model):
     """A model representing a Spotify User."""
 
-    class Json:
+    class Json(object):
         pass
 
     def __str__(self):

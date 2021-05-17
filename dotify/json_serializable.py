@@ -42,7 +42,7 @@ class JsonSerializableMeta(ABCMeta):
 class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
     """A class providing JSON serialization and de-serialization."""
 
-    class Json:
+    class Json(object):
         schema: PathLike
         dependencies: Dict[str, "JsonSerializable"]
 

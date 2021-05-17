@@ -2,7 +2,7 @@ from functools import update_wrapper
 from typing import Any, Callable, Optional
 
 
-class classproperty:
+class classproperty(object):
     """
     A decorator that converts a method to a `classproperty`.
 
