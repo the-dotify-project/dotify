@@ -53,7 +53,7 @@ class Album(Model):
             raise ConnectionError(
                 "Failed to fetch {0}".format(
                     self.images[0].url,
-                )
+                ),
             )
 
         return APIC(

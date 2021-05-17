@@ -13,7 +13,8 @@ logger = logging.getLogger(__name__)
 
 
 class JsonSerializableMeta(ABCMeta):
-    """.
+    """
+
     A metaclass responsible for resolving a class' JSON schema
     and defining the class at hand based on it
     """
