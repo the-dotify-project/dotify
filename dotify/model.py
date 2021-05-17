@@ -203,7 +203,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
                     raise cls.NotFound from None
                 elif exception.http_status == 400:
                     raise cls.InvalidURL from None
-                else:
-                    raise cls.UnexpectedError from None
+
+                raise cls.UnexpectedError from None
 
         return wrapper

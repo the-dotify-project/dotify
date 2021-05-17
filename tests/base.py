@@ -73,8 +73,8 @@ class DotifyBaseTestCase(TestCase):
             return self.get_download_basename_playlist(obj)
         elif isinstance(obj, Album):
             return self.get_download_basename_album(obj)
-        else:
-            raise RuntimeError("`{0}` is an instance of {1}".format(obj, type(obj)))
+
+        raise RuntimeError("`{0}` is an instance of {1}".format(obj, type(obj)))
 
     def download(self, cls_name, url):
         """"""
