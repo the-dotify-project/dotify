@@ -79,9 +79,9 @@ class DotifyBaseTestCase(TestCase):
     def download(self, cls_name, url):
         """"""
         with self.client:
-            cls = getattr(models, cls_name)
+            model_type = getattr(models, cls_name)
 
-            obj = cls.from_url(url)
+            obj = model_type.from_url(url)
 
             download_basename = self.get_download_basename(obj)
             download_fullpath = self.test_directory / download_basename
@@ -95,9 +95,9 @@ class DotifyBaseTestCase(TestCase):
         with self.client:
             self.assertEqual(len(metadata_list), limit)
 
-            cls = getattr(models, cls_name)
+            model_type = getattr(models, cls_name)
 
-            for result, metadata in zip(cls.search(query, limit=limit), metadata_list):
+            for result, metadata in zip(model_type.search(query, limit=limit), metadata_list):
                 for name, value in metadata.items():
                     with self.subTest("Asserting metadata equality", **{name: value}):
                         self.assertEqual(self.get_value(result, name), value)
