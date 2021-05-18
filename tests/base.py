@@ -25,8 +25,8 @@ class DotifyBaseTestCase(TestCase):
         """ """
         rmtree(self.test_directory)
 
-    @staticmethod
-    def get_download_basename_track(track):
+    @classmethod
+    def get_download_basename_track(cls, track):
         """"""
         artist, name = track.artist.name, track.name
         artist, name = artist.strip(), name.strip()
@@ -34,8 +34,8 @@ class DotifyBaseTestCase(TestCase):
 
         return "{0} - {1}.mp3".format(artist, name)
 
-    @staticmethod
-    def get_download_basename_playlist(playlist):
+    @classmethod
+    def get_download_basename_playlist(cls, playlist):
         """"""
         name = playlist.name
         name = name.strip()
@@ -43,8 +43,8 @@ class DotifyBaseTestCase(TestCase):
 
         return name
 
-    @staticmethod
-    def get_download_basename_album(album):
+    @classmethod
+    def get_download_basename_album(cls, album):
         """"""
         artist, name = album.artist.name, album.name
         artist, name = artist.strip(), name.strip()
@@ -52,8 +52,8 @@ class DotifyBaseTestCase(TestCase):
 
         return "{0} - {1}".format(artist, name)
 
-    @staticmethod
-    def get_value(obj, attribute_path):
+    @classmethod
+    def get_value(cls, obj, attribute_path):
         """"""
 
         def get_value_recursive(obj, paths):
