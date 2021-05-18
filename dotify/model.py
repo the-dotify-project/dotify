@@ -158,16 +158,16 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         """
 
         @wraps(method)
-        def wrapper(cls, url, *args, **kwargs):
-            view_name = cls.view_name()
+        def wrapper(model_type, url, *args, **kwargs):
+            view_name = model_type.view_name()
             pattern = "https://open.spotify.com/{0}".format(
                 view_name,
             )
 
             if match(pattern, url) is None:
-                raise cls.InvalidURL from None
+                raise model_type.InvalidURL from None
 
-            return method(cls, url, *args, **kwargs)
+            return method(model_type, url, *args, **kwargs)
 
         return wrapper
 
@@ -189,15 +189,15 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         """
 
         @wraps(method)
-        def wrapper(cls, *args, **kwargs):
+        def wrapper(model_type, *args, **kwargs):
             try:
-                return method(cls, *args, **kwargs)
+                return method(model_type, *args, **kwargs)
             except SpotifyException as exception:
                 if exception.http_status == 404:
-                    raise cls.NotFound from None
+                    raise model_type.NotFound from None
                 elif exception.http_status == 400:
-                    raise cls.InvalidURL from None
+                    raise model_type.InvalidURL from None
 
-                raise cls.UnexpectedError from None
+                raise model_type.UnexpectedError from None
 
         return wrapper

@@ -107,7 +107,7 @@ class Track(Model):
         self,
         mp3_path: Path,
         skip_existing: bool = False,
-        logger: None = None,
+        progress_logger: None = None,
     ) -> Path:
         """"""
         # FIXME: genres
@@ -118,7 +118,7 @@ class Track(Model):
         mp4_path = self.as_mp4(mp3_path, skip_existing=skip_existing)
 
         audio_file_clip = AudioFileClip(str(mp4_path))
-        audio_file_clip.write_audiofile(str(mp3_path), logger=logger)
+        audio_file_clip.write_audiofile(str(mp3_path), logger=progress_logger)
 
         mp4_path.unlink()
 
@@ -134,10 +134,12 @@ class Track(Model):
         self,
         mp3_path: Path,
         skip_existing: bool = False,
-        logger: None = None,
+        progress_logger: None = None,
     ) -> Path:
         """"""
-        return self.as_mp3(mp3_path, skip_existing=skip_existing, logger=logger)
+        return self.as_mp3(
+            mp3_path, skip_existing=skip_existing, progress_logger=progress_logger
+        )
 
     @classmethod
     @Model.validate_url

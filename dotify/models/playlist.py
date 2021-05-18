@@ -66,7 +66,7 @@ class Playlist(Model):
         self,
         path: PathLike,
         skip_existing: bool = False,
-        logger: None = None,
+        progress_logger: None = None,
     ) -> PathLike:
         """"""
         path = Path(path)
@@ -79,7 +79,7 @@ class Playlist(Model):
                     track,
                 ),
                 skip_existing=skip_existing,
-                logger=logger,
+                progress_logger=progress_logger,
             )
 
         return path
