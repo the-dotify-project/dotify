@@ -97,7 +97,9 @@ class DotifyBaseTestCase(TestCase):
 
             model_type = getattr(models, cls_name)
 
-            for result, metadata in zip(model_type.search(query, limit=limit), metadata_list):
+            for result, metadata in zip(
+                model_type.search(query, limit=limit), metadata_list
+            ):
                 for name, value in metadata.items():
                     with self.subTest("Asserting metadata equality", **{name: value}):
                         self.assertEqual(self.get_value(result, name), value)

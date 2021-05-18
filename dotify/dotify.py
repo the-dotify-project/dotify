@@ -1,11 +1,12 @@
 import logging
 import threading
 from typing import Any, Dict, List
-from dotify.decorators import classproperty
 
 from spotipy import Spotify as Client
 from spotipy.client import logger
 from spotipy.oauth2 import SpotifyClientCredentials
+
+from dotify.decorators import classproperty
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
@@ -79,7 +80,9 @@ class Dotify(Client):
         except IndexError:
             raise TypeError("No context on context stack")
 
-    def search(self, model_type: str, query: str, limit: int = 1) -> List[Dict[str, Any]]:
+    def search(
+        self, model_type: str, query: str, limit: int = 1
+    ) -> List[Dict[str, Any]]:
         """Perform a Spotify search given a `query`.
 
         Args:
