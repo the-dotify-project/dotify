@@ -54,7 +54,7 @@ class DotifyBaseTestCase(TestCase):
 
         def get_value_recursive(obj, paths):
             """"""
-            if len(paths) > 0:
+            if paths:
                 return get_value_recursive(getattr(obj, paths[0]), paths[1:])
 
             return obj
