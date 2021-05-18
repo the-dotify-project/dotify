@@ -112,7 +112,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
             Optional[Dotify]: the current `Dotify` context
         """
         try:
-            return Dotify.get_context()
+            return Dotify.context
         except TypeError:
             return None
 

@@ -1,6 +1,7 @@
 import logging
 import threading
 from typing import Any, Dict, List
+from dotify.decorators import classproperty
 
 from spotipy import Spotify as Client
 from spotipy.client import logger
@@ -41,18 +42,18 @@ class Dotify(Client):
             super().__del__()
 
     def __enter__(self) -> "Dotify":
-        type(self).get_contexts().append(self)
+        type(self).contexts.append(self)
 
         return self
 
     def __exit__(self, exc_type: None, exc_value: None, exc_trace: None) -> None:
-        type(self).get_contexts().pop()
+        type(self).contexts.pop()
 
         if exc_type is not None:
             logger.error("%s: %s", exc_type.__name__, exc_value)
 
-    @classmethod
-    def get_contexts(cls) -> List["Dotify"]:
+    @classproperty
+    def contexts(cls) -> List["Dotify"]:
         """Get the `Dotify` context stack.
 
         Returns:
@@ -63,8 +64,8 @@ class Dotify(Client):
 
         return cls._context.stack
 
-    @classmethod
-    def get_context(cls) -> "Dotify":
+    @classproperty
+    def context(cls) -> "Dotify":
         """Get the topmost context from the stack.
 
         Raises:
@@ -74,7 +75,7 @@ class Dotify(Client):
             Dotify: the topmost context
         """
         try:
-            return cls.get_contexts()[-1]
+            return cls.contexts[-1]
         except IndexError:
             raise TypeError("No context on context stack")
 

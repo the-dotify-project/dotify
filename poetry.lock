@@ -1438,7 +1438,7 @@ numpy-style = ["docstring_parser (>=0.7.3,<0.8.0)"]
 
 [[package]]
 name = "pytube"
-version = "10.7.2"
+version = "10.8.1"
 description = "Python 3 library for downloading YouTube Videos."
 category = "main"
 optional = false
@@ -2617,8 +2617,8 @@ pytkdocs = [
     {file = "pytkdocs-0.11.1.tar.gz", hash = "sha256:1ec7e028fe8361acc1ce909ada4e6beabec28ef31e629618549109e1d58549f0"},
 ]
 pytube = [
-    {file = "pytube-10.7.2-py3-none-any.whl", hash = "sha256:574260550644a48480637be29bfd339b4ac80f61bab5e0c9916b1e6787d59a46"},
-    {file = "pytube-10.7.2.tar.gz", hash = "sha256:2f9f467fab07a116bba435e5d7cde706222cacea37c44edcb9734fcfb897d19b"},
+    {file = "pytube-10.8.1-py3-none-any.whl", hash = "sha256:b4dfaf7c37eb95fbd64a33a887031f50d4e5dcdea87493e407eba10523872f74"},
+    {file = "pytube-10.8.1.tar.gz", hash = "sha256:f1f139e7c4b536f2bbd906d10c7aecee21ee665f273ed8efcf37e93ad4c651c0"},
 ]
 pywin32-ctypes = [
     {file = "pywin32-ctypes-0.2.0.tar.gz", hash = "sha256:24ffc3b341d457d48e8922352130cf2644024a4ff09762a2261fd34c36ee5942"},
