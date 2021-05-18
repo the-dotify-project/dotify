@@ -64,18 +64,18 @@ class ModelMeta(JsonSerializableMeta):
 
                 @cached_classproperty
                 def dependencies(_):
-                    types = []
-                    for dependency in dependency_names:
-                        module, _, model_type = dependency.rpartition(".")
+                    model_types = []
+                    for dependency_name in dependency_names:
+                        module, _, model_type = dependency_name.rpartition(".")
 
                         module = import_module(module)
                         model_type = getattr(module, model_type)
 
-                        types.append(model_type)
+                        model_types.append(model_type)
 
                     return {
-                        cls.dependency_basename(dependency.__name__): dependency
-                        for dependency in types
+                        cls.dependency_basename(model_type.__name__): model_type
+                        for model_type in model_types
                     }
 
                 attrs["Json"].dependencies = dependencies
