@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List
+from urllib.error import HTTPError
 
 from moviepy.editor import AudioFileClip
 from mutagen.easyid3 import EasyID3
@@ -95,13 +96,16 @@ class Track(Model):
         """"""
         mp4_path = Path(mp4_path)
 
-        return Path(
-            self.stream.download(
-                output_path=mp4_path.parent,
-                filename=mp4_path.stem,
-                skip_existing=skip_existing,
-            ),
-        )
+        try:
+            return Path(
+                self.stream.download(
+                    output_path=mp4_path.parent,
+                    filename=mp4_path.stem,
+                    skip_existing=skip_existing,
+                ),
+            )
+        except HTTPError:
+            raise self.NotFound from None
 
     def as_mp3(
         self,
