@@ -37,11 +37,7 @@ class DotifyBaseTestCase(TestCase):
     @classmethod
     def get_download_basename_playlist(cls, playlist):
         """"""
-        name = playlist.name
-        name = name.strip()
-        name = sub(r"\s+", " ", name)
-
-        return name
+        return sub(r"\s+", " ", playlist.name.strip())
 
     @classmethod
     def get_download_basename_album(cls, album):
