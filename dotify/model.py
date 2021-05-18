@@ -1,5 +1,6 @@
 import logging
 from functools import wraps
+from http import HTTPStatus
 from importlib import import_module
 from os import PathLike
 from pathlib import Path
@@ -193,9 +194,9 @@ class Model(JsonSerializable, metaclass=ModelMeta):
             try:
                 return method(model_type, *args, **kwargs)
             except SpotifyException as exception:
-                if exception.http_status == 404:
+                if exception.http_status == HTTPStatus.NOT_FOUND.value:
                     raise model_type.NotFound from None
-                elif exception.http_status == 400:
+                elif exception.http_status == HTTPStatus.BAD_REQUEST.value:
                     raise model_type.InvalidURL from None
 
                 raise model_type.UnexpectedError from None

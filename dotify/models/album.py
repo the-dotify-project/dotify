@@ -1,4 +1,5 @@
 import logging
+from http import HTTPStatus
 from os import PathLike
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Iterator
@@ -49,7 +50,7 @@ class Album(Model):
         """ """
         response = requests.get(self.images[0].url)
 
-        if response.status_code != 200:
+        if response.status_code != HTTPStatus.OK.value:
             raise ConnectionError(
                 "Failed to fetch {0}".format(
                     self.images[0].url,
