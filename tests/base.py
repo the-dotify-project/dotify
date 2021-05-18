@@ -49,17 +49,19 @@ class DotifyBaseTestCase(TestCase):
         return "{0} - {1}".format(artist, name)
 
     @classmethod
+    def _get_value_recursive(cls, obj, paths):
+        """"""
+        if paths:
+            return cls._get_value_recursive(getattr(obj, paths[0]), paths[1:])
+
+        return obj
+
+    @classmethod
     def get_value(cls, obj, attribute_path):
         """"""
-
-        def get_value_recursive(_, paths):
-            """"""
-            if paths:
-                return get_value_recursive(getattr(_, paths[0]), paths[1:])
-
-            return _
-
-        return get_value_recursive(obj, list(filter(None, attribute_path.split("."))))
+        return cls._get_value_recursive(
+            obj, list(filter(None, attribute_path.split(".")))
+        )
 
     def get_download_basename(self, obj):
         """"""

@@ -56,30 +56,34 @@ class ModelMeta(JsonSerializableMeta):
             / cls.dependency_basename(model_name)
         )
 
+    @classmethod
+    def dependencies_from(cls, dependency_names):
+        @cached_classproperty
+        def decorator(_):
+            model_types = []
+            for dependency_name in dependency_names:
+                module, _, model_type = dependency_name.rpartition(".")
+
+                module = import_module(module)
+                model_type = getattr(module, model_type)
+
+                model_types.append(model_type)
+
+            return {
+                cls.dependency_basename(model_type.__name__): model_type
+                for model_type in model_types
+            }
+
+        return decorator
+
     def __new__(cls, name, bases, attrs):
         if "Json" in attrs:
             attrs["Json"].schema = cls.dependency_path(name)
 
             if hasattr(attrs["Json"], "dependencies"):
-                dependency_names = attrs["Json"].dependencies
-
-                @cached_classproperty
-                def dependencies(_):
-                    model_types = []
-                    for dependency_name in dependency_names:
-                        module, _, model_type = dependency_name.rpartition(".")
-
-                        module = import_module(module)
-                        model_type = getattr(module, model_type)
-
-                        model_types.append(model_type)
-
-                    return {
-                        cls.dependency_basename(model_type.__name__): model_type
-                        for model_type in model_types
-                    }
-
-                attrs["Json"].dependencies = dependencies
+                attrs["Json"].dependencies = cls.dependencies_from(
+                    attrs["Json"].dependencies
+                )
 
         return super().__new__(cls, name, bases, attrs)
 
