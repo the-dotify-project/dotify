@@ -89,17 +89,11 @@ class Model(JsonSerializable, metaclass=ModelMeta):
     class UnexpectedError(Exception):
         """An exception indicating an unexpected error."""
 
-        pass
-
     class InvalidURL(Exception):
         """An exception thrown if the provided URL does not correspond to a valid Spotify URL."""
 
-        pass
-
     class NotFound(Exception):
         """An exception thrown if an operation fails to retrieve the necessary information."""
-
-        pass
 
     def __repr__(self):
         return '<{0} "{1}">'.format(self.__class__.__name__, str(self))
