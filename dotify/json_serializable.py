@@ -20,10 +20,11 @@ class JsonSerializableMeta(ABCMeta):
     """
 
     def __new__(cls, name, bases, attrs):
-        if "Json" not in attrs or not hasattr(attrs["Json"], "schema"):
+        try:
+            path = attrs["Json"].schema.absolute()
+        except (KeyError, AttributeError):
             return super().__new__(cls, name, bases, attrs)
 
-        path = attrs["Json"].schema.absolute()
         with path.open() as file:
             json_schema = json.load(file)
 
@@ -48,13 +49,17 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
         dependencies: Dict[str, "JsonSerializable"]
 
     def __setattr__(self, name: str, val: Any) -> None:
+        # FIXME
         try:
             super().__setattr__(name, val)
-        except ValidationError:
-            if hasattr(self, "__annotations__") and name in self.__annotations__:
-                self.__dict__[name] = val
-            else:
-                raise
+        except ValidationError as validation_error:
+            try:
+                if name in self.__annotations__:
+                    self.__dict__[name] = val
+                else:
+                    raise
+            except (AttributeError, ValidationError):
+                raise validation_error from None
 
     @classmethod
     def _resolve_dependency(cls, obj: Any) -> Optional["JsonSerializable"]:
@@ -68,10 +73,11 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             Optional["JsonSerializable"]: the corresponding `JsonSerializable`
             dependency
         """
-        if not hasattr(cls.Json, "dependencies"):
-            return None
 
-        return cls.Json.dependencies.get(obj.__class__.__name__, None)
+        try:
+            return cls.Json.dependencies.get(obj.__class__.__name__, None)
+        except AttributeError:
+            return None
 
     def __getattribute__(self, name: str) -> Any:
         obj = super().__getattribute__(name)

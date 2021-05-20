@@ -80,10 +80,12 @@ class ModelMeta(JsonSerializableMeta):
         if "Json" in attrs:
             attrs["Json"].schema = cls.dependency_path(name)
 
-            if hasattr(attrs["Json"], "dependencies"):
+            try:
                 attrs["Json"].dependencies = cls.dependencies_from(
                     attrs["Json"].dependencies
                 )
+            except AttributeError:
+                pass
 
         return super().__new__(cls, name, bases, attrs)
 

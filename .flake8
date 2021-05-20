@@ -1,5 +1,17 @@
 [flake8]
 max-line-length = 99
+exclude =
+    .git
+    .github
+    .mypy_cache
+    .pytest_cache
+    .tox
+    .vscode
+    build
+    dist
+    docs
+    examples
+    __pycache__
 extend-ignore =
     E203,
     WPS431,

@@ -49,8 +49,10 @@ class Track(Model):
         """ """
         genres = []
         for item in [self.album, self.artist]:
-            if hasattr(item, "genres"):
+            try:
                 genres.append(item.genres)
+            except AttributeError:
+                pass
 
         return genres
 

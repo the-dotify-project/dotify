@@ -39,8 +39,10 @@ class Dotify(Client):
         )
 
     def __del__(self):
-        if hasattr(self, "_session"):
+        try:
             super().__del__()
+        except AttributeError:
+            pass
 
     def __enter__(self) -> "Dotify":
         type(self).contexts.append(self)
@@ -60,10 +62,13 @@ class Dotify(Client):
         Returns:
             List[Dotify]: the `Dotify` context stack
         """
-        if not hasattr(cls._context, "stack"):
+
+        try:
+            return cls._context.stack
+        except AttributeError:
             cls._context.stack = []
 
-        return cls._context.stack
+            return cls._context.stack
 
     @classproperty
     def context(cls) -> "Dotify":
