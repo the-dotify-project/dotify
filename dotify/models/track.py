@@ -49,7 +49,7 @@ class Track(Model):
     def genres(self) -> List[Any]:
         """ """
         genres = []
-        for item in [self.album, self.artist]:
+        for item in (self.album, self.artist):
             with contextlib.suppress(AttributeError):
                 genres.append(item.genres)
 
