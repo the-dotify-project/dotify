@@ -1,3 +1,4 @@
+import contextlib
 import logging
 import threading
 from typing import Any, Dict, List
@@ -39,10 +40,8 @@ class Dotify(Client):
         )
 
     def __del__(self):
-        try:
+        with contextlib.suppress(AttributeError):
             super().__del__()
-        except AttributeError:
-            pass
 
     def __enter__(self) -> "Dotify":
         type(self).contexts.append(self)

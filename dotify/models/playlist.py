@@ -21,8 +21,7 @@ class Playlist(Model):
         dependencies = ["dotify.models.User", "dotify.models.Image"]
 
     def __init__(self, **props) -> None:
-        if "tracks" in props:
-            del props["tracks"]
+        props.pop("tracks", None)
 
         super().__init__(**props)
 

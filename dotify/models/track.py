@@ -1,3 +1,4 @@
+import contextlib
 import logging
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List
@@ -49,10 +50,8 @@ class Track(Model):
         """ """
         genres = []
         for item in [self.album, self.artist]:
-            try:
+            with contextlib.suppress(AttributeError):
                 genres.append(item.genres)
-            except AttributeError:
-                pass
 
         return genres
 
