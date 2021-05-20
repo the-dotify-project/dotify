@@ -26,6 +26,17 @@ class ModelMeta(JsonSerializableMeta):
     builds the `dependency` dictionary
     """
 
+    def __new__(cls, name, bases, attrs):
+        if "Json" in attrs:
+            attrs["Json"].schema = cls.dependency_path(name)
+
+            with contextlib.suppress(AttributeError):
+                attrs["Json"].dependencies = cls.dependencies_from(
+                    attrs["Json"].dependencies
+                )
+
+        return super().__new__(cls, name, bases, attrs)
+
     @classmethod
     def dependency_basename(cls, model_name: str) -> str:
         """Given the name of a `Model` resolve the basename of the corresponding json schema.
@@ -76,17 +87,6 @@ class ModelMeta(JsonSerializableMeta):
             }
 
         return decorator
-
-    def __new__(cls, name, bases, attrs):
-        if "Json" in attrs:
-            attrs["Json"].schema = cls.dependency_path(name)
-
-            with contextlib.suppress(AttributeError):
-                attrs["Json"].dependencies = cls.dependencies_from(
-                    attrs["Json"].dependencies
-                )
-
-        return super().__new__(cls, name, bases, attrs)
 
 
 class Model(JsonSerializable, metaclass=ModelMeta):

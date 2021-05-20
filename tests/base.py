@@ -25,44 +25,6 @@ class DotifyBaseTestCase(TestCase):
         """ """
         rmtree(self.test_directory)
 
-    @classmethod
-    def get_download_basename_track(cls, track):
-        """"""
-        artist, name = track.artist.name, track.name
-        artist, name = artist.strip(), name.strip()
-        artist, name = sub(r"\s+", "_", artist), sub(r"\s+", "_", name)
-
-        return "{0} - {1}.mp3".format(artist, name)
-
-    @classmethod
-    def get_download_basename_playlist(cls, playlist):
-        """"""
-        return sub(r"\s+", " ", playlist.name.strip())
-
-    @classmethod
-    def get_download_basename_album(cls, album):
-        """"""
-        artist, name = album.artist.name, album.name
-        artist, name = artist.strip(), name.strip()
-        artist, name = sub(r"\s+", " ", artist), sub(r"\s+", " ", name)
-
-        return "{0} - {1}".format(artist, name)
-
-    @classmethod
-    def _get_value_recursive(cls, obj, paths):
-        """"""
-        if paths:
-            return cls._get_value_recursive(getattr(obj, paths[0]), paths[1:])
-
-        return obj
-
-    @classmethod
-    def get_value(cls, obj, attribute_path):
-        """"""
-        return cls._get_value_recursive(
-            obj, list(filter(None, attribute_path.split(".")))
-        )
-
     def get_download_basename(self, obj):
         """"""
         if isinstance(obj, Track):
@@ -101,3 +63,41 @@ class DotifyBaseTestCase(TestCase):
                 for name, value in metadata.items():
                     with self.subTest("Asserting metadata equality", **{name: value}):
                         self.assertEqual(self.get_value(result, name), value)
+
+    @classmethod
+    def get_download_basename_track(cls, track):
+        """"""
+        artist, name = track.artist.name, track.name
+        artist, name = artist.strip(), name.strip()
+        artist, name = sub(r"\s+", "_", artist), sub(r"\s+", "_", name)
+
+        return "{0} - {1}.mp3".format(artist, name)
+
+    @classmethod
+    def get_download_basename_playlist(cls, playlist):
+        """"""
+        return sub(r"\s+", " ", playlist.name.strip())
+
+    @classmethod
+    def get_download_basename_album(cls, album):
+        """"""
+        artist, name = album.artist.name, album.name
+        artist, name = artist.strip(), name.strip()
+        artist, name = sub(r"\s+", " ", artist), sub(r"\s+", " ", name)
+
+        return "{0} - {1}".format(artist, name)
+
+    @classmethod
+    def get_value(cls, obj, attribute_path):
+        """"""
+        return cls._get_value_recursive(
+            obj, list(filter(None, attribute_path.split(".")))
+        )
+
+    @classmethod
+    def _get_value_recursive(cls, obj, paths):
+        """"""
+        if paths:
+            return cls._get_value_recursive(getattr(obj, paths[0]), paths[1:])
+
+        return obj

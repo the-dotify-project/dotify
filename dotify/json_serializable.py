@@ -61,24 +61,6 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             except (AttributeError, ValidationError):
                 raise validation_error from None
 
-    @classmethod
-    def _resolve_dependency(cls, obj: Any) -> Optional["JsonSerializable"]:
-        """Resolve a class dependency.
-
-        Given a `python_jsonschema_objects` it returns
-        the `JsonSerializable` dependency that has been registered
-        with it, given that it's available
-
-        Returns:
-            Optional["JsonSerializable"]: the corresponding `JsonSerializable`
-            dependency
-        """
-
-        try:
-            return cls.Json.dependencies.get(obj.__class__.__name__, None)
-        except AttributeError:
-            return None
-
     def __getattribute__(self, name: str) -> Any:
         obj = super().__getattribute__(name)
 
@@ -111,3 +93,21 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             return self._extended_properties[name]
 
         return object.__getattribute__(self, name)
+
+    @classmethod
+    def _resolve_dependency(cls, obj: Any) -> Optional["JsonSerializable"]:
+        """Resolve a class dependency.
+
+        Given a `python_jsonschema_objects` it returns
+        the `JsonSerializable` dependency that has been registered
+        with it, given that it's available
+
+        Returns:
+            Optional["JsonSerializable"]: the corresponding `JsonSerializable`
+            dependency
+        """
+
+        try:
+            return cls.Json.dependencies.get(obj.__class__.__name__, None)
+        except AttributeError:
+            return None
