@@ -26,7 +26,8 @@ repos:
     rev: v0.812
     hooks:
     - id: mypy
-      args: [--ignore-missing-imports]
+      args: [--config, .mypy.ini]
+      files: ^dotify|tests/
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.17.4
     hooks:
