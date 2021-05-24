@@ -28,4 +28,5 @@ extend-ignore =
     WPS437,
     WPS433,
     WPS412,
-    WPS410
+    WPS410,
+    WPS323
