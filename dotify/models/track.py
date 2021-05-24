@@ -105,8 +105,8 @@ class Track(Model):
                     skip_existing=skip_existing,
                 ),
             )
-        except HTTPError:
-            raise self.NotFound from None
+        except HTTPError as http_error:
+            raise self.NotFound() from http_error
 
     def as_mp3(
         self,

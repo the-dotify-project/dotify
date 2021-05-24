@@ -49,17 +49,13 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
         dependencies: Dict[str, "JsonSerializable"]
 
     def __setattr__(self, name: str, val: Any) -> None:
-        # FIXME
         try:
             super().__setattr__(name, val)
-        except ValidationError as validation_error:
-            try:
-                if name in self.__annotations__:
-                    self.__dict__[name] = val
-                else:
-                    raise
-            except (AttributeError, ValidationError):
-                raise validation_error from None
+        except ValidationError:
+            if name in self.__annotations__:
+                self.__dict__[name] = val
+
+            raise
 
     def __getattribute__(self, name: str) -> Any:
         obj = super().__getattribute__(name)
