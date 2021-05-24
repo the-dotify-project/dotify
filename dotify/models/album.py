@@ -2,19 +2,15 @@ import logging
 from http import HTTPStatus
 from os import PathLike
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Iterator
+from typing import Any, Iterator
 
 import requests
 from mutagen.id3 import APIC
 
-import dotify.models as models
+import dotify
 from dotify.model import Model, logger
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
-
-if TYPE_CHECKING is True:
-    from dotify.models.artist import Artist
-    from dotify.models.track import Track
 
 
 class Album(Model):
@@ -36,7 +32,7 @@ class Album(Model):
         return self.tracks
 
     @property
-    def artist(self) -> "Artist":
+    def artist(self) -> "dotify.models.artist.Artist":
         """ """
         return self.artists[0]
 
@@ -66,7 +62,7 @@ class Album(Model):
         )
 
     @property
-    def tracks(self) -> Iterator["Track"]:
+    def tracks(self) -> Iterator["dotify.models.track.Track"]:
         """ """
         response, offset = self.context.album_tracks(self.url), 0
 
@@ -74,7 +70,7 @@ class Album(Model):
             for result in response["items"]:
                 url = result["external_urls"]["spotify"]
 
-                yield models.Track.from_url(url)
+                yield dotify.models.track.Track.from_url(url)
 
             offset += len(response["items"])
 
@@ -108,6 +104,6 @@ class Album(Model):
     @classmethod
     @Model.validate_url
     @Model.http_safeguard
-    def from_url(cls, url: str) -> "Album":
+    def from_url(cls, url: str) -> "dotify.models.album.Album":
         """"""
         return cls(**cls.context.album(url))

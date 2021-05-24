@@ -1,15 +1,12 @@
 import logging
 from os import PathLike
 from pathlib import Path
-from typing import TYPE_CHECKING, Iterator
+from typing import Iterator
 
-import dotify.models as models
+import dotify
 from dotify.model import Model, logger
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
-
-if TYPE_CHECKING is True:
-    from dotify.models.track import Track
 
 
 class Playlist(Model):
@@ -37,7 +34,7 @@ class Playlist(Model):
         return self.external_urls.spotify
 
     @property
-    def tracks(self) -> Iterator["Track"]:
+    def tracks(self) -> Iterator["dotify.models.track.Track"]:
         """ """
         response, offset = (
             self.context.playlist_items(self.url, additional_types=("track",)),
@@ -48,7 +45,7 @@ class Playlist(Model):
             for result in response["items"]:
                 url = result["track"]["external_urls"]["spotify"]
 
-                yield models.Track.from_url(url)
+                yield dotify.models.track.Track.from_url(url)
 
             offset += len(response["items"])
 

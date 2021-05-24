@@ -3,7 +3,7 @@ from re import sub
 from shutil import rmtree
 from unittest import TestCase
 
-import dotify.models as models
+import dotify
 from dotify import Album, Dotify, Playlist, Track
 from tests.settings import DOTIFY_SETTINGS
 
@@ -39,7 +39,7 @@ class DotifyBaseTestCase(TestCase):
     def download(self, cls_name, url):
         """"""
         with self.client:
-            model_type = getattr(models, cls_name)
+            model_type = getattr(dotify.models, cls_name)
 
             obj = model_type.from_url(url)
 
@@ -55,7 +55,7 @@ class DotifyBaseTestCase(TestCase):
         with self.client:
             self.assertEqual(len(metadata_list), limit)
 
-            model_type = getattr(models, cls_name)
+            model_type = getattr(dotify.models, cls_name)
 
             results = model_type.search(query, limit=limit)
 
