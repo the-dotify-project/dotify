@@ -4,17 +4,17 @@ repos:
     hooks:
       - id: isort
   - repo: https://github.com/psf/black
-    rev: 20.8b1
+    rev: 21.5b1
     hooks:
       - id: black
         language_version: python3
   - repo: https://github.com/PyCQA/flake8
-    rev: 3.9.1
+    rev: 3.9.2
     hooks:
       - id: flake8
         additional_dependencies: [wemake_python_styleguide]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.0.1
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -29,7 +29,7 @@ repos:
       args: [--config, .mypy.ini]
       files: ^dotify|tests/
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.17.4
+    rev: v2.17.6
     hooks:
       - id: commitizen
         stages: [commit-msg]
