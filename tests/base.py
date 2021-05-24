@@ -91,7 +91,8 @@ class DotifyBaseTestCase(TestCase):
     def get_value(cls, obj, attribute_path):
         """"""
         return cls._get_value_recursive(
-            obj, list(filter(None, attribute_path.split(".")))
+            obj,
+            list(filter(None, attribute_path.split("."))),
         )
 
     @classmethod

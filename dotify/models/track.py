@@ -143,7 +143,9 @@ class Track(Model):
     ) -> Path:
         """"""
         return self.as_mp3(
-            mp3_path, skip_existing=skip_existing, progress_logger=progress_logger
+            mp3_path,
+            skip_existing=skip_existing,
+            progress_logger=progress_logger,
         )
 
     @classmethod

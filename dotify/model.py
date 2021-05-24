@@ -32,7 +32,7 @@ class ModelMeta(JsonSerializableMeta):
 
             with contextlib.suppress(AttributeError):
                 attrs["Json"].dependencies = cls.dependencies_from(
-                    attrs["Json"].dependencies
+                    attrs["Json"].dependencies,
                 )
 
         return super().__new__(cls, name, bases, attrs)
