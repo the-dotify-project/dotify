@@ -49,6 +49,10 @@ class DotifyBaseTestCase(TestCase):
 
             self.assertTrue(download_fullpath.exists())
 
+    def _test_search_result_metadata_equality(self, result, name, value):
+        with self.subTest("Asserting metadata equality", **{name: value}):
+            self.assertEqual(self.get_value(result, name), value)
+
     def search(self, cls_name, query, metadata_list, limit=1):
         """ """
         with self.client:
@@ -60,8 +64,7 @@ class DotifyBaseTestCase(TestCase):
 
             for result, metadata in zip(results, metadata_list):
                 for name, value in metadata.items():
-                    with self.subTest("Asserting metadata equality", **{name: value}):
-                        self.assertEqual(self.get_value(result, name), value)
+                    self._test_search_result_metadata_equality(result, name, value)
 
     @classmethod
     def get_download_basename_track(cls, track):
