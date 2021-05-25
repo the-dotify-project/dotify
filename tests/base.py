@@ -49,10 +49,6 @@ class DotifyBaseTestCase(TestCase):
 
             self.assertTrue(download_fullpath.exists())
 
-    def _test_search_result_metadata_equality(self, result, name, value):
-        with self.subTest("Asserting metadata equality", **{name: value}):
-            self.assertEqual(self.get_value(result, name), value)
-
     def search(self, cls_name, query, metadata_list, limit=1):
         """ """
         with self.client:
@@ -104,3 +100,7 @@ class DotifyBaseTestCase(TestCase):
             return cls._get_value_recursive(getattr(obj, paths[0]), paths[1:])
 
         return obj
+
+    def _test_search_result_metadata_equality(self, result, name, value):
+        with self.subTest("Asserting metadata equality", **{name: value}):
+            self.assertEqual(self.get_value(result, name), value)
