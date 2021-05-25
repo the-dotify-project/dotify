@@ -3,8 +3,7 @@ from re import sub
 from shutil import rmtree
 from unittest import TestCase
 
-import dotify
-from dotify import Album, Dotify, Playlist, Track
+from dotify import Album, Dotify, Playlist, Track, models
 from tests.settings import DOTIFY_SETTINGS
 
 
@@ -26,7 +25,7 @@ class DotifyBaseTestCase(TestCase):
         rmtree(self.test_directory)
 
     def get_download_basename(self, obj):
-        """"""
+        """ """
         if isinstance(obj, Track):
             return self.get_download_basename_track(obj)
         elif isinstance(obj, Playlist):
@@ -37,9 +36,9 @@ class DotifyBaseTestCase(TestCase):
         raise RuntimeError("`{0}` is an instance of {1}".format(obj, type(obj)))
 
     def download(self, cls_name, url):
-        """"""
+        """ """
         with self.client:
-            model_type = getattr(dotify.models, cls_name)
+            model_type = getattr(models, cls_name)
 
             obj = model_type.from_url(url)
 
@@ -51,11 +50,11 @@ class DotifyBaseTestCase(TestCase):
             self.assertTrue(download_fullpath.exists())
 
     def search(self, cls_name, query, metadata_list, limit=1):
-        """"""
+        """ """
         with self.client:
             self.assertEqual(len(metadata_list), limit)
 
-            model_type = getattr(dotify.models, cls_name)
+            model_type = getattr(models, cls_name)
 
             results = model_type.search(query, limit=limit)
 
@@ -66,7 +65,7 @@ class DotifyBaseTestCase(TestCase):
 
     @classmethod
     def get_download_basename_track(cls, track):
-        """"""
+        """ """
         artist, name = track.artist.name, track.name
         artist, name = artist.strip(), name.strip()
         artist, name = sub(r"\s+", "_", artist), sub(r"\s+", "_", name)
@@ -75,12 +74,12 @@ class DotifyBaseTestCase(TestCase):
 
     @classmethod
     def get_download_basename_playlist(cls, playlist):
-        """"""
+        """ """
         return sub(r"\s+", " ", playlist.name.strip())
 
     @classmethod
     def get_download_basename_album(cls, album):
-        """"""
+        """ """
         artist, name = album.artist.name, album.name
         artist, name = artist.strip(), name.strip()
         artist, name = sub(r"\s+", " ", artist), sub(r"\s+", " ", name)
@@ -89,7 +88,7 @@ class DotifyBaseTestCase(TestCase):
 
     @classmethod
     def get_value(cls, obj, attribute_path):
-        """"""
+        """ """
         return cls._get_value_recursive(
             obj,
             list(filter(None, attribute_path.split("."))),
@@ -97,7 +96,7 @@ class DotifyBaseTestCase(TestCase):
 
     @classmethod
     def _get_value_recursive(cls, obj, paths):
-        """"""
+        """ """
         if paths:
             return cls._get_value_recursive(getattr(obj, paths[0]), paths[1:])
 

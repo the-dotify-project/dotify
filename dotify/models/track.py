@@ -61,7 +61,7 @@ class Track(Model):
         return self.genres[0] if self.genres else None
 
     def streams(self, limit=1):
-        """"""
+        """ """
         results = VideosSearch(str(self), limit=limit).result()["result"]
 
         yield from (
@@ -94,7 +94,7 @@ class Track(Model):
         }
 
     def as_mp4(self, mp4_path: Path, skip_existing: bool = False) -> Path:
-        """"""
+        """ """
         mp4_path = Path(mp4_path)
 
         try:
@@ -114,7 +114,7 @@ class Track(Model):
         skip_existing: bool = False,
         progress_logger: None = None,
     ) -> Path:
-        """"""
+        """ """
         # FIXME: genres
         # FIXME: progress bar and logging both for moviepy and pytube
 
@@ -141,7 +141,7 @@ class Track(Model):
         skip_existing: bool = False,
         progress_logger: None = None,
     ) -> Path:
-        """"""
+        """ """
         return self.as_mp3(
             mp3_path,
             skip_existing=skip_existing,
@@ -152,5 +152,5 @@ class Track(Model):
     @Model.validate_url
     @Model.http_safeguard
     def from_url(cls, url: str) -> "Track":
-        """"""
+        """ """
         return cls(**cls.context.track(url))

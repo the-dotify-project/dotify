@@ -64,7 +64,7 @@ class Playlist(Model):
         skip_existing: bool = False,
         progress_logger: None = None,
     ) -> PathLike:
-        """"""
+        """ """
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
 
@@ -84,5 +84,5 @@ class Playlist(Model):
     @Model.validate_url
     @Model.http_safeguard
     def from_url(cls, url: str) -> "Playlist":
-        """"""
+        """ """
         return cls(**cls.context.playlist(url))

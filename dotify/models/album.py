@@ -85,7 +85,7 @@ class Album(Model):
         skip_existing: bool = False,
         progress_logger: None = None,
     ) -> PathLike:
-        """"""
+        """ """
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
 
@@ -105,5 +105,5 @@ class Album(Model):
     @Model.validate_url
     @Model.http_safeguard
     def from_url(cls, url: str) -> "dotify.models.album.Album":
-        """"""
+        """ """
         return cls(**cls.context.album(url))
