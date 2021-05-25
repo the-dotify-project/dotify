@@ -20,17 +20,8 @@ if TYPE_CHECKING is True:
     from dotify.models.artist import Artist
 
 
-class Track(Model):
+class TrackBase(Model):
     """ """
-
-    class Json(object):
-        """ """
-
-        dependencies = [
-            "dotify.models.Album",
-            "dotify.models.Artist",
-            "dotify.models.Image",
-        ]
 
     def __str__(self) -> str:
         return "{0} - {1}".format(self.artist, self.name)
@@ -59,6 +50,24 @@ class Track(Model):
     def genre(self) -> None:
         """ """
         return self.genres[0] if self.genres else None
+
+    @classmethod
+    @Model.validate_url
+    @Model.http_safeguard
+    def from_url(cls, url: str) -> "Track":
+        """ """
+        return cls(**cls.context.track(url))
+
+
+class Track(TrackBase):
+    class Json(object):
+        """ """
+
+        dependencies = [
+            "dotify.models.Album",
+            "dotify.models.Artist",
+            "dotify.models.Image",
+        ]
 
     def streams(self, limit=1):
         """ """
@@ -147,10 +156,3 @@ class Track(Model):
             skip_existing=skip_existing,
             progress_logger=progress_logger,
         )
-
-    @classmethod
-    @Model.validate_url
-    @Model.http_safeguard
-    def from_url(cls, url: str) -> "Track":
-        """ """
-        return cls(**cls.context.track(url))

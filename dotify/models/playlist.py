@@ -9,13 +9,8 @@ from dotify.model import Model, logger
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 
-class Playlist(Model):
+class PlaylistBase(Model):
     """ """
-
-    class Json(object):
-        """ """
-
-        dependencies = ["dotify.models.User", "dotify.models.Image"]
 
     def __init__(self, **props) -> None:
         props.pop("tracks", None)
@@ -58,6 +53,20 @@ class Playlist(Model):
                 offset=offset,
             )
 
+    @classmethod
+    @Model.validate_url
+    @Model.http_safeguard
+    def from_url(cls, url: str) -> "Playlist":
+        """ """
+        return cls(**cls.context.playlist(url))
+
+
+class Playlist(PlaylistBase):
+    class Json(object):
+        """ """
+
+        dependencies = ["dotify.models.User", "dotify.models.Image"]
+
     def download(
         self,
         path: PathLike,
@@ -79,10 +88,3 @@ class Playlist(Model):
             )
 
         return path
-
-    @classmethod
-    @Model.validate_url
-    @Model.http_safeguard
-    def from_url(cls, url: str) -> "Playlist":
-        """ """
-        return cls(**cls.context.playlist(url))

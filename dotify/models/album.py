@@ -13,17 +13,8 @@ from dotify.model import Model, logger
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 
-class Album(Model):
+class AlbumBase(Model):
     """ """
-
-    class Json(object):
-        """ """
-
-        dependencies = [
-            "dotify.models.Track",
-            "dotify.models.Artist",
-            "dotify.models.Image",
-        ]
 
     def __str__(self):
         return "{0} - {1}".format(self.artist, self.name)
@@ -79,6 +70,24 @@ class Album(Model):
 
             response = self.context.album_tracks(self.url, offset=offset)
 
+    @classmethod
+    @Model.validate_url
+    @Model.http_safeguard
+    def from_url(cls, url: str) -> "dotify.models.album.Album":
+        """ """
+        return cls(**cls.context.album(url))
+
+
+class Album(AlbumBase):
+    class Json(object):
+        """ """
+
+        dependencies = [
+            "dotify.models.Track",
+            "dotify.models.Artist",
+            "dotify.models.Image",
+        ]
+
     def download(
         self,
         path: PathLike,
@@ -100,10 +109,3 @@ class Album(Model):
             )
 
         return path
-
-    @classmethod
-    @Model.validate_url
-    @Model.http_safeguard
-    def from_url(cls, url: str) -> "dotify.models.album.Album":
-        """ """
-        return cls(**cls.context.album(url))

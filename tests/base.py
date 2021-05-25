@@ -7,7 +7,44 @@ from dotify import Album, Dotify, Playlist, Track, models
 from tests.settings import DOTIFY_SETTINGS
 
 
-class DotifyBaseTestCase(TestCase):
+class BaseNameResolverMixin(object):
+    @classmethod
+    def get_download_basename(cls, obj):
+        """ """
+        if isinstance(obj, Track):
+            return cls.get_download_basename_track(obj)
+        elif isinstance(obj, Playlist):
+            return cls.get_download_basename_playlist(obj)
+        elif isinstance(obj, Album):
+            return cls.get_download_basename_album(obj)
+
+        raise RuntimeError("`{0}` is an instance of {1}".format(obj, type(obj)))
+
+    @classmethod
+    def get_download_basename_track(cls, track):
+        """ """
+        artist, name = track.artist.name, track.name
+        artist, name = artist.strip(), name.strip()
+        artist, name = sub(r"\s+", "_", artist), sub(r"\s+", "_", name)
+
+        return "{0} - {1}.mp3".format(artist, name)
+
+    @classmethod
+    def get_download_basename_playlist(cls, playlist):
+        """ """
+        return sub(r"\s+", " ", playlist.name.strip())
+
+    @classmethod
+    def get_download_basename_album(cls, album):
+        """ """
+        artist, name = album.artist.name, album.name
+        artist, name = artist.strip(), name.strip()
+        artist, name = sub(r"\s+", " ", artist), sub(r"\s+", " ", name)
+
+        return "{0} - {1}".format(artist, name)
+
+
+class DotifyBaseTestCase(TestCase, BaseNameResolverMixin):
     """ """
 
     def setUp(self):
@@ -23,17 +60,6 @@ class DotifyBaseTestCase(TestCase):
     def tearDown(self):
         """ """
         rmtree(self.test_directory)
-
-    def get_download_basename(self, obj):
-        """ """
-        if isinstance(obj, Track):
-            return self.get_download_basename_track(obj)
-        elif isinstance(obj, Playlist):
-            return self.get_download_basename_playlist(obj)
-        elif isinstance(obj, Album):
-            return self.get_download_basename_album(obj)
-
-        raise RuntimeError("`{0}` is an instance of {1}".format(obj, type(obj)))
 
     def download(self, cls_name, url):
         """ """
@@ -59,29 +85,6 @@ class DotifyBaseTestCase(TestCase):
             for result, metadata in zip(results, metadata_list):
                 for name, value in metadata.items():
                     self._test_search_result_metadata_equality(result, name, value)
-
-    @classmethod
-    def get_download_basename_track(cls, track):
-        """ """
-        artist, name = track.artist.name, track.name
-        artist, name = artist.strip(), name.strip()
-        artist, name = sub(r"\s+", "_", artist), sub(r"\s+", "_", name)
-
-        return "{0} - {1}.mp3".format(artist, name)
-
-    @classmethod
-    def get_download_basename_playlist(cls, playlist):
-        """ """
-        return sub(r"\s+", " ", playlist.name.strip())
-
-    @classmethod
-    def get_download_basename_album(cls, album):
-        """ """
-        artist, name = album.artist.name, album.name
-        artist, name = artist.strip(), name.strip()
-        artist, name = sub(r"\s+", " ", artist), sub(r"\s+", " ", name)
-
-        return "{0} - {1}".format(artist, name)
 
     @classmethod
     def get_value(cls, obj, attribute_path):
