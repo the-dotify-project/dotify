@@ -54,9 +54,7 @@ class DotifyBaseTestCase(TestCase):
         with self.client:
             self.assertEqual(len(metadata_list), limit)
 
-            model_type = getattr(models, cls_name)
-
-            results = model_type.search(query, limit=limit)
+            results = getattr(models, cls_name).search(query, limit=limit)
 
             for result, metadata in zip(results, metadata_list):
                 for name, value in metadata.items():
