@@ -3,7 +3,6 @@ import logging
 from functools import wraps
 from http import HTTPStatus
 from importlib import import_module
-from os import PathLike
 from pathlib import Path
 from re import match
 from typing import Any, Callable, Iterator, Optional
@@ -52,7 +51,7 @@ class ModelMeta(JsonSerializableMeta):
         )
 
     @classmethod
-    def dependency_path(cls, model_name: str) -> PathLike:
+    def dependency_path(cls, model_name: str) -> Path:
         """Given the name of a `Model` resolve the path to the corresponding json schema.
 
         Args:
