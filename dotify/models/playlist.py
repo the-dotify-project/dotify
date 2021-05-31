@@ -1,28 +1,19 @@
 import logging
 from os import PathLike
 from pathlib import Path
-from typing import TYPE_CHECKING, Iterator
+from typing import Iterator
 
-import dotify.models as models
+import dotify
 from dotify.model import Model, logger
 
-logger = logging.getLogger(f"{logger.name}.{__name__}")
-
-if TYPE_CHECKING is True:
-    from dotify.models.track import Track
+logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 
-class Playlist(Model):
+class PlaylistBase(Model):
     """ """
 
-    class Json:
-        """ """
-
-        dependencies = ["dotify.models.User", "dotify.models.Image"]
-
     def __init__(self, **props) -> None:
-        if "tracks" in props:
-            del props["tracks"]
+        props.pop("tracks", None)
 
         super().__init__(**props)
 
@@ -38,7 +29,7 @@ class Playlist(Model):
         return self.external_urls.spotify
 
     @property
-    def tracks(self) -> Iterator["Track"]:
+    def tracks(self) -> Iterator["dotify.models.track.Track"]:
         """ """
         response, offset = (
             self.context.playlist_items(self.url, additional_types=("track",)),
@@ -49,7 +40,7 @@ class Playlist(Model):
             for result in response["items"]:
                 url = result["track"]["external_urls"]["spotify"]
 
-                yield models.Track.from_url(url)
+                yield dotify.models.track.Track.from_url(url)
 
             offset += len(response["items"])
 
@@ -57,26 +48,43 @@ class Playlist(Model):
                 break
 
             response = self.context.playlist_items(
-                self.url, additional_types=("track",), offset=offset
+                self.url,
+                additional_types=("track",),
+                offset=offset,
             )
-
-    def download(
-        self, path: PathLike, skip_existing: bool = False, logger: None = None
-    ) -> PathLike:
-        """"""
-        path = Path(path)
-        path.mkdir(parents=True, exist_ok=True)
-
-        for track in self.tracks:
-            track.download(
-                path / f"{track}.mp3", skip_existing=skip_existing, logger=logger
-            )
-
-        return path
 
     @classmethod
     @Model.validate_url
     @Model.http_safeguard
     def from_url(cls, url: str) -> "Playlist":
-        """"""
+        """ """
         return cls(**cls.context.playlist(url))
+
+
+class Playlist(PlaylistBase):
+    class Json(object):
+        """ """
+
+        dependencies = ["dotify.models.User", "dotify.models.Image"]
+
+    def download(
+        self,
+        path: PathLike,
+        skip_existing: bool = False,
+        progress_logger: None = None,
+    ) -> PathLike:
+        """ """
+        path = Path(path)
+        path.mkdir(parents=True, exist_ok=True)
+
+        for track in self.tracks:
+            track.download(
+                path
+                / "{0}.mp3".format(
+                    track,
+                ),
+                skip_existing=skip_existing,
+                progress_logger=progress_logger,
+            )
+
+        return path

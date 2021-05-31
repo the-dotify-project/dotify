@@ -2,9 +2,9 @@ from functools import update_wrapper
 from typing import Any, Callable, Optional
 
 
-class classproperty:
+class classproperty(object):
     """
-    A decorator that converts a method to a `classproperty`
+    A decorator that converts a method to a `classproperty`.
 
     Examples:
         >>> from random import random
@@ -20,7 +20,7 @@ class classproperty:
     """
 
     def __init__(self, method: Callable[..., Any]) -> None:
-        """Create a `classproperty` instance
+        """Create a `classproperty` instance.
 
         Args:
             method (Callable[..., Any]): the method being decorated
@@ -35,6 +35,7 @@ class classproperty:
 
 class cached_classproperty(classproperty):
     """
+
     A decorator that converts a method to a `cached_classproperty`.
     As indicated by the name, once the method is called, its
     return value is cached and is therefore returned unchanged.
@@ -53,7 +54,7 @@ class cached_classproperty(classproperty):
     """
 
     def __init__(self, method: Callable[..., Any]) -> None:
-        """Create a `cached_classproperty` instance
+        """Create a `cached_classproperty` instance.
 
         Args:
             method (Callable[..., Any]): the method being decorated

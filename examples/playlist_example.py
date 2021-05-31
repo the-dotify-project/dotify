@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
         print(playlist)
         playlist = Playlist.from_url(
-            "https://open.spotify.com/playlist/37i9dQZF1DX0XUsuxWHRQd"
+            "https://open.spotify.com/playlist/37i9dQZF1DX0XUsuxWHRQd",
         )
         print(playlist)
         playlist.download(str(playlist))

@@ -1,41 +1,29 @@
 import logging
+from http import HTTPStatus
 from os import PathLike
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Iterator
+from typing import Any, Iterator
 
 import requests
 from mutagen.id3 import APIC
 
-import dotify.models as models
+import dotify
 from dotify.model import Model, logger
 
-logger = logging.getLogger(f"{logger.name}.{__name__}")
-
-if TYPE_CHECKING is True:
-    from dotify.models.artist import Artist
-    from dotify.models.track import Track
+logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 
-class Album(Model):
+class AlbumBase(Model):
     """ """
 
-    class Json:
-        """ """
-
-        dependencies = [
-            "dotify.models.Track",
-            "dotify.models.Artist",
-            "dotify.models.Image",
-        ]
-
     def __str__(self):
-        return f"{self.artist} - {self.name}"
+        return "{0} - {1}".format(self.artist, self.name)
 
     def __iter__(self):
         return self.tracks
 
     @property
-    def artist(self) -> "Artist":
+    def artist(self) -> "dotify.models.artist.Artist":
         """ """
         return self.artists[0]
 
@@ -49,14 +37,23 @@ class Album(Model):
         """ """
         response = requests.get(self.images[0].url)
 
-        assert response.status_code == 200, f"Failed to fetch {self.images[0].url}"
+        if response.status_code != HTTPStatus.OK.value:
+            raise ConnectionError(
+                "Failed to fetch {0}".format(
+                    self.images[0].url,
+                ),
+            )
 
         return APIC(
-            encoding=3, mime="image/jpeg", type=3, desc="Cover", data=response.content
+            encoding=3,
+            mime="image/jpeg",
+            type=3,
+            desc="Cover",
+            data=response.content,
         )
 
     @property
-    def tracks(self) -> Iterator["Track"]:
+    def tracks(self) -> Iterator["dotify.models.track.Track"]:
         """ """
         response, offset = self.context.album_tracks(self.url), 0
 
@@ -64,7 +61,7 @@ class Album(Model):
             for result in response["items"]:
                 url = result["external_urls"]["spotify"]
 
-                yield models.Track.from_url(url)
+                yield dotify.models.track.Track.from_url(url)
 
             offset += len(response["items"])
 
@@ -73,23 +70,42 @@ class Album(Model):
 
             response = self.context.album_tracks(self.url, offset=offset)
 
+    @classmethod
+    @Model.validate_url
+    @Model.http_safeguard
+    def from_url(cls, url: str) -> "dotify.models.album.Album":
+        """ """
+        return cls(**cls.context.album(url))
+
+
+class Album(AlbumBase):
+    class Json(object):
+        """ """
+
+        dependencies = [
+            "dotify.models.Track",
+            "dotify.models.Artist",
+            "dotify.models.Image",
+        ]
+
     def download(
-        self, path: PathLike, skip_existing: bool = False, logger: None = None
+        self,
+        path: PathLike,
+        skip_existing: bool = False,
+        progress_logger: None = None,
     ) -> PathLike:
-        """"""
+        """ """
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
 
         for track in self.tracks:
             track.download(
-                path / f"{track}.mp3", skip_existing=skip_existing, logger=logger
+                path
+                / "{0}.mp3".format(
+                    track,
+                ),
+                skip_existing=skip_existing,
+                progress_logger=progress_logger,
             )
 
         return path
-
-    @classmethod
-    @Model.validate_url
-    @Model.http_safeguard
-    def from_url(cls, url: str) -> "Album":
-        """"""
-        return cls(**cls.context.album(url))

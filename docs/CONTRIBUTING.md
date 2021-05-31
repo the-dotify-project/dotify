@@ -8,11 +8,11 @@ This project follows the [all-contributors](https://allcontributors.org/) specif
 
 ## Code of Conduct
 
-By participating and contributing to this project, you agree to uphold our [Code of Conduct](/CODE_OF_CONDUCT.md).
+By participating and contributing to this project, you agree to uphold our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Getting Help
 
-In case all you need is an answer to a question, please refrain from opening an issue and instead visit the project's [discussion page](https://github.com/billsioros/dotify/discussions/categories/q-a).
+In case all you need is an answer to a question, please refrain from opening an issue and instead visit the project's [discussion page](https://github.com/the-dotify-project/dotify/discussions/categories/q-a).
 
 ## Getting Started
 
@@ -34,9 +34,9 @@ PRs can be a quick way to get your fix or improvement slated for the next releas
 - Only fix/add the functionality in question **OR** address wide-spread whitespace/style issues, not both.
 - Address a single concern in the least number of changed lines as possible.
 - Be accompanied by a complete Pull Request template (loaded automatically when a PR is created).
-- Add [unit or integration tests](/tests) for added or changed functionality.
+- Add [unit or integration tests](https://github.com/the-dotify-project/dotify/tree/master/examples) for added or changed functionality.
 - Any code related changes should be accompanied by corresponding changes to the project's documentation.
-- If your pull request introduces a new feature, the corresponding `README` [section](/README.md#features) must be updated to reflect this. Make sure you also include [an example](/examples), showcasing this new functionality.
+- If your pull request introduces a new feature, the corresponding `README` [section](/README.md#features) must be updated to reflect this. Make sure you also include [an example](https://github.com/the-dotify-project/dotify/tree/master/examples), showcasing this new functionality.
 - Write clear, concise commit message(s) using [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md). [Why?](#writing-your-commit-message)
 - If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
 
@@ -49,7 +49,7 @@ In general, we follow the ["fork-and-pull" Git workflow](https://github.com/susa
 3. Create a branch locally with a succinct but descriptive name
 4. Commit changes to the branch
 5. Push changes to your fork
-6. [Open a PR in our repository](https://github.com/billsioros/dotify/compare) and follow the PR template so that we can efficiently review the changes
+6. [Open a PR in our repository](https://github.com/the-dotify-project/dotify/compare) and follow the PR template so that we can efficiently review the changes
 
 ## Setting up a local development environment
 
@@ -83,7 +83,7 @@ _**ATTENTION**: Even though, using a JSON file is far more convenient than re-ex
 
 ### Installing pre-commit hooks
 
-The project utilizes the [pre-commit](https://pre-commit.com/) framework. Having [created a virtual environment and installed the required dependencies](#installing-poetry), you may run `pre-commit install` to install the [git hook scripts](/.pre-commit-config.yaml).
+The project utilizes the [pre-commit](https://pre-commit.com/) framework. Having [created a virtual environment and installed the required dependencies](#installing-poetry), you may run `pre-commit install` to install the [git hook scripts](https://github.com/the-dotify-project/dotify/blob/master/.pre-commit-config.yaml).
 
 ### Formatting, Linting and Testing
 
@@ -118,7 +118,7 @@ Having made your changes, please run `mkdocs server` and make sure that no error
 
 ### Writing your commit message
 
-The project's version number and [Changelog](/CHANGELOG.md), depend on a consistent commit history. As a result, your commit message's format is extremely important. Before opening a pull request, please make sure that your commits strictly follow the [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md).
+The project's version number and [Changelog](https://github.com/the-dotify-project/dotify/blob/master/CHANGELOG.md), depend on a consistent commit history. As a result, your commit message's format is extremely important. Before opening a pull request, please make sure that your commits strictly follow the [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md).
 
 ### Creating a pull request
 

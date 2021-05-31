@@ -1,9 +1,9 @@
 site_name: Dotify
 site_description: "🐍🎶 Yet another Spotify Web API Python library."
-site_url: "https://billsioros.github.io/dotify/"
-repo_url: "https://github.com/billsioros/dotify"
+site_url: "https://the-dotify-project.github.io/dotify/"
+repo_url: "https://github.com/the-dotify-project/dotify"
 edit_uri: "edit/master/docs/"
-repo_name: "billsioros/dotify"
+repo_name: "the-dotify-project/dotify"
 copyright: |
   Copyright &copy; 2021 <a href="https://github.com/billsioros"  target="_blank" rel="noopener">Vasileios Sioros</a>
 
@@ -15,10 +15,11 @@ nav:
       - Album: models/album.md
       - Playlist: models/playlist.md
       - Track: models/track.md
-  - Contributing Guidelines: contributing.md
-  - Code Of Conduct: code_of_conduct.md
-  - Changelog: changelog.md
-  - License: license.md
+  - Contributing:
+    - Contributing Guidelines: CONTRIBUTING.md
+    - Code Of Conduct: CODE_OF_CONDUCT.md
+  - Changelog: CHANGELOG.md
+  - License: LICENSE.md
 
 theme:
   name: material

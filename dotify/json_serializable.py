@@ -14,22 +14,26 @@ logger = logging.getLogger(__name__)
 
 class JsonSerializableMeta(ABCMeta):
     """
+
     A metaclass responsible for resolving a class' JSON schema
     and defining the class at hand based on it
     """
 
     def __new__(cls, name, bases, attrs):
-        if "Json" not in attrs or not hasattr(attrs["Json"], "schema"):
+        try:
+            path = attrs["Json"].schema.absolute()
+        except (KeyError, AttributeError):
             return super().__new__(cls, name, bases, attrs)
 
-        path = attrs["Json"].schema.absolute()
         with path.open() as file:
             json_schema = json.load(file)
 
             builder = ObjectBuilder(str(path))
 
             classes = builder.build_classes(
-                strict=True, named_only=True, standardize_names=False
+                strict=True,
+                named_only=True,
+                standardize_names=False,
             )
 
             json_schema = getattr(classes, name)
@@ -38,11 +42,9 @@ class JsonSerializableMeta(ABCMeta):
 
 
 class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
-    """
-    A class providing JSON serialization and de-serialization
-    """
+    """A class providing JSON serialization and de-serialization."""
 
-    class Json:
+    class Json(object):
         schema: PathLike
         dependencies: Dict[str, "JsonSerializable"]
 
@@ -50,25 +52,10 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
         try:
             super().__setattr__(name, val)
         except ValidationError:
-            if hasattr(self, "__annotations__") and name in self.__annotations__:
+            if name in self.__annotations__:
                 self.__dict__[name] = val
-            else:
-                raise
 
-    @classmethod
-    def _resolve_dependency(cls, obj: Any) -> Optional["JsonSerializable"]:
-        """Given a `python_jsonschema_objects` it returns
-        the `JsonSerializable` dependency that has been registered
-        with it, given that it's available
-
-        Returns:
-            Optional["JsonSerializable"]: the corresponding `JsonSerializable`
-            dependency
-        """
-        if not hasattr(cls.Json, "dependencies"):
-            return None
-
-        return cls.Json.dependencies.get(obj.__class__.__name__, None)
+            raise
 
     def __getattribute__(self, name: str) -> Any:
         obj = super().__getattribute__(name)
@@ -102,3 +89,21 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             return self._extended_properties[name]
 
         return object.__getattribute__(self, name)
+
+    @classmethod
+    def _resolve_dependency(cls, obj: Any) -> Optional["JsonSerializable"]:
+        """Resolve a class dependency.
+
+        Given a `python_jsonschema_objects` it returns
+        the `JsonSerializable` dependency that has been registered
+        with it, given that it's available
+
+        Returns:
+            Optional["JsonSerializable"]: the corresponding `JsonSerializable`
+            dependency
+        """
+
+        try:
+            return cls.Json.dependencies.get(obj.__class__.__name__, None)
+        except AttributeError:
+            return None

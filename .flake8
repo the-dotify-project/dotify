@@ -1,4 +1,32 @@
 [flake8]
 max-line-length = 99
-# This ignore is required by black.
-extend-ignore = E203
+exclude =
+    .git
+    .github
+    .mypy_cache
+    .pytest_cache
+    .tox
+    .vscode
+    build
+    dist
+    docs
+    examples
+    __pycache__
+extend-ignore =
+    E203,
+    WPS431,
+    Q000,
+    WPS529,
+    WPS110,
+    N801,
+    N805,
+    WPS221,
+    WPS226,
+    WPS231,
+    WPS609,
+    WPS603,
+    WPS437,
+    WPS433,
+    WPS412,
+    WPS410,
+    WPS323

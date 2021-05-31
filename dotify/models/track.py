@@ -1,6 +1,8 @@
+import contextlib
 import logging
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List
+from urllib.error import HTTPError
 
 from moviepy.editor import AudioFileClip
 from mutagen.easyid3 import EasyID3
@@ -10,7 +12,7 @@ from youtubesearchpython import VideosSearch
 
 from dotify.model import Model, logger
 
-logger = logging.getLogger(f"{logger.name}.{__name__}")
+logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 EasyID3.RegisterTextKey("albumcover", "APIC")
 
@@ -18,20 +20,11 @@ if TYPE_CHECKING is True:
     from dotify.models.artist import Artist
 
 
-class Track(Model):
+class TrackBase(Model):
     """ """
 
-    class Json:
-        """ """
-
-        dependencies = [
-            "dotify.models.Album",
-            "dotify.models.Artist",
-            "dotify.models.Image",
-        ]
-
     def __str__(self) -> str:
-        return f"{self.artist} - {self.name}"
+        return "{0} - {1}".format(self.artist, self.name)
 
     @property
     def url(self) -> str:
@@ -47,8 +40,8 @@ class Track(Model):
     def genres(self) -> List[Any]:
         """ """
         genres = []
-        for item in [self.album, self.artist]:
-            if hasattr(item, "genres"):
+        for item in (self.album, self.artist):
+            with contextlib.suppress(AttributeError):
                 genres.append(item.genres)
 
         return genres
@@ -58,12 +51,31 @@ class Track(Model):
         """ """
         return self.genres[0] if self.genres else None
 
+    @classmethod
+    @Model.validate_url
+    @Model.http_safeguard
+    def from_url(cls, url: str) -> "Track":
+        """ """
+        return cls(**cls.context.track(url))
+
+
+class Track(TrackBase):
+    class Json(object):
+        """ """
+
+        dependencies = [
+            "dotify.models.Album",
+            "dotify.models.Artist",
+            "dotify.models.Image",
+        ]
+
     def streams(self, limit=1):
-        """"""
+        """ """
         results = VideosSearch(str(self), limit=limit).result()["result"]
 
-        for result in results:
-            yield YouTube(result["link"]).streams.get_audio_only()
+        yield from (
+            YouTube(result["link"]).streams.get_audio_only() for result in results
+        )
 
     @property
     def stream(self) -> Stream:
@@ -91,21 +103,27 @@ class Track(Model):
         }
 
     def as_mp4(self, mp4_path: Path, skip_existing: bool = False) -> Path:
-        """"""
+        """ """
         mp4_path = Path(mp4_path)
 
-        return Path(
-            self.stream.download(
-                output_path=mp4_path.parent,
-                filename=mp4_path.stem,
-                skip_existing=skip_existing,
+        try:
+            return Path(
+                self.stream.download(
+                    output_path=mp4_path.parent,
+                    filename=mp4_path.stem,
+                    skip_existing=skip_existing,
+                ),
             )
-        )
+        except HTTPError as http_error:
+            raise self.NotFound() from http_error
 
     def as_mp3(
-        self, mp3_path: Path, skip_existing: bool = False, logger: None = None
+        self,
+        mp3_path: Path,
+        skip_existing: bool = False,
+        progress_logger: None = None,
     ) -> Path:
-        """"""
+        """ """
         # FIXME: genres
         # FIXME: progress bar and logging both for moviepy and pytube
 
@@ -114,7 +132,7 @@ class Track(Model):
         mp4_path = self.as_mp4(mp3_path, skip_existing=skip_existing)
 
         audio_file_clip = AudioFileClip(str(mp4_path))
-        audio_file_clip.write_audiofile(str(mp3_path), logger=logger)
+        audio_file_clip.write_audiofile(str(mp3_path), logger=progress_logger)
 
         mp4_path.unlink()
 
@@ -127,14 +145,14 @@ class Track(Model):
         return mp3_path
 
     def download(
-        self, mp3_path: Path, skip_existing: bool = False, logger: None = None
+        self,
+        mp3_path: Path,
+        skip_existing: bool = False,
+        progress_logger: None = None,
     ) -> Path:
-        """"""
-        return self.as_mp3(mp3_path, skip_existing=skip_existing, logger=logger)
-
-    @classmethod
-    @Model.validate_url
-    @Model.http_safeguard
-    def from_url(cls, url: str) -> "Track":
-        """"""
-        return cls(**cls.context.track(url))
+        """ """
+        return self.as_mp3(
+            mp3_path,
+            skip_existing=skip_existing,
+            progress_logger=progress_logger,
+        )
