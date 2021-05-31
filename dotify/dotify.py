@@ -1,7 +1,7 @@
 import contextlib
 import logging
 import threading
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from spotipy import Spotify as Client
 from spotipy.client import logger
@@ -70,19 +70,16 @@ class Dotify(Client):
             return cls._context.stack
 
     @classproperty
-    def context(cls) -> "Dotify":
+    def context(cls) -> Optional["Dotify"]:
         """Get the topmost context from the stack.
 
-        Raises:
-            TypeError: if the context stack is empty
-
         Returns:
-            Dotify: the topmost context
+            Optional[Dotify]: the topmost context
         """
         try:
             return cls.contexts[-1]
         except IndexError:
-            raise TypeError("No context on context stack")
+            return None
 
     def search(
         self,

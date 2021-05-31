@@ -35,3 +35,7 @@ jobs:
           SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
           SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
         run: poetry run python -m tox
+
+      - name: Run MkDocs
+        run: |
+          poetry run python -m mkdocs build
