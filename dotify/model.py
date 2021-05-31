@@ -110,10 +110,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         Returns:
             Optional[Dotify]: the current `Dotify` context
         """
-        try:
-            return Dotify.context
-        except TypeError:
-            return None
+        return Dotify.context
 
     @classmethod
     def view_name(cls) -> str:
