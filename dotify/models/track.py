@@ -1,7 +1,7 @@
 import contextlib
 import logging
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Dict, List
+from typing import TYPE_CHECKING, Any, AnyStr, Dict, Iterator, List, Optional
 from urllib.error import HTTPError
 
 from moviepy.editor import AudioFileClip
@@ -21,24 +21,36 @@ if TYPE_CHECKING is True:
 
 
 class TrackBase(Model):
-    """ """
+    """`TrackBase` defines the interface of the Track class, which is subclassing it."""
 
     def __str__(self) -> str:
         return "{0} - {1}".format(self.artist, self.name)
 
     @property
     def url(self) -> str:
-        """ """
+        """Return the track's Spotify URL.
+
+        Returns:
+            str: the URL in string format
+        """
         return self.external_urls.spotify
 
     @property
     def artist(self) -> "Artist":
-        """ """
+        """Return the tracks Spotify URL.
+
+        Returns:
+            Artist: an instance of `Artist` representing the track's artist relevant info
+        """
         return self.artists[0]
 
     @property
-    def genres(self) -> List[Any]:
-        """ """
+    def genres(self) -> List[AnyStr]:
+        """Return the track's genres.
+
+        Returns:
+            List[AnyStr]: a list containing the track's genres
+        """
         genres = []
         for item in (self.album, self.artist):
             with contextlib.suppress(AttributeError):
@@ -47,30 +59,48 @@ class TrackBase(Model):
         return genres
 
     @property
-    def genre(self) -> None:
-        """ """
+    def genre(self) -> Optional[AnyStr]:
+        """Return the tracks main genre.
+
+        Returns:
+            Optional[AnyStr]: the track's main genre
+        """
         return self.genres[0] if self.genres else None
 
     @classmethod
     @Model.validate_url
     @Model.http_safeguard
     def from_url(cls, url: str) -> "Track":
-        """ """
+        """Return a `Track` given its corresponding Spotify URL.
+
+        Args:
+            url (str): the Spotify URL of the track
+
+        Returns:
+            Track: the corresponding track
+        """
         return cls(**cls.context.track(url))
 
 
 class Track(TrackBase):
-    class Json(object):
-        """ """
+    """`Track` implements the track downloading logic."""
 
+    class Json(object):
         dependencies = [
             "dotify.models.Album",
             "dotify.models.Artist",
             "dotify.models.Image",
         ]
 
-    def streams(self, limit=1):
-        """ """
+    def streams(self, limit: Optional[int] = 1) -> Iterator[Stream]:
+        """Yield the track's corresponding YouTube search results audio streams.
+
+        Args:
+            limit (Optional[int]): the desired number of search result items. Defaults to 1.
+
+        Yields:
+            Iterator[Stream]: yields each one of the search result audio streams
+        """
         results = VideosSearch(str(self), limit=limit).result()["result"]
 
         yield from (
@@ -79,12 +109,20 @@ class Track(TrackBase):
 
     @property
     def stream(self) -> Stream:
-        """ """
+        """Return the audio stream corresponding to the the top search result.
+
+        Returns:
+            Stream: an audio stream of the track
+        """
         return next(self.streams(limit=1))
 
     @property
     def id3_tags(self) -> Dict[str, Any]:
-        """ """
+        """Recover the track's `ID3` tags.
+
+        Returns:
+            Dict[str, Any]: a dictionary containing the track's `ID3` tags
+        """
         optional: Dict[str, Any] = {}
         if self.genre is not None:
             optional["genre"] = self.genre
@@ -102,8 +140,19 @@ class Track(TrackBase):
             "albumcover": self.album.cover,
         }
 
-    def as_mp4(self, mp4_path: Path, skip_existing: bool = False) -> Path:
-        """ """
+    def as_mp4(self, mp4_path: Path, skip_existing: Optional[bool] = False) -> Path:
+        """Download the track in `.mp4` format.
+
+        Args:
+            mp4_path (Path): where should the resulting file be stored
+            skip_existing (Optional[bool]): whether or not to overwrite an existing file. Defaults to False.
+
+        Raises:
+            NotFound: if no audio stream corresponding to the track at hand is found
+
+        Returns:
+            Path: the download location of the `.mp4` file
+        """
         mp4_path = Path(mp4_path)
 
         try:
@@ -120,10 +169,19 @@ class Track(TrackBase):
     def as_mp3(
         self,
         mp3_path: Path,
-        skip_existing: bool = False,
-        progress_logger: None = None,
+        skip_existing: Optional[bool] = False,
+        progress_logger: Optional[logging.Logger] = None,
     ) -> Path:
-        """ """
+        """Download the track in `.mp3` format.
+
+        Args:
+            mp3_path (Path): where should the resulting file be stored
+            skip_existing (Optional[bool]): whether or not to overwrite an existing file. Defaults to False.
+            progress_logger (Optional[logging.Logger]): a logger reporting on the download progress. Defaults to None.
+
+        Returns:
+            Path: the download location of the `.mp3` file
+        """
         # FIXME: genres
         # FIXME: progress bar and logging both for moviepy and pytube
 
@@ -150,7 +208,16 @@ class Track(TrackBase):
         skip_existing: bool = False,
         progress_logger: None = None,
     ) -> Path:
-        """ """
+        """Download the track in `.mp3` format.
+
+        Args:
+            mp3_path (Path): where should the resulting file be stored
+            skip_existing (Optional[bool]): whether or not to overwrite an existing file. Defaults to False.
+            progress_logger (Optional[logging.Logger]): a logger reporting on the download progress. Defaults to None.
+
+        Returns:
+            Path: the download location of the `.mp3` file
+        """
         return self.as_mp3(
             mp3_path,
             skip_existing=skip_existing,

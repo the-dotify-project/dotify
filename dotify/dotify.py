@@ -85,14 +85,14 @@ class Dotify(Client):
         self,
         model_type: str,
         query: str,
-        limit: int = 1,
+        limit: Optional[int] = 1,
     ) -> List[Dict[str, Any]]:
         """Perform a Spotify search given a `query`.
 
         Args:
             model_type (str): One of 'artist', 'album', 'track', 'playlist'
             query (str): the search `query`
-            limit (int, optional): the number of items to return. Defaults to 1.
+            limit (Optional[int]): the number of items to return. Defaults to 1.
 
         Returns:
             List[Dict[str, Any]]: A list containing the search results

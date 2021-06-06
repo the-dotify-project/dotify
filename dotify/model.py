@@ -122,12 +122,12 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         return cls.__name__.lower()
 
     @classmethod
-    def search(cls, query: str, limit: int = 1) -> Iterator["Model"]:
+    def search(cls, query: str, limit: Optional[int] = 1) -> Iterator["Model"]:
         """Perform a Spotify search given a `query`.
 
         Args:
             query (str): the search `query`
-            limit (int, optional): the number of items to return. Defaults to 1.
+            limit (Optional[int]): the number of items to return. Defaults to 1.
 
         Raises:
             cls.NotFound: In case no results corresponding to the provided query are found
