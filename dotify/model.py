@@ -126,7 +126,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         """Perform a Spotify search given a `query`.
 
         Args:
-            query (str): the search `query`
+            query (AnyStr): the search `query`
             limit (Optional[int]): the number of items to return. Defaults to 1.
 
         Raises:
