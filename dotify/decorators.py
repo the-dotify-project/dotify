@@ -34,9 +34,8 @@ class classproperty(object):
 
 
 class cached_classproperty(classproperty):
-    """
+    """A decorator that converts a method to a `cached_classproperty`.
 
-    A decorator that converts a method to a `cached_classproperty`.
     As indicated by the name, once the method is called, its
     return value is cached and is therefore returned unchanged.
 
