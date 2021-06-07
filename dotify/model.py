@@ -130,7 +130,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
             limit (Optional[int]): the number of items to return. Defaults to 1.
 
         Raises:
-            cls.NotFound: In case no results corresponding to the provided query are found
+            NotFound: In case no results corresponding to the provided query are found
 
         Returns:
             Iterator["Model"]: the `Model` instances corresponding to the query
@@ -150,9 +150,6 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
         Args:
             method (Callable[..., Any]): the method being decorated
-
-        Raises:
-            cls.InvalidURL: in case the supplied url is invalid
 
         Returns:
             Callable[..., Any]: the  decorated method
@@ -178,11 +175,6 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
         Args:
             method (Callable[..., Any]): the method being decorated
-
-        Raises:
-            cls.NotFound: in case a `Spotipy` call returns an HTTP status of 404
-            cls.InvalidURL: in case a `Spotipy` call returns an HTTP status of 400
-            cls.UnexpectedError: in case a `Spotipy` call returns an unexpected HTTP status
 
         Returns:
             Callable[..., Any]: the decorated method
