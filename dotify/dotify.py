@@ -60,7 +60,6 @@ class Dotify(Client):
         Returns:
             List[Dotify]: the `Dotify` context stack
         """
-
         try:
             return cls._context.stack
         except AttributeError:

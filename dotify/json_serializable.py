@@ -98,7 +98,6 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             Optional["JsonSerializable"]: the corresponding `JsonSerializable`
             dependency
         """
-
         try:
             return cls.Json.dependencies.get(obj.__class__.__name__, None)
         except AttributeError:
