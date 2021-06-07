@@ -94,6 +94,9 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
         the `JsonSerializable` dependency that has been registered
         with it, given that it's available
 
+        Args:
+            obj (Any): an instance of the dependee type
+
         Returns:
             Optional["JsonSerializable"]: the corresponding `JsonSerializable`
             dependency
