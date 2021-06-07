@@ -58,7 +58,7 @@ class ModelMeta(JsonSerializableMeta):
             model_name (str): the name of a `Model`
 
         Returns:
-            PathLike: the path to the file containing the json schema
+            Path: the path to the file containing the json schema
         """
         return (
             Path(__file__).parent

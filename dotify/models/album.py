@@ -1,20 +1,24 @@
 import logging
 from http import HTTPStatus
-from os import PathLike
 from pathlib import Path
-from typing import Any, Iterator
+from typing import TYPE_CHECKING, AnyStr, Iterator, Optional
 
 import requests
 from mutagen.id3 import APIC
+from requests.models import HTTPError
 
 import dotify
 from dotify.model import Model, logger
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
+if TYPE_CHECKING is True:
+    from dotify.models.artist import Artist
+    from dotify.models.track import Track
+
 
 class AlbumBase(Model):
-    """ """
+    """`AlbumBase` defines the interface of the Album class, which is subclassing it."""
 
     def __str__(self):
         return "{0} - {1}".format(self.artist, self.name)
@@ -23,26 +27,37 @@ class AlbumBase(Model):
         return self.tracks
 
     @property
-    def artist(self) -> "dotify.models.artist.Artist":
-        """ """
+    def artist(self) -> "Artist":
+        """Return the album's artist.
+
+        Returns:
+            Artist: an instance of `Artist` representing the album's artist relevant info
+        """
         return self.artists[0]
 
     @property
-    def url(self):
-        """ """
+    def url(self) -> AnyStr:
+        """Return the album's Spotify URL.
+
+        Returns:
+            AnyStr: the URL in string format
+        """
         return self.external_urls.spotify
 
     @property
-    def cover(self) -> Any:
-        """ """
+    def cover(self) -> APIC:
+        """Return the cover art of the album.
+
+        Raises:
+            HTTPError: if response status code is indicative of an error
+
+        Returns:
+            APIC: the album's cover
+        """
         response = requests.get(self.images[0].url)
 
         if response.status_code != HTTPStatus.OK.value:
-            raise ConnectionError(
-                "Failed to fetch {0}".format(
-                    self.images[0].url,
-                ),
-            )
+            raise HTTPError(response=response)
 
         return APIC(
             encoding=3,
@@ -53,8 +68,12 @@ class AlbumBase(Model):
         )
 
     @property
-    def tracks(self) -> Iterator["dotify.models.track.Track"]:
-        """ """
+    def tracks(self) -> Iterator["Track"]:
+        """Return the album tracks.
+
+        Yields:
+            Iterator["Track"]: the album tracks
+        """
         response, offset = self.context.album_tracks(self.url), 0
 
         while True:
@@ -73,15 +92,22 @@ class AlbumBase(Model):
     @classmethod
     @Model.validate_url
     @Model.http_safeguard
-    def from_url(cls, url: str) -> "dotify.models.album.Album":
-        """ """
+    def from_url(cls, url: str) -> "Album":
+        """Return an `Album` given its corresponding Spotify URL.
+
+        Args:
+            url (str): the Spotify URL of the album
+
+        Returns:
+            Album: the corresponding album
+        """
         return cls(**cls.context.album(url))
 
 
 class Album(AlbumBase):
-    class Json(object):
-        """ """
+    """`Album` implements the album downloading logic."""
 
+    class Json(object):
         dependencies = [
             "dotify.models.Track",
             "dotify.models.Artist",
@@ -90,11 +116,20 @@ class Album(AlbumBase):
 
     def download(
         self,
-        path: PathLike,
-        skip_existing: bool = False,
-        progress_logger: None = None,
-    ) -> PathLike:
-        """ """
+        path: Path,
+        skip_existing: Optional[bool] = False,
+        progress_logger: Optional[logging.Logger] = None,
+    ) -> Path:
+        """Download the album's tracks in `.mp3` format.
+
+        Args:
+            path (Path): where should the tracks be stored
+            skip_existing (Optional[bool]): whether or not to overwrite an existing track. Defaults to False.
+            progress_logger (Optional[logging.Logger]): a logger reporting on the download progress. Defaults to None.
+
+        Returns:
+            Path: the download folder of the album
+        """
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
 
