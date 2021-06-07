@@ -5,7 +5,7 @@ from http import HTTPStatus
 from importlib import import_module
 from pathlib import Path
 from re import match
-from typing import Any, Callable, Iterator, Optional
+from typing import Any, AnyStr, Callable, Iterator, Optional
 
 from spotipy.exceptions import SpotifyException
 
@@ -122,7 +122,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         return cls.__name__.lower()
 
     @classmethod
-    def search(cls, query: str, limit: Optional[int] = 1) -> Iterator["Model"]:
+    def search(cls, query: AnyStr, limit: Optional[int] = 1) -> Iterator["Model"]:
         """Perform a Spotify search given a `query`.
 
         Args:

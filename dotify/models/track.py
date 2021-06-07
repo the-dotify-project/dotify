@@ -27,11 +27,11 @@ class TrackBase(Model):
         return "{0} - {1}".format(self.artist, self.name)
 
     @property
-    def url(self) -> str:
+    def url(self) -> AnyStr:
         """Return the track's Spotify URL.
 
         Returns:
-            str: the URL in string format
+            AnyStr: the URL in string format
         """
         return self.external_urls.spotify
 
@@ -70,11 +70,11 @@ class TrackBase(Model):
     @classmethod
     @Model.validate_url
     @Model.http_safeguard
-    def from_url(cls, url: str) -> "Track":
+    def from_url(cls, url: AnyStr) -> "Track":
         """Return a `Track` given its corresponding Spotify URL.
 
         Args:
-            url (str): the Spotify URL of the track
+            url (AnyStr): the Spotify URL of the track
 
         Returns:
             Track: the corresponding track

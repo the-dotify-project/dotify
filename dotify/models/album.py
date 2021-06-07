@@ -92,11 +92,11 @@ class AlbumBase(Model):
     @classmethod
     @Model.validate_url
     @Model.http_safeguard
-    def from_url(cls, url: str) -> "Album":
+    def from_url(cls, url: AnyStr) -> "Album":
         """Return an `Album` given its corresponding Spotify URL.
 
         Args:
-            url (str): the Spotify URL of the album
+            url (AnyStr): the Spotify URL of the album
 
         Returns:
             Album: the corresponding album
