@@ -146,7 +146,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def validate_url(cls, method: Callable[..., Any]) -> Callable[..., Any]:
-        """A decorator that validates the supplied `URL` before executing the decorated method.
+        """Decorate the given function with a decorator that validates the supplied `URL` before running.
 
         Args:
             method (Callable[..., Any]): the method being decorated
@@ -174,7 +174,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def http_safeguard(cls, method: Callable[..., Any]) -> Callable[..., Any]:
-        """A decorator that converts http exceptions to `Model` level exceptions.
+        """Decorate the given function so that it converts HTTP exceptions to `Model` level exceptions.
 
         Args:
             method (Callable[..., Any]): the method being decorated
