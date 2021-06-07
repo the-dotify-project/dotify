@@ -21,7 +21,7 @@ if TYPE_CHECKING is True:
 
 
 class TrackBase(Model):
-    """`TrackBase` defines the interface of the Track class, which is subclassing it."""
+    """`TrackBase` defines the interface of the `Track` class, which is subclassing it."""
 
     def __str__(self) -> str:
         return "{0} - {1}".format(self.artist, self.name)
@@ -37,7 +37,7 @@ class TrackBase(Model):
 
     @property
     def artist(self) -> "Artist":
-        """Return the tracks Spotify URL.
+        """Return the track's artist.
 
         Returns:
             Artist: an instance of `Artist` representing the track's artist relevant info
@@ -60,7 +60,7 @@ class TrackBase(Model):
 
     @property
     def genre(self) -> Optional[AnyStr]:
-        """Return the tracks main genre.
+        """Return the track's main genre.
 
         Returns:
             Optional[AnyStr]: the track's main genre
@@ -205,8 +205,8 @@ class Track(TrackBase):
     def download(
         self,
         mp3_path: Path,
-        skip_existing: bool = False,
-        progress_logger: None = None,
+        skip_existing: Optional[bool] = False,
+        progress_logger: Optional[logging.Logger] = None,
     ) -> Path:
         """Download the track in `.mp3` format.
 
