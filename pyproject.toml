@@ -54,3 +54,7 @@ mdx-truly-sane-lists = "^1.2"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.vulture]
+min_confidence = 95
+paths = ["dotify", "tests", "examples"]
