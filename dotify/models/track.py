@@ -45,11 +45,11 @@ class TrackBase(Model):
         return self.artists[0]
 
     @property
-    def genres(self) -> List[AnyStr]:
+    def genres(self) -> List[str]:
         """Return the track's genres.
 
         Returns:
-            List[AnyStr]: a list containing the track's genres
+            List[str]: a list containing the track's genres
         """
         genres = []
         for item in (self.album, self.artist):
@@ -59,13 +59,16 @@ class TrackBase(Model):
         return genres
 
     @property
-    def genre(self) -> Optional[AnyStr]:
+    def genre(self) -> Optional[str]:
         """Return the track's main genre.
 
         Returns:
-            Optional[AnyStr]: the track's main genre
+            Optional[str]: the track's main genre
         """
-        return self.genres[0] if self.genres else None
+        with contextlib.suppress(IndexError):
+            return self.genres[0]
+
+        return None
 
     @classmethod
     @Model.validate_url

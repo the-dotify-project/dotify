@@ -47,7 +47,7 @@ class Dotify(Client):
 
         return self
 
-    def __exit__(self, exc_type: None, exc_value: None, exc_trace: None) -> None:
+    def __exit__(self, exc_type, exc_value, _) -> None:
         type(self).contexts.pop()
 
         if exc_type is not None:
