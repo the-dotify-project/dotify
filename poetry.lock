@@ -118,7 +118,7 @@ redis = ["redis (>=2.10.5)"]
 name = "cached-property"
 version = "1.5.2"
 description = "A decorator for caching properties in classes."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1934,7 +1934,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "4e03e05e2e16e484eaaaac904977098001038f52e1a3f748a79da19163fb369a"
+content-hash = "e15e5acf6593c4fab16a53f37b57384f5df2fa036b530f2f9007f9db2c485e0d"
 
 [metadata.files]
 appdirs = [

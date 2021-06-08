@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, AnyStr, Iterator, Optional
 
 import requests
+from cached_property import cached_property
 from mutagen.id3 import APIC
 from requests.models import HTTPError
 
@@ -44,7 +45,7 @@ class AlbumBase(Model):
         """
         return self.external_urls.spotify
 
-    @property
+    @cached_property
     def cover(self) -> APIC:
         """Return the cover art of the album.
 
@@ -57,7 +58,10 @@ class AlbumBase(Model):
         response = requests.get(self.images[0].url)
 
         if response.status_code != HTTPStatus.OK.value:
-            raise HTTPError(response=response)
+            raise HTTPError(
+                "Failed to fetch %s" % (self.images[0].url,),
+                response=response,
+            )
 
         return APIC(
             encoding=3,

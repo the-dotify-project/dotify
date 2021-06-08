@@ -25,6 +25,7 @@ moviepy = "*"
 spotipy = "*"
 mutagen = "*"
 pytube = "*"
+cached-property = "^1.5.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "*"
