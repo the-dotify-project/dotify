@@ -6,7 +6,7 @@ logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 
 class User(Model):
-    """A model representing a Spotify User."""
+    """A model representing a Spotify `User`."""
 
     class Json(object):
         """ """
