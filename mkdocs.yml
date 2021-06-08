@@ -66,3 +66,4 @@ markdown_extensions:
 - pymdownx.tasklist
 - toc:
     permalink: "¤"
+- mdx_truly_sane_lists
