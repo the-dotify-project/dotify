@@ -94,8 +94,10 @@ class Playlist(PlaylistBase):
 
         Args:
             path (Path): where should the tracks be stored
-            skip_existing (Optional[bool]): whether or not to overwrite an existing track. Defaults to False.
-            progress_logger (Optional[logging.Logger]): a logger reporting on the download progress. Defaults to None.
+            skip_existing (Optional[bool]): whether or not to overwrite an
+                existing track. Defaults to False.
+            progress_logger (Optional[logging.Logger]): a logger reporting
+                on the download progress. Defaults to None.
 
         Returns:
             Path: the download folder of the playlist

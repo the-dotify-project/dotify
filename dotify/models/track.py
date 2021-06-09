@@ -148,7 +148,8 @@ class Track(TrackBase):
 
         Args:
             mp4_path (Path): where should the resulting file be stored
-            skip_existing (Optional[bool]): whether or not to overwrite an existing file. Defaults to False.
+            skip_existing (Optional[bool]): whether or not to overwrite an
+                existing file. Defaults to False.
 
         Raises:
             NotFound: if no audio stream corresponding to the track at hand is found
@@ -179,8 +180,10 @@ class Track(TrackBase):
 
         Args:
             mp3_path (Path): where should the resulting file be stored
-            skip_existing (Optional[bool]): whether or not to overwrite an existing file. Defaults to False.
-            progress_logger (Optional[logging.Logger]): a logger reporting on the download progress. Defaults to None.
+            skip_existing (Optional[bool]): whether or not to overwrite
+                an existing file. Defaults to False.
+            progress_logger (Optional[logging.Logger]): a logger reporting
+                on the download progress. Defaults to None.
 
         Returns:
             Path: the download location of the `.mp3` file
@@ -215,8 +218,10 @@ class Track(TrackBase):
 
         Args:
             mp3_path (Path): where should the resulting file be stored
-            skip_existing (Optional[bool]): whether or not to overwrite an existing file. Defaults to False.
-            progress_logger (Optional[logging.Logger]): a logger reporting on the download progress. Defaults to None.
+            skip_existing (Optional[bool]): whether or not to overwrite an
+                existing file. Defaults to False.
+            progress_logger (Optional[logging.Logger]): a logger reporting
+                on the download progress. Defaults to None.
 
         Returns:
             Path: the download location of the `.mp3` file

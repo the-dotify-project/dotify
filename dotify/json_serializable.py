@@ -13,7 +13,11 @@ logger = logging.getLogger(__name__)
 
 
 class JsonSerializableMeta(ABCMeta):
-    """A metaclass responsible for resolving a class' JSON schema and defining the class at hand based on it."""
+    """A metaclass of the `JsonSerializable` class.
+
+    This metaclass is responsible for resolving a class' JSON schema
+    and dynamically defining the class at hand based on it.
+    """
 
     def __new__(cls, name, bases, attrs):  # noqa: D102
         try:
