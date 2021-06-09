@@ -25,6 +25,7 @@ moviepy = "*"
 spotipy = "*"
 mutagen = "*"
 pytube = "*"
+cached-property = "^1.5.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "*"
@@ -48,7 +49,12 @@ mkdocs-minify-plugin = "^0.4.0"
 tox-pyenv = "^1.1.0"
 mkdocs-redirects = "^1.0.3"
 pytest-sugar = "^0.9.4"
+mdx-truly-sane-lists = "^1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.vulture]
+min_confidence = 95
+paths = ["dotify", "tests", "examples"]

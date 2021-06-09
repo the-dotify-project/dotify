@@ -1,3 +1,5 @@
 # Documentation for `Playlist`
 
-::: dotify.Playlist
+::: dotify.models._playlist.PlaylistBase
+
+::: dotify.models._playlist.Playlist

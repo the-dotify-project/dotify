@@ -12,6 +12,7 @@ nav:
   - Code Reference:
     - Dotify: dotify.md
     - Models:
+      - Model: model.md
       - Album: models/album.md
       - Playlist: models/playlist.md
       - Track: models/track.md
@@ -65,3 +66,4 @@ markdown_extensions:
 - pymdownx.tasklist
 - toc:
     permalink: "¤"
+- mdx_truly_sane_lists

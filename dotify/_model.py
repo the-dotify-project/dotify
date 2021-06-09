@@ -5,13 +5,13 @@ from http import HTTPStatus
 from importlib import import_module
 from pathlib import Path
 from re import match
-from typing import Any, Callable, Iterator, Optional
+from typing import Any, AnyStr, Callable, Iterator, Optional
 
 from spotipy.exceptions import SpotifyException
 
-from dotify.decorators import cached_classproperty
-from dotify.dotify import Dotify
-from dotify.json_serializable import JsonSerializable, JsonSerializableMeta, logger
+from dotify._decorators import cached_classproperty
+from dotify._dotify import Dotify
+from dotify._json_serializable import JsonSerializable, JsonSerializableMeta, logger
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
@@ -25,19 +25,19 @@ class ModelMeta(JsonSerializableMeta):
     builds the `dependency` dictionary
     """
 
-    def __new__(cls, name, bases, attrs):
+    def __new__(cls, name, bases, attrs):  # noqa: D102
         if "Json" in attrs:
-            attrs["Json"].schema = cls.dependency_path(name)
+            attrs["Json"].schema = cls._dependency_path(name)
 
             with contextlib.suppress(AttributeError):
-                attrs["Json"].dependencies = cls.dependencies_from(
+                attrs["Json"].dependencies = cls._dependencies_from(
                     attrs["Json"].dependencies,
                 )
 
         return super().__new__(cls, name, bases, attrs)
 
     @classmethod
-    def dependency_basename(cls, model_name: str) -> str:
+    def _dependency_basename(cls, model_name: str) -> str:
         """Given the name of a `Model` resolve the basename of the corresponding json schema.
 
         Args:
@@ -51,24 +51,24 @@ class ModelMeta(JsonSerializableMeta):
         )
 
     @classmethod
-    def dependency_path(cls, model_name: str) -> Path:
+    def _dependency_path(cls, model_name: str) -> Path:
         """Given the name of a `Model` resolve the path to the corresponding json schema.
 
         Args:
             model_name (str): the name of a `Model`
 
         Returns:
-            PathLike: the path to the file containing the json schema
+            Path: the path to the file containing the json schema
         """
         return (
             Path(__file__).parent
             / "models"
             / "schema"
-            / cls.dependency_basename(model_name)
+            / cls._dependency_basename(model_name)
         )
 
     @classmethod
-    def dependencies_from(cls, dependency_names):
+    def _dependencies_from(cls, dependency_names):
         @cached_classproperty
         def decorator(_):
             model_types = []
@@ -81,7 +81,7 @@ class ModelMeta(JsonSerializableMeta):
                 model_types.append(model_type)
 
             return {
-                cls.dependency_basename(model_type.__name__): model_type
+                cls._dependency_basename(model_type.__name__): model_type
                 for model_type in model_types
             }
 
@@ -122,15 +122,15 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         return cls.__name__.lower()
 
     @classmethod
-    def search(cls, query: str, limit: int = 1) -> Iterator["Model"]:
+    def search(cls, query: AnyStr, limit: Optional[int] = 1) -> Iterator["Model"]:
         """Perform a Spotify search given a `query`.
 
         Args:
-            query (str): the search `query`
-            limit (int, optional): the number of items to return. Defaults to 1.
+            query (AnyStr): the search `query`
+            limit (Optional[int]): the number of items to return. Defaults to 1.
 
         Raises:
-            cls.NotFound: In case no results corresponding to the provided query are found
+            NotFound: In case no results corresponding to the provided query are found
 
         Returns:
             Iterator["Model"]: the `Model` instances corresponding to the query
@@ -146,13 +146,10 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def validate_url(cls, method: Callable[..., Any]) -> Callable[..., Any]:
-        """A decorator that validates the supplied `URL` before executing the decorated method.
+        """Validate the `URL` supplied to the decorated method.
 
         Args:
             method (Callable[..., Any]): the method being decorated
-
-        Raises:
-            cls.InvalidURL: in case the supplied url is invalid
 
         Returns:
             Callable[..., Any]: the  decorated method
@@ -174,15 +171,10 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def http_safeguard(cls, method: Callable[..., Any]) -> Callable[..., Any]:
-        """A decorator that converts http exceptions to `Model` level exceptions.
+        """Convert HTTP exceptions thrown by the decorated method to `Model` level exceptions.
 
         Args:
             method (Callable[..., Any]): the method being decorated
-
-        Raises:
-            cls.NotFound: in case a `Spotipy` call returns an HTTP status of 404
-            cls.InvalidURL: in case a `Spotipy` call returns an HTTP status of 400
-            cls.UnexpectedError: in case a `Spotipy` call returns an unexpected HTTP status
 
         Returns:
             Callable[..., Any]: the decorated method

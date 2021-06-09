@@ -13,13 +13,13 @@ logger = logging.getLogger(__name__)
 
 
 class JsonSerializableMeta(ABCMeta):
+    """A metaclass of the `JsonSerializable` class.
+
+    This metaclass is responsible for resolving a class' JSON schema
+    and dynamically defining the class at hand based on it.
     """
 
-    A metaclass responsible for resolving a class' JSON schema
-    and defining the class at hand based on it
-    """
-
-    def __new__(cls, name, bases, attrs):
+    def __new__(cls, name, bases, attrs):  # noqa: D102
         try:
             path = attrs["Json"].schema.absolute()
         except (KeyError, AttributeError):
@@ -98,11 +98,13 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
         the `JsonSerializable` dependency that has been registered
         with it, given that it's available
 
+        Args:
+            obj (Any): an instance of the dependee type
+
         Returns:
             Optional["JsonSerializable"]: the corresponding `JsonSerializable`
             dependency
         """
-
         try:
             return cls.Json.dependencies.get(obj.__class__.__name__, None)
         except AttributeError:

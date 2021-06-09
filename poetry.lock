@@ -118,7 +118,7 @@ redis = ["redis (>=2.10.5)"]
 name = "cached-property"
 version = "1.5.2"
 description = "A decorator for caching properties in classes."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -851,6 +851,17 @@ description = "McCabe checker, plugin for flake8"
 category = "dev"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "mdx-truly-sane-lists"
+version = "1.2"
+description = "Extension for Python-Markdown that makes lists truly sane. Custom indents for nested lists and fix for messy linebreaks."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Markdown = ">=2.6"
 
 [[package]]
 name = "mkdocs"
@@ -1923,7 +1934,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "37fc5900b427ca49cc5418acbe781310cb71ca385627f3c8910834f264c6e59f"
+content-hash = "e15e5acf6593c4fab16a53f37b57384f5df2fa036b530f2f9007f9db2c485e0d"
 
 [metadata.files]
 appdirs = [
@@ -2343,6 +2354,10 @@ markupsafe = [
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
+]
+mdx-truly-sane-lists = [
+    {file = "mdx_truly_sane_lists-1.2-py3-none-any.whl", hash = "sha256:cc8bfa00f331403504e12377a9c94e6b40fc7db031e283316baeeeeac68f1da9"},
+    {file = "mdx_truly_sane_lists-1.2.tar.gz", hash = "sha256:4600ade0fbd452db8233e25d644b62f59b2798e40595ea2e1923e29bc40c5b98"},
 ]
 mkdocs = [
     {file = "mkdocs-1.1.2-py3-none-any.whl", hash = "sha256:096f52ff52c02c7e90332d2e53da862fde5c062086e1b5356a6e392d5d60f5e9"},

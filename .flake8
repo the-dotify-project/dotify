@@ -11,6 +11,7 @@ exclude =
     dist
     docs
     examples
+    tests
     __pycache__
 extend-ignore =
     E203,
@@ -29,4 +30,8 @@ extend-ignore =
     WPS433,
     WPS412,
     WPS410,
-    WPS323
+    WPS323,
+    D105,
+    D106,
+    RST,
+    WPS436 # https://github.com/wemake-services/wemake-python-styleguide/issues/1441

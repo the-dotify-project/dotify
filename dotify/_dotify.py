@@ -1,22 +1,21 @@
 import contextlib
 import logging
 import threading
-from typing import Any, Dict, List, Optional
+from typing import Any, AnyStr, Dict, List, Optional
 
 from spotipy import Spotify as Client
 from spotipy.client import logger
 from spotipy.oauth2 import SpotifyClientCredentials
 
-from dotify.decorators import classproperty
+from dotify._decorators import classproperty
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 
 class Dotify(Client):
-    """
+    """A subclass of `spotipy.Spotify`, which provides a more object oriented interface.
 
     Examples:
-
         >>> from dotify import Dotify
         ... with Dotify(spotify_client, spotify_secret):
         ...     for result in Track.search(query):
@@ -25,12 +24,12 @@ class Dotify(Client):
 
     _context = threading.local()
 
-    def __init__(self, client_id: str, client_secret: str) -> None:
+    def __init__(self, client_id: AnyStr, client_secret: AnyStr) -> None:
         """Create a `Dotify` instance.
 
         Args:
-            client_id (str): your Spotify API client ID
-            client_secret (str): your Spotify API client secret
+            client_id (AnyStr): your Spotify API client ID
+            client_secret (AnyStr): your Spotify API client secret
         """
         super().__init__(
             client_credentials_manager=SpotifyClientCredentials(
@@ -48,7 +47,7 @@ class Dotify(Client):
 
         return self
 
-    def __exit__(self, exc_type: None, exc_value: None, exc_trace: None) -> None:
+    def __exit__(self, exc_type, exc_value, _) -> None:
         type(self).contexts.pop()
 
         if exc_type is not None:
@@ -61,7 +60,6 @@ class Dotify(Client):
         Returns:
             List[Dotify]: the `Dotify` context stack
         """
-
         try:
             return cls._context.stack
         except AttributeError:
@@ -84,18 +82,18 @@ class Dotify(Client):
     def search(
         self,
         model_type: str,
-        query: str,
-        limit: int = 1,
-    ) -> List[Dict[str, Any]]:
+        query: AnyStr,
+        limit: Optional[int] = 1,
+    ) -> List[Dict[AnyStr, Any]]:
         """Perform a Spotify search given a `query`.
 
         Args:
             model_type (str): One of 'artist', 'album', 'track', 'playlist'
-            query (str): the search `query`
-            limit (int, optional): the number of items to return. Defaults to 1.
+            query (AnyStr): the search `query`
+            limit (Optional[int]): the number of items to return. Defaults to 1.
 
         Returns:
-            List[Dict[str, Any]]: A list containing the search results
+            List[Dict[AnyStr, Any]]: A list containing the search results
         """
         results = super().search(query, type=model_type, limit=limit)
 

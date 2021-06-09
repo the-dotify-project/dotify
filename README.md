@@ -25,13 +25,13 @@
       alt="docs"
     />
   </a>
-  <a href="https://codeclimate.com/github/the-dotify-project/dotify/maintainability">
+  <a href="https://codeclimate.com/github/billsioros/dotify/maintainability">
     <img
       src="https://api.codeclimate.com/v1/badges/573685a448c6422d49de/maintainability"
       alt="Maintainability"
     />
   </a>
-  <a href="https://codeclimate.com/github/the-dotify-project/dotify/test_coverage">
+  <a href="https://codeclimate.com/github/billsioros/dotify/test_coverage">
     <img
       src="https://api.codeclimate.com/v1/badges/573685a448c6422d49de/test_coverage"
       alt="Test Coverage"
