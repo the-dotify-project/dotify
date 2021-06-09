@@ -32,4 +32,5 @@ extend-ignore =
     WPS410,
     WPS323,
     D105,
-    D106
+    D106,
+    RST
