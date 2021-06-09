@@ -25,19 +25,19 @@ class ModelMeta(JsonSerializableMeta):
     builds the `dependency` dictionary
     """
 
-    def __new__(cls, name, bases, attrs):
+    def __new__(cls, name, bases, attrs):  # noqa: D102
         if "Json" in attrs:
-            attrs["Json"].schema = cls.dependency_path(name)
+            attrs["Json"].schema = cls._dependency_path(name)
 
             with contextlib.suppress(AttributeError):
-                attrs["Json"].dependencies = cls.dependencies_from(
+                attrs["Json"].dependencies = cls._dependencies_from(
                     attrs["Json"].dependencies,
                 )
 
         return super().__new__(cls, name, bases, attrs)
 
     @classmethod
-    def dependency_basename(cls, model_name: str) -> str:
+    def _dependency_basename(cls, model_name: str) -> str:
         """Given the name of a `Model` resolve the basename of the corresponding json schema.
 
         Args:
@@ -51,7 +51,7 @@ class ModelMeta(JsonSerializableMeta):
         )
 
     @classmethod
-    def dependency_path(cls, model_name: str) -> Path:
+    def _dependency_path(cls, model_name: str) -> Path:
         """Given the name of a `Model` resolve the path to the corresponding json schema.
 
         Args:
@@ -64,11 +64,11 @@ class ModelMeta(JsonSerializableMeta):
             Path(__file__).parent
             / "models"
             / "schema"
-            / cls.dependency_basename(model_name)
+            / cls._dependency_basename(model_name)
         )
 
     @classmethod
-    def dependencies_from(cls, dependency_names):
+    def _dependencies_from(cls, dependency_names):
         @cached_classproperty
         def decorator(_):
             model_types = []
@@ -81,7 +81,7 @@ class ModelMeta(JsonSerializableMeta):
                 model_types.append(model_type)
 
             return {
-                cls.dependency_basename(model_type.__name__): model_type
+                cls._dependency_basename(model_type.__name__): model_type
                 for model_type in model_types
             }
 
