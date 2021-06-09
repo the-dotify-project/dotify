@@ -14,7 +14,7 @@ if TYPE_CHECKING is True:
 class PlaylistBase(Model):
     """`PlaylistBase` defines the interface of the Playlist class, which is subclassing it."""
 
-    def __init__(self, **props) -> None:
+    def __init__(self, **props) -> None:  # noqa: D107
         props.pop("tracks", None)
 
         super().__init__(**props)
