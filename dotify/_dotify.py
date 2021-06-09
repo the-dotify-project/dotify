@@ -7,7 +7,7 @@ from spotipy import Spotify as Client
 from spotipy.client import logger
 from spotipy.oauth2 import SpotifyClientCredentials
 
-from dotify.decorators import classproperty
+from dotify._decorators import classproperty
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 

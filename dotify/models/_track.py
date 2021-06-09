@@ -10,14 +10,14 @@ from pytube import YouTube
 from pytube.streams import Stream
 from youtubesearchpython import VideosSearch
 
-from dotify.model import Model, logger
+from dotify._model import Model, logger
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 EasyID3.RegisterTextKey("albumcover", "APIC")
 
 if TYPE_CHECKING is True:
-    from dotify.models.artist import Artist
+    from dotify.models._artist import Artist
 
 
 class TrackBase(Model):

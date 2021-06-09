@@ -9,13 +9,13 @@ from mutagen.id3 import APIC
 from requests.models import HTTPError
 
 import dotify
-from dotify.model import Model, logger
+from dotify._model import Model, logger
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 if TYPE_CHECKING is True:
-    from dotify.models.artist import Artist
-    from dotify.models.track import Track
+    from dotify.models._artist import Artist
+    from dotify.models._track import Track
 
 
 class AlbumBase(Model):
@@ -84,7 +84,7 @@ class AlbumBase(Model):
             for result in response["items"]:
                 url = result["external_urls"]["spotify"]
 
-                yield dotify.models.track.Track.from_url(url)
+                yield dotify.models._track.Track.from_url(url)
 
             offset += len(response["items"])
 

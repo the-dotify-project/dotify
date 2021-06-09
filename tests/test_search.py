@@ -2,10 +2,7 @@ from tests.base import DotifyBaseTestCase
 
 
 class DotifySearchTestCase(DotifyBaseTestCase):
-    """ """
-
     def test_search_track(self):
-        """ """
         metadata = [
             {
                 "name": "5 Thousand Singles",
@@ -20,7 +17,6 @@ class DotifySearchTestCase(DotifyBaseTestCase):
         self.search("Track", metadata[0]["name"], metadata)
 
     def test_search_playlist(self):
-        """ """
         metadata = [
             {
                 "name": "The weirdest name for a playlist",
@@ -35,7 +31,6 @@ class DotifySearchTestCase(DotifyBaseTestCase):
         self.search("Playlist", metadata[0]["name"], metadata)
 
     def test_search_album(self):
-        """ """
         metadata = [
             {
                 "name": "Music To Be Murdered By - Side B (Deluxe Edition)",

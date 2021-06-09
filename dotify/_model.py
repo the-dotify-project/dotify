@@ -9,9 +9,9 @@ from typing import Any, AnyStr, Callable, Iterator, Optional
 
 from spotipy.exceptions import SpotifyException
 
-from dotify.decorators import cached_classproperty
-from dotify.dotify import Dotify
-from dotify.json_serializable import JsonSerializable, JsonSerializableMeta, logger
+from dotify._decorators import cached_classproperty
+from dotify._dotify import Dotify
+from dotify._json_serializable import JsonSerializable, JsonSerializableMeta, logger
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
@@ -146,7 +146,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def validate_url(cls, method: Callable[..., Any]) -> Callable[..., Any]:
-        """Decorate the given function with a decorator that validates the supplied `URL` before running.
+        """Validate the `URL` supplied to the decorated method.
 
         Args:
             method (Callable[..., Any]): the method being decorated
@@ -171,7 +171,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
 
     @classmethod
     def http_safeguard(cls, method: Callable[..., Any]) -> Callable[..., Any]:
-        """Decorate the given function so that it converts HTTP exceptions to `Model` level exceptions.
+        """Convert HTTP exceptions thrown by the decorated method to `Model` level exceptions.
 
         Args:
             method (Callable[..., Any]): the method being decorated

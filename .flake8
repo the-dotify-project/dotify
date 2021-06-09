@@ -33,4 +33,5 @@ extend-ignore =
     WPS323,
     D105,
     D106,
-    RST
+    RST,
+    WPS436 # https://github.com/wemake-services/wemake-python-styleguide/issues/1441

@@ -1,3 +1,3 @@
 # Documentation for `Dotify`
 
-::: dotify.Model
+::: dotify._model.Model

@@ -3,26 +3,24 @@ from re import sub
 from shutil import rmtree
 from unittest import TestCase
 
-from dotify import Album, Dotify, Playlist, Track, models
+from dotify import Dotify, models
 from tests.settings import DOTIFY_SETTINGS
 
 
 class BaseNameResolverMixin(object):
     @classmethod
     def get_download_basename(cls, obj):
-        """ """
-        if isinstance(obj, Track):
+        if isinstance(obj, models.Track):
             return cls.get_download_basename_track(obj)
-        elif isinstance(obj, Playlist):
+        elif isinstance(obj, models.Playlist):
             return cls.get_download_basename_playlist(obj)
-        elif isinstance(obj, Album):
+        elif isinstance(obj, models.Album):
             return cls.get_download_basename_album(obj)
 
         raise RuntimeError("`{0}` is an instance of {1}".format(obj, type(obj)))
 
     @classmethod
     def get_download_basename_track(cls, track):
-        """ """
         artist, name = track.artist.name, track.name
         artist, name = artist.strip(), name.strip()
         artist, name = sub(r"\s+", "_", artist), sub(r"\s+", "_", name)
@@ -31,12 +29,10 @@ class BaseNameResolverMixin(object):
 
     @classmethod
     def get_download_basename_playlist(cls, playlist):
-        """ """
         return sub(r"\s+", " ", playlist.name.strip())
 
     @classmethod
     def get_download_basename_album(cls, album):
-        """ """
         artist, name = album.artist.name, album.name
         artist, name = artist.strip(), name.strip()
         artist, name = sub(r"\s+", " ", artist), sub(r"\s+", " ", name)
@@ -45,10 +41,7 @@ class BaseNameResolverMixin(object):
 
 
 class DotifyBaseTestCase(TestCase, BaseNameResolverMixin):
-    """ """
-
     def setUp(self):
-        """ """
         self.client = Dotify(
             DOTIFY_SETTINGS[0],
             DOTIFY_SETTINGS[1],
@@ -58,11 +51,9 @@ class DotifyBaseTestCase(TestCase, BaseNameResolverMixin):
         self.test_directory.mkdir(parents=True, exist_ok=True)
 
     def tearDown(self):
-        """ """
         rmtree(self.test_directory)
 
     def download(self, cls_name, url):
-        """ """
         with self.client:
             model_type = getattr(models, cls_name)
 
@@ -76,7 +67,6 @@ class DotifyBaseTestCase(TestCase, BaseNameResolverMixin):
             self.assertTrue(download_fullpath.exists())
 
     def search(self, cls_name, query, metadata_list, limit=1):
-        """ """
         with self.client:
             self.assertEqual(len(metadata_list), limit)
 
@@ -88,7 +78,6 @@ class DotifyBaseTestCase(TestCase, BaseNameResolverMixin):
 
     @classmethod
     def get_value(cls, obj, attribute_path):
-        """ """
         return cls._get_value_recursive(
             obj,
             list(filter(None, attribute_path.split("."))),
@@ -96,7 +85,6 @@ class DotifyBaseTestCase(TestCase, BaseNameResolverMixin):
 
     @classmethod
     def _get_value_recursive(cls, obj, paths):
-        """ """
         if paths:
             return cls._get_value_recursive(getattr(obj, paths[0]), paths[1:])
 

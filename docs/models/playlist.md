@@ -1,5 +1,5 @@
 # Documentation for `Playlist`
 
-::: dotify.models.playlist.PlaylistBase
+::: dotify.models._playlist.PlaylistBase
 
-::: dotify.Playlist
+::: dotify.models._playlist.Playlist

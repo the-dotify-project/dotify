@@ -1,5 +1,5 @@
 # Documentation for `Album`
 
-::: dotify.models.album.AlbumBase
+::: dotify.models._album.AlbumBase
 
-::: dotify.Album
+::: dotify.models._album.Album

@@ -3,12 +3,12 @@ from pathlib import Path
 from typing import TYPE_CHECKING, AnyStr, Iterator, Optional
 
 import dotify
-from dotify.model import Model, logger
+from dotify._model import Model, logger
 
 logger = logging.getLogger("{0}.{1}".format(logger.name, __name__))
 
 if TYPE_CHECKING is True:
-    from dotify.models.track import Track
+    from dotify.models._track import Track
 
 
 class PlaylistBase(Model):
@@ -50,7 +50,7 @@ class PlaylistBase(Model):
             for result in response["items"]:
                 url = result["track"]["external_urls"]["spotify"]
 
-                yield dotify.models.track.Track.from_url(url)
+                yield dotify.models._track.Track.from_url(url)
 
             offset += len(response["items"])
 

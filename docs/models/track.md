@@ -1,5 +1,5 @@
 # Documentation for `Track`
 
-::: dotify.models.track.TrackBase
+::: dotify.models._track.TrackBase
 
-::: dotify.Track
+::: dotify.models._track.Track
