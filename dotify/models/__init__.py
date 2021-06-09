@@ -1,3 +1,5 @@
+"""A collection of models corresponding to different Spotify entities."""
+
 __all__ = [
     "Model",
     "Album",
