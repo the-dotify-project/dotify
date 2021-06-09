@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v1.0.0 (2021-06-09)
+### Fix
+* Convert `Album.cover` to a `cached_property` ([`6777ad3`](https://github.com/the-dotify-project/dotify/commit/6777ad319e6b733f1f59f891afff987b4d186503))
+
+### Breaking
+* convert internal modules into protected ([`b7bc5a8`](https://github.com/the-dotify-project/dotify/commit/b7bc5a8f8da27d75d46001b7914ec8add80abd4a))
+
+### Documentation
+* Correctly indent nested lists in `.md` files ([`5caa257`](https://github.com/the-dotify-project/dotify/commit/5caa2579d9a2af769174ef196d88e7dd0b019998))
+* Add `Playlist` documentation ([`44d961d`](https://github.com/the-dotify-project/dotify/commit/44d961df005b08a7c462a3e6da2c04af7ed15c92))
+* Add `Album` documentation ([`7cbf3bc`](https://github.com/the-dotify-project/dotify/commit/7cbf3bcd8619aae5a8d6b544de33dd47753d1600))
+* Add `Track` documentation ([`29c48a1`](https://github.com/the-dotify-project/dotify/commit/29c48a1c74fc80f2232d972d210828c03be3a294))
+* Fix `codeclimate` urls ([`c42a775`](https://github.com/the-dotify-project/dotify/commit/c42a77598bdfd32b3e39bc2570ee18041af9a5cf))
+* `Model.context` do not throw `TypeError` during `mkdocs build` ([`da80a51`](https://github.com/the-dotify-project/dotify/commit/da80a515995cbabd988ec277bf3ff53a11840949))
+
+**[See all commits in this version](https://github.com/the-dotify-project/dotify/compare/v0.3.9...v1.0.0)**
+
 ## v0.3.9 (2021-05-31)
 ### Fix
 * Raise `NotFound` instead of `HTTPError` ([`e4c83da`](https://github.com/the-dotify-project/dotify/commit/e4c83dae880f751c63bd4237762bf1a5ecf8d7aa))
