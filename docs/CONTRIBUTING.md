@@ -36,7 +36,7 @@ PRs can be a quick way to get your fix or improvement slated for the next releas
 - Be accompanied by a complete Pull Request template (loaded automatically when a PR is created).
 - Add [unit or integration tests](https://github.com/the-dotify-project/dotify/tree/master/examples) for added or changed functionality.
 - Any code related changes should be accompanied by corresponding changes to the project's documentation.
-- If your pull request introduces a new feature, the corresponding `README` [section](index.md#features) must be updated to reflect this. Make sure you also include [an example](https://github.com/the-dotify-project/dotify/tree/master/examples), showcasing this new functionality.
+- If your pull request introduces a new feature, the corresponding `README` [section](https://the-dotify-project.github.io/dotify/#features) must be updated to reflect this. Make sure you also include [an example](https://github.com/the-dotify-project/dotify/tree/master/examples), showcasing this new functionality.
 - Write clear, concise commit message(s) using [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md). [Why?](#writing-your-commit-message)
 - If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
 
