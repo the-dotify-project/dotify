@@ -41,7 +41,7 @@ jobs:
             SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
             SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
           run: |
-            poetry run python -m pytest --cov=./ --cov-report=xml
+            poetry run python -m pytest --cov=./dotify --cov-report=xml
 
         - name: Publish the coverage report to Code Climate
           uses: paambaati/codeclimate-action@v2.7.5
