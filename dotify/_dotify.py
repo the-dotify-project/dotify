@@ -1,5 +1,6 @@
 import contextlib
 import logging
+import os
 import threading
 from typing import Any, AnyStr, Dict, List, Optional
 
@@ -24,13 +25,26 @@ class Dotify(Client):
 
     _context = threading.local()
 
-    def __init__(self, client_id: AnyStr, client_secret: AnyStr) -> None:
+    def __init__(
+        self,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+    ) -> None:
         """Create a `Dotify` instance.
 
+        If no `client_id` and/or `client_secret` are provided, an environment
+        variable look up is performed for the names `SPOTIFY_ID` and/or `SPOTIFY_SECRET`.
+
         Args:
-            client_id (AnyStr): your Spotify API client ID
-            client_secret (AnyStr): your Spotify API client secret
+            client_id (Optional[str]): your Spotify API client ID. Defaults to None
+            client_secret (Optional[str]): your Spotify API client secret. Defaults to None
         """
+        if client_id is None:
+            client_id = os.getenv("SPOTIFY_ID")
+
+        if client_secret is None:
+            client_secret = os.getenv("SPOTIFY_SECRET")
+
         super().__init__(
             client_credentials_manager=SpotifyClientCredentials(
                 client_id=client_id,
