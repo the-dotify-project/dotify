@@ -53,5 +53,5 @@ jobs:
 
       - name: Publish the documentation
         run: |
-          poetry run python -m mike deploy --push --update-aliases ${RELEASE_TAG_VERSION} latest
-          poetry run python -m mike set-default --push latest
+          poetry run mike deploy --push --update-aliases ${RELEASE_TAG_VERSION} latest
+          poetry run mike set-default --push latest
