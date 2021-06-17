@@ -43,8 +43,8 @@ jobs:
 
       - name: Get the release version
         run: |
-          export RELEASE_TAG_VERSION=${{ github.event.release.tag_name }}
-          echo "RELEASE_TAG_VERSION=${RELEASE_TAG_VERSION:1}" >> $GITHUB_ENV
+          export RELEASE_TAG_VERSION="$( poetry run semantic-release print-version --current )"
+          echo "RELEASE_TAG_VERSION=${RELEASE_TAG_VERSION}" >> $GITHUB_ENV
 
       - name: Configure git
         run: |
