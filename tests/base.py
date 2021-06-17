@@ -4,7 +4,6 @@ from shutil import rmtree
 from unittest import TestCase
 
 from dotify import Dotify, models
-from tests.settings import DOTIFY_SETTINGS
 
 
 class BaseNameResolverMixin(object):
@@ -42,10 +41,7 @@ class BaseNameResolverMixin(object):
 
 class DotifyBaseTestCase(TestCase, BaseNameResolverMixin):
     def setUp(self):
-        self.client = Dotify(
-            DOTIFY_SETTINGS[0],
-            DOTIFY_SETTINGS[1],
-        )
+        self.client = Dotify()
 
         self.test_directory = Path(__file__).parent / "tmp"
         self.test_directory.mkdir(parents=True, exist_ok=True)

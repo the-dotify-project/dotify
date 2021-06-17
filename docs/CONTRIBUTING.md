@@ -63,24 +63,6 @@ The **Dotify** project utilizes the [Poetry](https://python-poetry.org/) Python 
 
 Start by visiting the [Spotify Developer Portal](https://developer.spotify.com/dashboard/login) and creating an account. You are also required to [create a Spotify client ID](https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app), which you will be using during development. You may reed more [here](https://developer.spotify.com/documentation/web-api/quick-start/).
 
-You can either export the required variables as such
-
-```bash
-export SPOTIFY_ID="<SPOTIFY_ID>"
-export SPOTIFY_SECRET="<SPOTIFY_SECRET>"
-```
-
-or you may also create a a JSON file, of the following format, in the project's root directory.
-
-```json
-{
-    "spotify_id": "<SPOTIFY_ID>",
-    "spotify_secret": "<SPOTIFY_SECRET>"
-}
-```
-
-_**ATTENTION**: Even though, using a JSON file is far more convenient than re-exporting  environment variables each and every time you open up a new shell, it is **strongly** recommended that, you prefer the first approach as you risk compromising your client credentials otherwise._
-
 ### Installing pre-commit hooks
 
 The project utilizes the [pre-commit](https://pre-commit.com/) framework. Having [created a virtual environment and installed the required dependencies](#installing-poetry), you may run `pre-commit install` to install the [git hook scripts](https://github.com/the-dotify-project/dotify/blob/master/.pre-commit-config.yaml).
@@ -94,6 +76,17 @@ All of the above can be done via [tox](https://tox.readthedocs.io/en/latest/conf
 - Checking if your changes follow the project's formatting standard can be done via `tox -e fmt-check`
 - You may run `tox -e py38` in order to run the library's unit tests using Python 3.8 (the `py37`, `py38` and `py39` test environments assumes that you have **Python 3.7, 3.8 or 3.9** installed)
 - Alternatively, you may simply run `tox` to execute all of the above
+
+Note that in order to run the test suite, you must export your client credentials beforehand, as such
+
+```bash
+export SPOTIFY_ID="<SPOTIFY_ID>"
+export SPOTIFY_SECRET="<SPOTIFY_SECRET>"
+```
+
+You may also utilize [direnv](https://direnv.net/), in order to avoid re-exporting them every time you spawn a new shell instance.
+
+_**ATTENTION**: Even though, using a `.envrc` file is far more convenient than re-exporting  environment variables each and every time you open up a new shell, it is **strongly** recommended that, you prefer the first approach as you risk compromising your client credentials otherwise._
 
 #### (Optional) Installing pyenv
 

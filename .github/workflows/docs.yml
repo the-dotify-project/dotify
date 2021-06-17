@@ -1,19 +1,17 @@
 name: docs
 
 on:
-  pull_request:
-    branches:
-      - master
-    types:
-      - closed
+  release:
+    types: [published]
 
 jobs:
   publish:
     name: Deploy
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v2
@@ -39,10 +37,17 @@ jobs:
         run: |
           poetry install
 
-      - run: poetry run python -m mkdocs build
+      - name: Get the release version
+        run: |
+          export RELEASE_TAG_VERSION=${{ github.event.release.tag_name }}
+          echo "RELEASE_TAG_VERSION=${RELEASE_TAG_VERSION:1}" >> $GITHUB_ENV
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+      - name: Configure git
+        run: |
+          git config --global user.name Docs deploy
+          git config --global user.email docs@dummy.bot.com
+
+      - name: Publish the documentation
+        run: |
+          poetry run python -m mike deploy --push --update-aliases ${RELEASE_TAG_VERSION} latest
+          poetry run python -m mike set-default --push latest

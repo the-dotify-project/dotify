@@ -16,7 +16,7 @@ repository = "https://github.com/the-dotify-project/dotify"
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/the-dotify-project/dotify/issues"
 "Documentation" = "https://the-dotify-project.github.io/dotify"
-"Changelog" = "https://github.com/the-dotify-project/dotify/blob/master/CHANGELOG.md"
+"Changelog" = "https://github.com/the-dotify-project/dotify/releases"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -52,6 +52,7 @@ tox-pyenv = "^1.1.0"
 mkdocs-redirects = "^1.0.3"
 pytest-sugar = "^0.9.4"
 mdx-truly-sane-lists = "^1.2"
+mike = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
