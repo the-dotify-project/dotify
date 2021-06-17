@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v1.1.0 (2021-06-17)
+### Feature
+* Client retrieve credentials from env ([`d5f52e7`](https://github.com/the-dotify-project/dotify/commit/d5f52e77b407d45fe08854ec524688435dadccdd))
+
+### Documentation
+* Multiple versions via `mike` ([`a6cdd45`](https://github.com/the-dotify-project/dotify/commit/a6cdd4511b24a40a411160b77eea2784ba16620e))
+* Add `Documentation` url to PyPI page ([`7b7389d`](https://github.com/the-dotify-project/dotify/commit/7b7389dfb9135609c74eff95cdfeba2fbad68a3b))
+* Fix broken link to features section ([`07cf730`](https://github.com/the-dotify-project/dotify/commit/07cf730224bdd433cc59e78cc5db61bcc595dbf2))
+* Fix broken links ([`1e54c48`](https://github.com/the-dotify-project/dotify/commit/1e54c48672dace21673749001ea28f0eb3c3da3b))
+* Uppercase `CHANGELOG.md` and `LICENSE.md` ([`592be6e`](https://github.com/the-dotify-project/dotify/commit/592be6e7b7dddfd0643ba5db2c7a86e78e86b348))
+
+**[See all commits in this version](https://github.com/the-dotify-project/dotify/compare/v1.0.0...v1.1.0)**
+
 ## v1.0.0 (2021-06-09)
 ### Fix
 * Convert `Album.cover` to a `cached_property` ([`6777ad3`](https://github.com/the-dotify-project/dotify/commit/6777ad319e6b733f1f59f891afff987b4d186503))
