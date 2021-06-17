@@ -1,13 +1,17 @@
 name: docs
 
 on:
-  release:
-    types: [published]
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
 
 jobs:
   publish:
     name: Deploy
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v2
         with:
