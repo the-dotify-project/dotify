@@ -25,6 +25,12 @@
       alt="docs"
     />
   </a>
+  <a href="https://results.pre-commit.ci/latest/github/the-dotify-project/dotify/master">
+    <img
+      src="https://results.pre-commit.ci/badge/github/the-dotify-project/dotify/master.svg"
+      alt="pre-commit.ci status"
+    />
+  </a>
   <a href="https://codeclimate.com/github/billsioros/dotify/maintainability">
     <img
       src="https://api.codeclimate.com/v1/badges/573685a448c6422d49de/maintainability"
