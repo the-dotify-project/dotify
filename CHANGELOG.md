@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!--next-version-placeholder-->
 
+## v2.0.0 (2021-06-25)
+### Feature
+* Auto-populate the `Json` meta ([`2af3ad2`](https://github.com/the-dotify-project/dotify/commit/2af3ad2bb60cebb0088cab57b41400156b056414))
+
+### Fix
+* Do not re-raise `ValidationError` when setting an attribute of `JsonSerializable` ([`5a039c5`](https://github.com/the-dotify-project/dotify/commit/5a039c54569332d0b0b592dcd7ec26a09cd0e9ee))
+
+### Breaking
+* auto-populate the `Json` meta ([`2af3ad2`](https://github.com/the-dotify-project/dotify/commit/2af3ad2bb60cebb0088cab57b41400156b056414))
+
+### Documentation
+* Fix broken links due to multiple versions ([`21f934b`](https://github.com/the-dotify-project/dotify/commit/21f934b1710e92767357bbb0fddb148faf6df335))
+* Change accent color to `teal` ([`cb96481`](https://github.com/the-dotify-project/dotify/commit/cb9648107b54adcf56253bc10dc2152bf46ec305))
+
+**[See all commits in this version](https://github.com/the-dotify-project/dotify/compare/v1.1.0...v2.0.0)**
+
 ## v1.1.0 (2021-06-17)
 ### Feature
 * Client retrieve credentials from env ([`d5f52e7`](https://github.com/the-dotify-project/dotify/commit/d5f52e77b407d45fe08854ec524688435dadccdd))
