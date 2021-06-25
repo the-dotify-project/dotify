@@ -55,6 +55,8 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             if name in self.__annotations__:
                 self.__dict__[name] = val
 
+                return
+
             raise
 
     def __getattribute__(self, name: str) -> Any:
