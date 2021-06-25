@@ -23,6 +23,9 @@ if TYPE_CHECKING is True:
 class TrackBase(Model):
     """`TrackBase` defines the interface of the `Track` class, which is subclassing it."""
 
+    class Json(object):
+        abstract = True
+
     def __str__(self) -> str:
         return "{0} - {1}".format(self.artist, self.name)
 

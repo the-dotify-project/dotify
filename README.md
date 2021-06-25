@@ -98,7 +98,7 @@ pip install dotify
 
 ## Contributing
 
-If you would like to contribute to the project, please go through the [Contributing Guidelines](https://the-dotify-project.github.io/dotify/CONTRIBUTING/) first.
+If you would like to contribute to the project, please go through the [Contributing Guidelines](https://the-dotify-project.github.io/dotify/latest/CONTRIBUTING/) first.
 
 ## Contributors ✨
 
