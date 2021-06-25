@@ -1,8 +1,7 @@
 import json
 import logging
 from abc import ABCMeta
-from os import PathLike
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from python_jsonschema_objects import ObjectBuilder
 from python_jsonschema_objects.classbuilder import LiteralValue, ProtocolBase
@@ -43,10 +42,6 @@ class JsonSerializableMeta(ABCMeta):
 
 class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
     """A class providing JSON serialization and de-serialization."""
-
-    class Json(object):
-        schema: PathLike
-        dependencies: Dict[str, "JsonSerializable"]
 
     def __setattr__(self, name: str, val: Any) -> None:
         try:
