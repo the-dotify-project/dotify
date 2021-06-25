@@ -26,13 +26,23 @@ class ModelMeta(JsonSerializableMeta):
     """
 
     def __new__(cls, name, bases, attrs):  # noqa: D102
-        if "Json" in attrs:
-            attrs["Json"].schema = cls._dependency_path(name)
+        json_meta = type("Json", (object,), {})
+        with contextlib.suppress(KeyError):
+            json_meta = attrs["Json"]
+
+        is_abstract = False
+        with contextlib.suppress(AttributeError):
+            is_abstract = json_meta.abstract
+
+        if not is_abstract:
+            json_meta.schema = cls._dependency_path(name)
 
             with contextlib.suppress(AttributeError):
-                attrs["Json"].dependencies = cls._dependencies_from(
-                    attrs["Json"].dependencies,
+                json_meta.dependencies = cls._dependencies_from(
+                    json_meta.dependencies,
                 )
+
+        attrs["Json"] = json_meta
 
         return super().__new__(cls, name, bases, attrs)
 
@@ -90,6 +100,9 @@ class ModelMeta(JsonSerializableMeta):
 
 class Model(JsonSerializable, metaclass=ModelMeta):
     """The base class for every Spotify Web API entity."""
+
+    class Json(object):
+        abstract = True
 
     class UnexpectedError(Exception):
         """An exception indicating an unexpected error."""

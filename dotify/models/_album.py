@@ -21,6 +21,9 @@ if TYPE_CHECKING is True:
 class AlbumBase(Model):
     """`AlbumBase` defines the interface of the Album class, which is subclassing it."""
 
+    class Json(object):
+        abstract = True
+
     def __str__(self):
         return "{0} - {1}".format(self.artist, self.name)
 
