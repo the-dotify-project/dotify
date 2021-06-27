@@ -22,20 +22,6 @@ client = Dotify(spotify_id, spotify_secret)
 
 ```
 
-## Logs
-
-Run the snippet you provided, with the maximum verbosity level.
-
-<details>
-  <summary>Click to expand!</summary>
-
-  <pre>
-    <code>
-        PASTE THE LOGS HERE !
-    </code>
-  </pre>
-</details>
-
 ## Stack Trace
 
 In case an unexpected error occurred, provide us with the program's Stack Trace.
