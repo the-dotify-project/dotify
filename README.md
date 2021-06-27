@@ -19,12 +19,6 @@
       alt="CI"
     />
   </a>
-  <a href="https://the-dotify-project.github.io/dotify/">
-    <img
-      src="https://github.com/the-dotify-project/dotify/actions/workflows/docs.yml/badge.svg"
-      alt="docs"
-    />
-  </a>
   <a href="https://results.pre-commit.ci/latest/github/the-dotify-project/dotify/master">
     <img
       src="https://results.pre-commit.ci/badge/github/the-dotify-project/dotify/master.svg"
@@ -56,8 +50,6 @@
     />
   </a>
 </p>
-
-> _🚧 The project is currently under heavy development 🚧_
 
 ## Example Usage
 
