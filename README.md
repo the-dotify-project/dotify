@@ -19,9 +19,9 @@
       alt="CI"
     />
   </a>
-  <a href="https://github.com/the-dotify-project/dotify/actions/workflows/publish.yml">
+  <a href="https://github.com/the-dotify-project/dotify/actions/workflows/cd.yml">
     <img
-      src="https://github.com/the-dotify-project/dotify/actions/workflows/publish.yml/badge.svg"
+      src="https://github.com/the-dotify-project/dotify/actions/workflows/cd.yml/badge.svg"
       alt="CI"
     />
   </a>
