@@ -1,5 +1,5 @@
 ci:
-  skip: [editorconfig-checker]
+  skip: [editorconfig-checker, export-requirements]
   autofix_commit_msg: 'refactor: `pre-commit.ci` auto fix'
   autofix_prs: true
   autoupdate_commit_msg: 'refactor: `pre-commit.ci` auto update'
@@ -58,3 +58,11 @@ repos:
     rev: 0.5.1
     hooks:
       - id: tox-ini-fmt
+  - repo: local
+    hooks:
+      - id: export-requirements
+        name: export-requirements
+        language: system
+        pass_filenames: false
+        entry: poetry export --without-hashes -o requirements.txt
+        files: ^(pyproject.toml|poetry.lock)$
