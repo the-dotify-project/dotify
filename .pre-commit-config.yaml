@@ -1,5 +1,5 @@
 ci:
-  skip: [editorconfig-checker, export-requirements]
+  skip: [export-requirements]
   autofix_commit_msg: 'refactor: `pre-commit.ci` auto fix'
   autofix_prs: true
   autoupdate_commit_msg: 'refactor: `pre-commit.ci` auto update'
