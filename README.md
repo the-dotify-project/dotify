@@ -94,6 +94,10 @@ The project's documentation can be found [here](https://the-dotify-project.githu
 pip install dotify
 ```
 
+## Supporting the project
+
+Feel free to [**Buy me a coffee! ☕**](https://www.buymeacoffee.com/billsioros).
+
 ## Contributing
 
 If you would like to contribute to the project, please go through the [Contributing Guidelines](https://the-dotify-project.github.io/dotify/latest/CONTRIBUTING/) first.
