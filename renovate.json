@@ -1,4 +1,7 @@
 {
+  "labels": [
+    ":game_die: dependencies"
+  ],
   "extends": [
     "config:base",
     "schedule:weekly"
