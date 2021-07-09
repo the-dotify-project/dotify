@@ -1,9 +1,11 @@
 ---
-name: Bug Report
-about: Create a report to help us improve
-labels: bug
+name: 🐞 Bug Report
+about: Did you find a bug?
+labels: ":bug: bug"
 
 ---
+
+<!-- Please make sure that this is not a duplicate. -->
 
 ## Expected Result
 
