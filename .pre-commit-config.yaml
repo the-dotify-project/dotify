@@ -11,11 +11,11 @@ repos:
       - id: autoflake
         args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variable']
   - repo: https://github.com/pycqa/isort
-    rev: 5.9.1
+    rev: 5.9.2
     hooks:
       - id: isort
   - repo: https://github.com/psf/black
-    rev: 21.6b0
+    rev: 21.7b0
     hooks:
       - id: black
         language_version: python3
@@ -42,7 +42,7 @@ repos:
       files: ^dotify|tests/
       additional_dependencies: [types-all]
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.17.11
+    rev: v2.17.13
     hooks:
       - id: commitizen
         stages: [commit-msg]
@@ -66,3 +66,7 @@ repos:
         pass_filenames: false
         entry: poetry export --without-hashes -o requirements.txt
         files: ^(pyproject.toml|poetry.lock)$
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+      - id: check-useless-excludes
