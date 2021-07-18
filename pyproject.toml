@@ -15,7 +15,6 @@ repository = "https://github.com/the-dotify-project/dotify"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/the-dotify-project/dotify/issues"
-"Documentation" = "https://the-dotify-project.github.io/dotify"
 "Changelog" = "https://github.com/the-dotify-project/dotify/releases"
 
 [tool.poetry.dependencies]
@@ -34,8 +33,6 @@ flake8 = "*"
 isort = "*"
 pytest = "*"
 pytest-cov = "*"
-pytest-monkeytype = "*"
-monkeytype = "*"
 tox = "^3.23.0"
 tox-poetry-installer = {extras = ["poetry"], version = "^0.8.0"}
 mypy = "^0.812"
@@ -53,6 +50,7 @@ mkdocs-redirects = "^1.0.3"
 pytest-sugar = "^0.9.4"
 mdx-truly-sane-lists = "^1.2"
 mike = "^1.0.1"
+poethepoet = "^0.10.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -61,3 +59,12 @@ build-backend = "poetry.core.masonry.api"
 [tool.vulture]
 min_confidence = 95
 paths = ["dotify", "tests", "examples"]
+
+[tool.poe.tasks]
+clean = { cmd = "rm -rf ./**/__pycache__ dist site .pytest_cache .mypy_cache .coverage", help = "Clean up any auxiliary files" }
+format = { cmd = "poetry run isort .; poetry run black .", help = "Format your codebase" }
+hooks = { cmd = "poetry run pre-commit run --all-files", help = "Run all pre-commit hooks"}
+test = { cmd = "poetry run pytest --cov=dotify", help = "Run the test suite and produce a coverage report" }
+types = { cmd = "poetry run mypy dotify tests", help = "Run static type checking on your codebase" }
+lint = { cmd = "poetry run flake8 .", help = "Lint your code for errors" }
+docs = { cmd = "poetry run mike serve", help = "Build and serve the documentation" }
