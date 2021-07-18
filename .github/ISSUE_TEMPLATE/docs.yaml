@@ -1,0 +1,31 @@
+name: 📄 Documentation
+description: Suggest a change regarding this project's documentation
+title: "📄: "
+labels: [":memo: documentation"]
+assignees:
+  - billsioros
+body:
+  - type: textarea
+    id: change-description
+    attributes:
+      label: What should be changed in the documentation?
+      description: Describe what you would like to see documented!
+      placeholder: Please describe what should be added to, changed in or removed from the documentation, as well as the reasoning behind the proposed change.
+    validations:
+      required: true
+  - type: checkboxes
+    id: duplicate-issue
+    attributes:
+      label: Is this a duplicate issue?
+      description: By submitting this issue, you confirm that you have made sure that this is not a duplicate issue
+      options:
+        - label: I confirm that this is not a duplicate issue
+          required: true
+  - type: checkboxes
+    id: code-of-conduct
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://the-dotify-project.github.io/dotify/latest/CODE_OF_CONDUCT/)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

@@ -1,0 +1,80 @@
+name: 🐞 Bug Report
+description: Did you find a bug?
+title: "🐞: "
+labels: [":bug: bug"]
+assignees:
+  - billsioros
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Describe the problem!
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: How can we reproduce the bug?
+      description: Please provide the reproduction steps corresponding to the bug.
+      placeholder: Provide us with some python code!
+      value: |
+        from dotify import Dotify
+
+        with Dotify(SPOTIFY_ID, SPOTIFY_SECRET):
+          pass
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: stack-trace
+    attributes:
+      label: Relevant stack trace
+      description: Please provide us with the program's stack trace, if appropriate.
+      render: shell
+  - type: checkboxes
+    id: operating-systems
+    attributes:
+      label: Which operating systems have you used?
+      description: You may select more than one.
+      options:
+        - label: macOS
+        - label: Windows
+        - label: Linux
+  - type: dropdown
+    id: python-version
+    attributes:
+      label: Python version
+      multiple: true
+      description: In what python version(s) does the problem occur?
+      options:
+        - 3.7
+        - 3.8
+        - 3.9
+    validations:
+      required: true
+  - type: checkboxes
+    id: duplicate-issue
+    attributes:
+      label: Is this a duplicate issue?
+      description: By submitting this issue, you confirm that you have made sure that this is not a duplicate issue
+      options:
+        - label: I confirm that this is not a duplicate issue
+          required: true
+  - type: checkboxes
+    id: latest-version
+    attributes:
+      label: Have you upgraded to the latest version?
+      description: By submitting this issue, you confirm that you have already upgraded to the latest version
+      options:
+        - label: I confirm that I have upgraded to the latest version
+          required: true
+  - type: checkboxes
+    id: code-of-conduct
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://the-dotify-project.github.io/dotify/latest/CODE_OF_CONDUCT/)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
