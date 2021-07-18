@@ -1,6 +1,6 @@
 # Security Policy
 
-If you believe you have identified a security issue, **do not open a public issue**. To  report a security issue, please email [Vasilis Sioros](billsioros97@gmail.com).
+If you believe you have identified a security issue, **do not open a public issue**. To  report a security issue, please contact billsioros97@gmail.com.
 
 Be sure to include as much detail as necessary in your report. As with
 reporting normal issues, a minimal reproducible example will help the
