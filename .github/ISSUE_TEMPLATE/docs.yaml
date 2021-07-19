@@ -1,6 +1,6 @@
 name: 📄 Documentation
 description: Suggest a change regarding this project's documentation
-title: "📄: "
+title: "📄 "
 labels: [":memo: documentation"]
 assignees:
   - billsioros

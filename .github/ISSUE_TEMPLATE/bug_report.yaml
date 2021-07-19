@@ -1,6 +1,6 @@
 name: 🐞 Bug Report
 description: Did you find a bug?
-title: "🐞: "
+title: "🐞 "
 labels: [":bug: bug"]
 assignees:
   - billsioros
