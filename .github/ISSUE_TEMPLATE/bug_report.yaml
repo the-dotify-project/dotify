@@ -33,15 +33,18 @@ body:
       label: Relevant stack trace
       description: Please provide us with the program's stack trace, if appropriate.
       render: shell
-  - type: checkboxes
-    id: operating-systems
+  - type: dropdown
+    id: operating-system
     attributes:
-      label: Which operating systems have you used?
-      description: You may select more than one.
+      label: Operating System (OS)
+      multiple: true
+      description: In what OS(s) does the problem occur?
       options:
-        - label: macOS
-        - label: Windows
-        - label: Linux
+        - macOS
+        - Windows
+        - Linux
+    validations:
+      required: true
   - type: dropdown
     id: python-version
     attributes:
