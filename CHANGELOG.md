@@ -6,6 +6,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 <!--next-version-placeholder-->
 
+## v2.0.1 (2021-07-19)
+### Fix
+* Include `py.typed` in module according to https://www.python.org/dev/peps/pep-0561/ ([`17d4387`](https://github.com/the-dotify-project/dotify/commit/17d438742ea1cd054b89d97b3aa1a66c65a79fa4))
+
+### Documentation
+* Replace `keep-a-changelog` with `conventional-commits` ([`e56a817`](https://github.com/the-dotify-project/dotify/commit/e56a81707342d2815e836612b21b0ea105120b29))
+* Add `CD` badge to `README` ([`9f5bb26`](https://github.com/the-dotify-project/dotify/commit/9f5bb26d54ad3b586f2f7deec27bc0508f7fb0f3))
+* Removed `docs.yml` badge from `README` ([`251e499`](https://github.com/the-dotify-project/dotify/commit/251e499f282e1551563fd99cbb8b44f8fa6872f1))
+
+**[See all commits in this version](https://github.com/the-dotify-project/dotify/compare/v2.0.0...v2.0.1)**
+
 ## v2.0.0 (2021-06-25)
 ### Feature
 * Auto-populate the `Json` meta ([`2af3ad2`](https://github.com/the-dotify-project/dotify/commit/2af3ad2bb60cebb0088cab57b41400156b056414))
