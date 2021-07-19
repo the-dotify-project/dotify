@@ -23,7 +23,7 @@ Contributions are made to this repository via Issues and Pull Requests (PRs). A 
 
 ### Issues
 
-Issues should be used to report problems with the library or request a new feature or documentation change. When you create a new Issue, a template will be loaded that will guide you through collecting and providing the required information.
+[Issues](https://github.com/the-dotify-project/dotify/issues) should be used to report problems with the library or request a new feature or documentation change. When you create a new Issue, a template will be loaded that will guide you through collecting and providing the required information.
 
 If you find an Issue that addresses the problem you're having, please add your own reproduction information to the existing issue rather than creating a new one. Adding a [reaction](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) can also help in indicating to our maintainers that a particular problem is affecting more than just the reporter.
 
@@ -37,8 +37,8 @@ PRs can be a quick way to get your fix or improvement slated for the next releas
 - Add [unit or integration tests](https://github.com/the-dotify-project/dotify/tree/master/examples) for added or changed functionality.
 - Any code related changes should be accompanied by corresponding changes to the project's documentation.
 - If your pull request introduces a new feature, the corresponding `README` [section](https://the-dotify-project.github.io/dotify/latest/#features) must be updated to reflect this. Make sure you also include [an example](https://github.com/the-dotify-project/dotify/tree/master/examples), showcasing this new functionality.
-- Write clear, concise commit message(s) using [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md). [Why?](#writing-your-commit-message)
-- If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
+- Write clear, concise commit message(s) using the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format. [Why?](#writing-your-commit-message)
+- This project only accepts pull requests related to open issues. In case there is no relevant open issue, feel free to [create one](https://github.com/the-dotify-project/dotify/issues/new/choose).
 
 For changes that address core functionality or would require breaking changes (e.g. a major release), it's best to open an Issue to discuss your proposal first. This is not required but can save time creating and reviewing changes.
 
@@ -111,7 +111,7 @@ Having made your changes, please run `mkdocs server` and make sure that no error
 
 ### Writing your commit message
 
-The project's version number and [Changelog](https://github.com/the-dotify-project/dotify/blob/master/CHANGELOG.md), depend on a consistent commit history. As a result, your commit message's format is extremely important. Before opening a pull request, please make sure that your commits strictly follow the [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md).
+The project's version number and [Changelog](https://github.com/the-dotify-project/dotify/blob/master/CHANGELOG.md), depend on a consistent commit history. As a result, your commit message's format is extremely important. Before opening a pull request, please make sure that your commits strictly follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format].
 
 ### Creating a pull request
 
