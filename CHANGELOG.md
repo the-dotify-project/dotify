@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 <!--next-version-placeholder-->
 
+## v2.0.2 (2021-07-20)
+### Fix
+* Sync workflow depending on "Publish" ([`0e5dea3`](https://github.com/the-dotify-project/dotify/commit/0e5dea33bdb36da452d40653a962e296652411f5))
+
+**[See all commits in this version](https://github.com/the-dotify-project/dotify/compare/v2.0.1...v2.0.2)**
+
 ## v2.0.1 (2021-07-19)
 ### Fix
 * Include `py.typed` in module according to https://www.python.org/dev/peps/pep-0561/ ([`17d4387`](https://github.com/the-dotify-project/dotify/commit/17d438742ea1cd054b89d97b3aa1a66c65a79fa4))
