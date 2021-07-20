@@ -67,14 +67,14 @@ Start by visiting the [Spotify Developer Portal](https://developer.spotify.com/d
 
 The project utilizes the [pre-commit](https://pre-commit.com/) framework. Having [created a virtual environment and installed the required dependencies](#installing-poetry), you may run `pre-commit install` to install the [git hook scripts](https://github.com/the-dotify-project/dotify/blob/master/.pre-commit-config.yaml).
 
-### Formatting, Linting and Testing
+### Using `tox`
 
-All of the above can be done via [tox](https://tox.readthedocs.io/en/latest/config.html):
+> We are using [tox](https://tox.readthedocs.io/en/latest/index.html) to automate testing on multiple environments.
 
 - You can lint the code by simply running `tox -e lint`
 - Checking for type errors, using [Mypy](https://mypy.readthedocs.io/en/stable/), can be achieved via `tox -e type-check`
 - Checking if your changes follow the project's formatting standard can be done via `tox -e fmt-check`
-- You may run `tox -e py38` in order to run the library's unit tests using Python 3.8 (the `py37`, `py38` and `py39` test environments assumes that you have **Python 3.7, 3.8 or 3.9** installed)
+- You may run `tox -e py38` to run the library's unit tests using Python 3.8 (the `py37`, `py38` and `py39` test environments assume, you have installed **Python 3.7, 3.8 or 3.9** accordingly)
 - Alternatively, you may simply run `tox` to execute all of the above
 
 Note that in order to run the test suite, you must export your client credentials beforehand, as such
@@ -84,9 +84,15 @@ export SPOTIFY_ID="<SPOTIFY_ID>"
 export SPOTIFY_SECRET="<SPOTIFY_SECRET>"
 ```
 
-You may also utilize [direnv](https://direnv.net/), in order to avoid re-exporting them every time you spawn a new shell instance.
+You may also utilize [direnv](https://direnv.net/), so that you avoid re-exporting them every time you spawn a new shell instance.
 
 _**ATTENTION**: Even though, using a `.envrc` file is far more convenient than re-exporting  environment variables each and every time you open up a new shell, it is **strongly** recommended that, you prefer the first approach as you risk compromising your client credentials otherwise._
+
+#### Using `poethepoet`
+
+> We are using [poethepoet](https://github.com/nat-n/poethepoet), to perform various development oriented tasks.
+
+Formatting, type-checking, running the test suite, as well as a few other operations, can be performed by running `poe <task>`. Please run `poe --help` (or `poetry run poe --help`), to list all available operations.
 
 #### (Optional) Installing pyenv
 
