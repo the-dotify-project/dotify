@@ -47,7 +47,7 @@ repos:
       - id: commitizen
         stages: [commit-msg]
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.3.5
+    rev: 2.3.51
     hooks:
       - id: editorconfig-checker
   - repo: https://github.com/jendrikseipp/vulture
