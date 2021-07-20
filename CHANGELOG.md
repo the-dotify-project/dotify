@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 <!--next-version-placeholder-->
 
+## v2.0.3 (2021-07-20)
+### Fix
+* Use the upcoming version when deploying docs ([`f778318`](https://github.com/the-dotify-project/dotify/commit/f7783189bf683e516e2b0ce9a0c9c13441acc812))
+
+**[See all commits in this version](https://github.com/the-dotify-project/dotify/compare/v2.0.2...v2.0.3)**
+
 ## v2.0.2 (2021-07-20)
 ### Fix
 * Sync workflow depending on "Publish" ([`0e5dea3`](https://github.com/the-dotify-project/dotify/commit/0e5dea33bdb36da452d40653a962e296652411f5))
