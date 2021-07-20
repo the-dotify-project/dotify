@@ -2,7 +2,7 @@ name: Sync
 
 on:
   workflow_run:
-    workflows: ["Publish"]
+    workflows: ["CD"]
     types:
       - completed
 
