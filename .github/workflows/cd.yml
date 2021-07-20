@@ -58,7 +58,7 @@ jobs:
 
       - name: Get the release version
         run: |
-          export RELEASE_TAG_VERSION="$( poetry run semantic-release print-version --current )"
+          export RELEASE_TAG_VERSION="$( poetry run semantic-release print-version --next )"
           echo "RELEASE_TAG_VERSION=${RELEASE_TAG_VERSION}" >> $GITHUB_ENV
 
       - name: Configure git
