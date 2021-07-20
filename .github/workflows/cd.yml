@@ -22,16 +22,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pypi_token: ${{ secrets.PYPI_TOKEN }}
 
-  docs:
-    needs: publish
-    name: Deploy documentation to gh-pages
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
@@ -50,7 +40,7 @@ jobs:
         uses: actions/cache@v2.1.6
         with:
           path: .venv
-          key: ${{ matrix.platform }}-venv-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install dependencies
         run: |
@@ -58,7 +48,7 @@ jobs:
 
       - name: Get the release version
         run: |
-          export RELEASE_TAG_VERSION="$( poetry run semantic-release print-version --next )"
+          export RELEASE_TAG_VERSION="$( poetry run semantic-release print-version --current )"
           echo "RELEASE_TAG_VERSION=${RELEASE_TAG_VERSION}" >> $GITHUB_ENV
 
       - name: Configure git
