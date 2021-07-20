@@ -6,6 +6,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 <!--next-version-placeholder-->
 
+## v2.0.5 (2021-07-20)
+### Fix
+* Update `pyproject` metadata ([`99061cb`](https://github.com/the-dotify-project/dotify/commit/99061cb9fc193719e456287108cca9e025e93e9d))
+
+### Documentation
+* Mention `poethepoet` in Contributing Guidelines ([`81ba159`](https://github.com/the-dotify-project/dotify/commit/81ba159b0eaa22807936d6b0300a550a54ae6560))
+
+**[See all commits in this version](https://github.com/the-dotify-project/dotify/compare/v2.0.4...v2.0.5)**
+
 ## v2.0.4 (2021-07-20)
 ### Fix
 * Correct key when caching `CD.yml` deps ([`372de80`](https://github.com/the-dotify-project/dotify/commit/372de80f755ca9592fdad36768eabf3329ab762f))
