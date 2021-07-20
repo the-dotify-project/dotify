@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 <!--next-version-placeholder-->
 
+## v2.0.4 (2021-07-20)
+### Fix
+* Correct key when caching `CD.yml` deps ([`372de80`](https://github.com/the-dotify-project/dotify/commit/372de80f755ca9592fdad36768eabf3329ab762f))
+
+**[See all commits in this version](https://github.com/the-dotify-project/dotify/compare/v2.0.3...v2.0.4)**
+
 ## v2.0.3 (2021-07-20)
 ### Fix
 * Use the upcoming version when deploying docs ([`f778318`](https://github.com/the-dotify-project/dotify/commit/f7783189bf683e516e2b0ce9a0c9c13441acc812))
