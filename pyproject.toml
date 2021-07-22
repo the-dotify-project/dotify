@@ -73,12 +73,12 @@ paths = ["dotify", "tests", "examples"]
 
 [tool.poe.tasks]
 clean = { cmd = "rm -rf ./**/__pycache__ dist site .pytest_cache .mypy_cache .coverage", help = "Clean up any auxiliary files" }
-format = { cmd = "poetry run isort .; poetry run black .", help = "Format your codebase" }
+format = { shell = "poetry run isort .; poetry run black .", help = "Format your codebase" }
 hooks = { cmd = "poetry run pre-commit run --all-files", help = "Run all pre-commit hooks"}
 test = { cmd = "poetry run pytest --cov=dotify", help = "Run the test suite and produce a coverage report" }
 type-check = { cmd = "poetry run mypy dotify tests", help = "Run static type checking on your codebase" }
 lint = { cmd = "poetry run flake8 .", help = "Lint your code for errors" }
-docs = { cmd = "poetry run mike serve", help = "Build and serve the documentation" }
+docs = { shell = "python -c 'import webbrowser; webbrowser.open(\"http://127.0.0.1:8000\")'; poetry run mkdocs serve", help = "Build and serve the documentation" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
