@@ -1,10 +1,6 @@
 name: Code Coverage
 
-on:
-  workflow_run:
-    workflows: ["Publish"]
-    types:
-      - completed
+on: [push]
 
 jobs:
   codecov:
@@ -43,7 +39,5 @@ jobs:
           run: |
             poetry run python -m pytest --cov=./dotify --cov-report=xml
 
-        - name: Publish the coverage report to Code Climate
-          uses: paambaati/codeclimate-action@v2.7.5
-          env:
-            CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
+        - name: Upload coverage report
+          uses: codecov/codecov-action@v2
