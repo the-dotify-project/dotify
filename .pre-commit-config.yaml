@@ -38,7 +38,6 @@ repos:
     rev: v0.910
     hooks:
     - id: mypy
-      args: [--config, .mypy.ini]
       files: ^dotify|tests/
       additional_dependencies: [types-all]
   - repo: https://github.com/commitizen-tools/commitizen

@@ -11,9 +11,7 @@ if __name__ == "__main__":
 
         print(track)
 
-        track = models.Track.from_url(
-            "https://open.spotify.com/track/0fFWxRZGKR7HDW2xBMOZgW"
-        )
+        track = models.Track.from_url("https://open.spotify.com/track/0fFWxRZGKR7HDW2xBMOZgW")
 
         print(track)
 

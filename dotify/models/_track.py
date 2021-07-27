@@ -109,9 +109,7 @@ class Track(TrackBase):
         """
         results = VideosSearch(str(self), limit=limit).result()["result"]
 
-        yield from (
-            YouTube(result["link"]).streams.get_audio_only() for result in results
-        )
+        yield from (YouTube(result["link"]).streams.get_audio_only() for result in results)
 
     @property
     def stream(self) -> Stream:

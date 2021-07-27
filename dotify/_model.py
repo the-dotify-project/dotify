@@ -70,12 +70,7 @@ class ModelMeta(JsonSerializableMeta):
         Returns:
             Path: the path to the file containing the json schema
         """
-        return (
-            Path(__file__).parent
-            / "models"
-            / "schema"
-            / cls._dependency_basename(model_name)
-        )
+        return Path(__file__).parent / "models" / "schema" / cls._dependency_basename(model_name)
 
     @classmethod
     def _dependencies_from(cls, dependency_names):
