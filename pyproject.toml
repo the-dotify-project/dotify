@@ -88,7 +88,7 @@ lint = { cmd = "poetry run flake8 .", help = "Lint your code for errors" }
 docs = { shell = "python -c 'import webbrowser; webbrowser.open(\"http://127.0.0.1:8000\")'; poetry run mkdocs serve", help = "Build and serve the documentation" }
 
 [tool.pytest.ini_options]
-addopts = "--reruns 3"
+addopts = "--reruns 3 --color=yes --doctest-modules"
 log_cli = false
 log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 log_cli_format = "%(asctime)s %(levelname)s %(message)s"
