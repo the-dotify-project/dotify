@@ -31,17 +31,10 @@
       alt="pre-commit.ci status"
     />
   </a>
-  <a href="https://codeclimate.com/github/billsioros/dotify/maintainability">
+  <a href="https://codecov.io/gh/the-dotify-project/dotify">
     <img
-      src="https://api.codeclimate.com/v1/badges/573685a448c6422d49de/maintainability"
-      alt="Maintainability"
-    />
-  </a>
-  <a href="https://codeclimate.com/github/billsioros/dotify/test_coverage">
-    <img
-      src="https://api.codeclimate.com/v1/badges/573685a448c6422d49de/test_coverage"
-      alt="Test Coverage"
-    />
+      src="https://codecov.io/gh/the-dotify-project/dotify/branch/master/graph/badge.svg?token=coLOL0j6Ap"
+      alt="Test Coverage"/>
   </a>
   <a href="https://opensource.org/licenses/MIT">
     <img
