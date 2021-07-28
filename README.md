@@ -42,10 +42,10 @@
       alt="PyPI - License"
     />
   </a>
-  <a href="https://github.com/the-dotify-project/dotify/commits">
+  <a href="https://gitpod.io/from-referrer/">
     <img
-      src="https://img.shields.io/github/commits-since/the-dotify-project/dotify/latest?style=flat-square"
-      alt="GitHub commits since latest release (by SemVer)"
+      src="https://img.shields.io/badge/Gitpod-Open-blue?logo=gitpod"
+      alt="Open on Gitpod"
     />
   </a>
 </p>
