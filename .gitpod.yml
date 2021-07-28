@@ -1,0 +1,32 @@
+image:
+  file: .gitpod.Dockerfile
+
+vscode:
+  extensions:
+    - "ms-python.python"
+    - "ms-python.vscode-pylance"
+    - "visualstudioexptteam.vscodeintellicode"
+    - "njpwerner.autodocstring"
+    - "teabyii.ayu"
+    - "PKief.material-icon-theme"
+    - "aaron-bond.better-comments"
+    - "alefragnani.Bookmarks"
+    - "IBM.output-colorizer"
+    - "streetsidesoftware.code-spell-checker"
+    - "yzhang.markdown-all-in-one"
+    - "davidanson.vscode-markdownlint"
+    - "qcz.text-power-tools"
+
+tasks:
+- init: |
+    poetry shell && poetry install
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: false
+    addBadge: true
