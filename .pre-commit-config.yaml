@@ -45,6 +45,11 @@ repos:
     hooks:
       - id: commitizen
         stages: [commit-msg]
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.15.1
+    hooks:
+      - id: gitlint
+        stages: [commit-msg]
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
     rev: 2.3.5
     hooks:
@@ -65,11 +70,11 @@ repos:
         pass_filenames: false
         entry: poetry export --without-hashes -o requirements.txt
         files: ^(pyproject.toml|poetry.lock)$
-  - repo: meta
-    hooks:
-      - id: check-hooks-apply
-      - id: check-useless-excludes
   - repo: https://github.com/hadolint/hadolint
     rev: v2.6.0
     hooks:
       - id: hadolint-docker
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+      - id: check-useless-excludes

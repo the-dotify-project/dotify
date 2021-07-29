@@ -65,7 +65,7 @@ Start by visiting the [Spotify Developer Portal](https://developer.spotify.com/d
 
 ### Installing pre-commit hooks
 
-The project utilizes the [pre-commit](https://pre-commit.com/) framework. Having [created a virtual environment and installed the required dependencies](#installing-poetry), you may run `pre-commit install` to install the [git hook scripts](https://github.com/the-dotify-project/dotify/blob/master/.pre-commit-config.yaml).
+The project utilizes the [pre-commit](https://pre-commit.com/) framework. Having [created a virtual environment and installed the required dependencies](#installing-poetry), you may run `pre-commit install --install-hooks` to install the [git hook scripts](https://github.com/the-dotify-project/dotify/blob/master/.pre-commit-config.yaml).
 
 ### Testing via `tox`
 
