@@ -23,6 +23,11 @@ vscode:
     - "editorconfig.editorconfig"
     - "christian-kohler.path-intellisense"
     - "eamodio.gitlens"
+    - "ryu1kn.partial-diff"
+    - "bungcip.better-toml"
+    - "redhat.vscode-yaml"
+    - "almenon.arepl"
+    - "marklarah.pre-commit-vscode"
 
 tasks:
 - init: |
