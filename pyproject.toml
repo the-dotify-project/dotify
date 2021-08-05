@@ -107,7 +107,7 @@ source = ["dotify"]
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 100
+fail_under = 80
 exclude_lines = ["if self.debug:", "pragma: no cover", "raise NotImplementedError", "if __name__ == .__main__.:"]
 ignore_errors = true
 omit = ["tests/*"]
