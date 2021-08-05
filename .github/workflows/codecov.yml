@@ -1,6 +1,10 @@
 name: Code Coverage
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'dotify/**/*.py'
+      - 'tests/**/*.py'
 
 jobs:
   codecov:

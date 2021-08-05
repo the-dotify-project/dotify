@@ -5,6 +5,10 @@ on:
     branches:
       - master
     types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'dotify/**/*.py'
+      - 'docs/**'
+      - '*.md'
 
 jobs:
   preview:
