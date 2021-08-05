@@ -15,6 +15,8 @@ keywords = ["spotify", "download", "downloader", "youtube", "mp3"]
 classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
@@ -22,9 +24,7 @@ classifiers = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
-    "Topic :: Multimedia",
     "Topic :: Multimedia :: Sound/Audio",
-    "Operating System :: OS Independent"
 ]
 
 [tool.poetry.urls]
@@ -68,6 +68,7 @@ poethepoet = "^0.10.0"
 pytest-rerunfailures = "^10.1"
 mypy = "^0.910"
 types-requests = "^2.25.0"
+pytest-clarity = "^1.0.1"
 
 [tool.semantic_release]
 version_toml = "pyproject.toml:tool.poetry.version"
@@ -88,7 +89,7 @@ lint = { cmd = "poetry run flake8 .", help = "Lint your code for errors" }
 docs = { shell = "python -c 'import webbrowser; webbrowser.open(\"http://127.0.0.1:8000\")'; poetry run mkdocs serve", help = "Build and serve the documentation" }
 
 [tool.pytest.ini_options]
-addopts = "--reruns 3 --color=yes --doctest-modules"
+addopts = "-vv --reruns 3 --color=yes"# --doctest-modules"
 log_cli = false
 log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 log_cli_format = "%(asctime)s %(levelname)s %(message)s"
@@ -127,6 +128,7 @@ warn_unused_configs = true
 ignore_missing_imports = true
 files = ["dotify"]
 pretty = true
+color_output = true
 show_column_numbers = true
 show_error_codes = true
 show_error_context = true
