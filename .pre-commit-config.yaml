@@ -1,5 +1,5 @@
 ci:
-  skip: [editorconfig-checker, export-requirements]
+  skip: [editorconfig-checker, export-requirements, hadolint-docker]
   autofix_commit_msg: 'refactor: `pre-commit.ci` auto fix'
   autofix_prs: true
   autoupdate_commit_msg: 'refactor: `pre-commit.ci` auto update'
@@ -38,7 +38,7 @@ repos:
     rev: v0.910
     hooks:
     - id: mypy
-      files: ^dotify|tests/
+      files: ^dotify
       additional_dependencies: [types-all]
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.17.13
