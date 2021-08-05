@@ -1,7 +1,7 @@
 import logging
 from http import HTTPStatus
 from pathlib import Path
-from typing import TYPE_CHECKING, AnyStr, Iterator, Optional
+from typing import TYPE_CHECKING, AnyStr, Iterator, Optional, cast
 
 import requests
 from cached_property import cached_property
@@ -37,7 +37,7 @@ class AlbumBase(Model):
         Returns:
             Artist: an instance of `Artist` representing the album's artist relevant info
         """
-        return self.artists[0]
+        return cast("Artist", self.artists[0])
 
     @property
     def url(self) -> AnyStr:
@@ -46,7 +46,7 @@ class AlbumBase(Model):
         Returns:
             AnyStr: the URL in string format
         """
-        return self.external_urls.spotify
+        return cast(AnyStr, self.external_urls.spotify)
 
     @cached_property
     def cover(self) -> APIC:

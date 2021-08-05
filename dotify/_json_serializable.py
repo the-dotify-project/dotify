@@ -1,7 +1,7 @@
 import json
 import logging
 from abc import ABCMeta
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 from python_jsonschema_objects import ObjectBuilder
 from python_jsonschema_objects.classbuilder import LiteralValue, ProtocolBase
@@ -103,6 +103,6 @@ class JsonSerializable(ProtocolBase, metaclass=JsonSerializableMeta):
             dependency
         """
         try:
-            return cls.Json.dependencies.get(obj.__class__.__name__, None)
+            return cast(JsonSerializable, cls.Json.dependencies.get(obj.__class__.__name__, None))
         except AttributeError:
             return None

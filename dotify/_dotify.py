@@ -2,7 +2,7 @@ import contextlib
 import logging
 import os
 import threading
-from typing import Any, AnyStr, Dict, List, Optional
+from typing import Any, AnyStr, Dict, List, Optional, cast
 
 from spotipy import Spotify as Client
 from spotipy.client import logger
@@ -75,7 +75,7 @@ class Dotify(Client):
             List[Dotify]: the `Dotify` context stack
         """
         try:
-            return cls._context.stack
+            return cast(Dotify, cls._context.stack)
         except AttributeError:
             cls._context.stack = []
 
@@ -89,7 +89,7 @@ class Dotify(Client):
             Optional[Dotify]: the topmost context
         """
         try:
-            return cls.contexts[-1]
+            return cast(Dotify, cls.contexts[-1])
         except IndexError:
             return None
 
@@ -111,8 +111,11 @@ class Dotify(Client):
         """
         results = super().search(query, type=model_type, limit=limit)
 
-        return results[
-            "{0}s".format(
-                model_type,
-            )
-        ]["items"]
+        return cast(
+            List[Dict[AnyStr, Any]],
+            results[
+                "{0}s".format(
+                    model_type,
+                )
+            ]["items"],
+        )

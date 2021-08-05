@@ -1,5 +1,5 @@
 import logging
-from typing import AnyStr
+from typing import AnyStr, cast
 
 from dotify._model import Model, logger
 
@@ -16,7 +16,7 @@ class Artist(Model):
         Returns:
             AnyStr: the URL in string format
         """
-        return self.external_urls.spotify
+        return cast(AnyStr, self.external_urls.spotify)
 
     def __str__(self) -> AnyStr:
-        return self.name
+        return cast(AnyStr, self.name)
