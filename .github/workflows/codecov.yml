@@ -1,7 +1,10 @@
 name: Code Coverage
 
 on:
-  push
+  push:
+    paths:
+    - 'dotify/**/*.py'
+    - 'tests/**/*.py'
 
 jobs:
   codecov:
@@ -27,7 +30,7 @@ jobs:
           uses: actions/cache@v2.1.6
           with:
             path: .venv
-            key: ${{ matrix.platform }}-venv-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+            key: venv-${{ hashFiles('**/poetry.lock') }}
 
         - name: Install dependencies
           run: |
