@@ -74,6 +74,7 @@ repos:
     rev: v2.6.0
     hooks:
       - id: hadolint-docker
+        args: ['--ignore', 'DL3006']
   - repo: meta
     hooks:
       - id: check-hooks-apply
