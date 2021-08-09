@@ -1,5 +1,5 @@
 ci:
-  skip: [editorconfig-checker, export-requirements]
+  skip: [export-requirements, hadolint-docker]
   autofix_commit_msg: 'refactor: `pre-commit.ci` auto fix'
   autofix_prs: true
   autoupdate_commit_msg: 'refactor: `pre-commit.ci` auto update'
@@ -38,16 +38,21 @@ repos:
     rev: v0.910
     hooks:
     - id: mypy
-      args: [--config, .mypy.ini]
-      files: ^dotify|tests/
+      files: ^dotify
       additional_dependencies: [types-all]
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.17.13
     hooks:
       - id: commitizen
         stages: [commit-msg]
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.15.1
+    hooks:
+      - id: gitlint
+        stages: [commit-msg]
+        args: [--ignore=B6, --msg-filename]
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.3.5
+    rev: 2.3.53
     hooks:
       - id: editorconfig-checker
   - repo: https://github.com/jendrikseipp/vulture
@@ -66,6 +71,11 @@ repos:
         pass_filenames: false
         entry: poetry export --without-hashes -o requirements.txt
         files: ^(pyproject.toml|poetry.lock)$
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.6.1
+    hooks:
+      - id: hadolint-docker
+        args: ['--ignore', 'DL3006']
   - repo: meta
     hooks:
       - id: check-hooks-apply

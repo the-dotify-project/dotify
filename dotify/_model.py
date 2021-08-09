@@ -5,7 +5,7 @@ from http import HTTPStatus
 from importlib import import_module
 from pathlib import Path
 from re import match
-from typing import Any, AnyStr, Callable, Iterator, Optional
+from typing import Any, AnyStr, Callable, Iterator, Optional, cast
 
 from spotipy.exceptions import SpotifyException
 
@@ -70,12 +70,7 @@ class ModelMeta(JsonSerializableMeta):
         Returns:
             Path: the path to the file containing the json schema
         """
-        return (
-            Path(__file__).parent
-            / "models"
-            / "schema"
-            / cls._dependency_basename(model_name)
-        )
+        return Path(__file__).parent / "models" / "schema" / cls._dependency_basename(model_name)
 
     @classmethod
     def _dependencies_from(cls, dependency_names):
@@ -123,7 +118,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         Returns:
             Optional[Dotify]: the current `Dotify` context
         """
-        return Dotify.context
+        return cast(Dotify, Dotify.context)
 
     @classmethod
     def view_name(cls) -> str:

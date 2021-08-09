@@ -34,7 +34,7 @@ PRs can be a quick way to get your fix or improvement slated for the next releas
 - Only fix/add the functionality in question **OR** address wide-spread whitespace/style issues, not both.
 - Address a single concern in the least number of changed lines as possible.
 - Be accompanied by a complete Pull Request template (loaded automatically when a PR is created).
-- Add [unit or integration tests](https://github.com/the-dotify-project/dotify/tree/master/examples) for added or changed functionality.
+- Add [unit or integration tests](https://github.com/the-dotify-project/dotify/tree/master/tests) for added or changed functionality.
 - Any code related changes should be accompanied by corresponding changes to the project's documentation.
 - If your pull request introduces a new feature, the corresponding `README` [section](https://the-dotify-project.github.io/dotify/latest/#features) must be updated to reflect this. Make sure you also include [an example](https://github.com/the-dotify-project/dotify/tree/master/examples), showcasing this new functionality.
 - Write clear, concise commit message(s) using the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format. [Why?](#writing-your-commit-message)
@@ -65,9 +65,9 @@ Start by visiting the [Spotify Developer Portal](https://developer.spotify.com/d
 
 ### Installing pre-commit hooks
 
-The project utilizes the [pre-commit](https://pre-commit.com/) framework. Having [created a virtual environment and installed the required dependencies](#installing-poetry), you may run `pre-commit install` to install the [git hook scripts](https://github.com/the-dotify-project/dotify/blob/master/.pre-commit-config.yaml).
+The project utilizes the [pre-commit](https://pre-commit.com/) framework. Having [created a virtual environment and installed the required dependencies](#installing-poetry), you may run `pre-commit install --install-hooks` to install the [git hook scripts](https://github.com/the-dotify-project/dotify/blob/master/.pre-commit-config.yaml).
 
-### Using `tox`
+### Testing via `tox`
 
 > We are using [tox](https://tox.readthedocs.io/en/latest/index.html) to automate testing on multiple environments.
 
@@ -88,12 +88,6 @@ You may also utilize [direnv](https://direnv.net/), so that you avoid re-exporti
 
 _**ATTENTION**: Even though, using a `.envrc` file is far more convenient than re-exporting  environment variables each and every time you open up a new shell, it is **strongly** recommended that, you prefer the first approach as you risk compromising your client credentials otherwise._
 
-#### Using `poethepoet`
-
-> We are using [poethepoet](https://github.com/nat-n/poethepoet), to perform various development oriented tasks.
-
-Formatting, type-checking, running the test suite, as well as a few other operations, can be performed by running `poe <task>`. Please run `poe --help` (or `poetry run poe --help`), to list all available operations.
-
 #### (Optional) Installing pyenv
 
 [pyenv](https://github.com/pyenv/pyenv) is used, in the context of the **Dotify** project, in order to determine the project's compatibility with various versions of Python. Installing `pyenv` is not strictly required, but it is **strongly** recommended.
@@ -109,11 +103,17 @@ You will now be able to run `tox` (an as a result any test environment subset `p
 
 Feel free to read more about using `pyenv`, in the context of `poetry`, [here](https://blog.jayway.com/2019/12/28/pyenv-poetry-saviours-in-the-python-chaos/).
 
+### Performing development operations via `poethepoet`
+
+> We are using [poethepoet](https://github.com/nat-n/poethepoet), to perform various development oriented tasks.
+
+Formatting, type-checking, running the test suite, as well as a few other operations, can be performed by running `poe <task>`. Please run `poe --help` (or `poetry run poe --help`), to list all available operations.
+
 ### Documenting your changes
 
-**Dotify** utilizes [MkDocs](https://www.mkdocs.org/) to build and deploy its documentation to [GitHub Pages](https://pages.github.com/). The documentation is auto-generated from the [python docstrings](https://www.python.org/dev/peps/pep-0257/#id15) throughout the source code. As a result, any code related change should be accompanied by a corresponding change to the method / class at hand.
+**Dotify** utilizes [MkDocs](https://www.mkdocs.org/) to build and deploy its documentation to [GitHub Pages](https://pages.github.com/). The documentation is auto-generated from the [python docstrings](https://www.python.org/dev/peps/pep-0257/#id15) throughout the source code. As a result, any code related change should be accompanied by a corresponding change to the method's / class's docstring.
 
-Having made your changes, please run `mkdocs server` and make sure that no error is being raised and the documentation renders fine.
+Having made your changes, please run `poe docs` and make sure that no error is being raised on build time. Afterwards, open `http://localhost:8000/` in your browser of choice and make sure that the documentation renders correctly.
 
 ### Writing your commit message
 

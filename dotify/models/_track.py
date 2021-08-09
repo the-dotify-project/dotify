@@ -1,7 +1,7 @@
 import contextlib
 import logging
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, AnyStr, Dict, Iterator, List, Optional
+from typing import TYPE_CHECKING, Any, AnyStr, Dict, Iterator, List, Optional, cast
 from urllib.error import HTTPError
 
 from moviepy.editor import AudioFileClip
@@ -36,7 +36,7 @@ class TrackBase(Model):
         Returns:
             AnyStr: the URL in string format
         """
-        return self.external_urls.spotify
+        return cast(AnyStr, self.external_urls.spotify)
 
     @property
     def artist(self) -> "Artist":
@@ -45,7 +45,7 @@ class TrackBase(Model):
         Returns:
             Artist: an instance of `Artist` representing the track's artist relevant info
         """
-        return self.artists[0]
+        return cast("Artist", self.artists[0])
 
     @property
     def genres(self) -> List[str]:
@@ -109,9 +109,7 @@ class Track(TrackBase):
         """
         results = VideosSearch(str(self), limit=limit).result()["result"]
 
-        yield from (
-            YouTube(result["link"]).streams.get_audio_only() for result in results
-        )
+        yield from (YouTube(result["link"]).streams.get_audio_only() for result in results)
 
     @property
     def stream(self) -> Stream:

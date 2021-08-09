@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import TYPE_CHECKING, AnyStr, Iterator, Optional
+from typing import TYPE_CHECKING, AnyStr, Iterator, Optional, cast
 
 import dotify
 from dotify._model import Model, logger
@@ -35,7 +35,7 @@ class PlaylistBase(Model):
         Returns:
             AnyStr: the URL in string format
         """
-        return self.external_urls.spotify
+        return cast(AnyStr, self.external_urls.spotify)
 
     @property
     def tracks(self) -> Iterator["Track"]:

@@ -1,0 +1,50 @@
+name: Preview Docs
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'dotify/**/*.py'
+      - 'docs/**'
+      - '*.md'
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2.1.2
+        with:
+          poetry-version: 1.1.6
+
+      - name: Configure Poetry
+        run: |
+          poetry config virtualenvs.in-project true
+
+      - name: Set up cache
+        uses: actions/cache@v2.1.6
+        with:
+          path: .venv
+          key: venv-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - uses: afc163/surge-preview@v1
+        with:
+          surge_token: ${{ secrets.SURGE_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dist: site
+          teardown: 'true'
+          build: |
+            poetry run mkdocs build

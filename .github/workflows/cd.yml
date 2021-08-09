@@ -9,7 +9,6 @@ on:
 
 jobs:
   publish:
-    name: Create a GitHub Release & Upload to PyPI
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:

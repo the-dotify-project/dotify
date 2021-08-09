@@ -2,11 +2,11 @@ import contextlib
 import logging
 import os
 import threading
-from typing import Any, AnyStr, Dict, List, Optional
+from typing import Any, AnyStr, Dict, List, Optional, cast
 
 from spotipy import Spotify as Client
 from spotipy.client import logger
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOauthError
 
 from dotify._decorators import classproperty
 
@@ -38,6 +38,9 @@ class Dotify(Client):
         Args:
             client_id (Optional[str]): your Spotify API client ID. Defaults to None
             client_secret (Optional[str]): your Spotify API client secret. Defaults to None
+
+        Raises:
+            TypeError: In case the supplied credentials are invalid
         """
         if client_id is None:
             client_id = os.getenv("SPOTIFY_ID")
@@ -45,12 +48,15 @@ class Dotify(Client):
         if client_secret is None:
             client_secret = os.getenv("SPOTIFY_SECRET")
 
-        super().__init__(
-            client_credentials_manager=SpotifyClientCredentials(
-                client_id=client_id,
-                client_secret=client_secret,
-            ),
-        )
+        try:
+            super().__init__(
+                client_credentials_manager=SpotifyClientCredentials(
+                    client_id=client_id,
+                    client_secret=client_secret,
+                ),
+            )
+        except SpotifyOauthError as oauth_error:
+            raise TypeError("Invalid Credentials") from oauth_error
 
     def __del__(self):
         with contextlib.suppress(AttributeError):
@@ -75,7 +81,7 @@ class Dotify(Client):
             List[Dotify]: the `Dotify` context stack
         """
         try:
-            return cls._context.stack
+            return cast(Dotify, cls._context.stack)
         except AttributeError:
             cls._context.stack = []
 
@@ -89,7 +95,7 @@ class Dotify(Client):
             Optional[Dotify]: the topmost context
         """
         try:
-            return cls.contexts[-1]
+            return cast(Dotify, cls.contexts[-1])
         except IndexError:
             return None
 
@@ -111,8 +117,11 @@ class Dotify(Client):
         """
         results = super().search(query, type=model_type, limit=limit)
 
-        return results[
-            "{0}s".format(
-                model_type,
-            )
-        ]["items"]
+        return cast(
+            List[Dict[AnyStr, Any]],
+            results[
+                "{0}s".format(
+                    model_type,
+                )
+            ]["items"],
+        )

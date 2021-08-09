@@ -1,10 +1,10 @@
 name: Code Coverage
 
 on:
-  workflow_run:
-    workflows: ["Publish"]
-    types:
-      - completed
+  push:
+    paths:
+    - 'dotify/**/*.py'
+    - 'tests/**/*.py'
 
 jobs:
   codecov:
@@ -30,7 +30,7 @@ jobs:
           uses: actions/cache@v2.1.6
           with:
             path: .venv
-            key: ${{ matrix.platform }}-venv-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+            key: venv-${{ hashFiles('**/poetry.lock') }}
 
         - name: Install dependencies
           run: |
@@ -41,9 +41,7 @@ jobs:
             SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
             SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
           run: |
-            poetry run python -m pytest --cov=./dotify --cov-report=xml
+            poetry run python -m pytest -p no:sugar --cov=./dotify --cov-report=xml
 
-        - name: Publish the coverage report to Code Climate
-          uses: paambaati/codeclimate-action@v2.7.5
-          env:
-            CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
+        - name: Upload coverage report
+          uses: codecov/codecov-action@v2

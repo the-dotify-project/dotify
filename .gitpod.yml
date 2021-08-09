@@ -1,0 +1,44 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  - port: 8000
+    onOpen: open-preview
+
+vscode:
+  extensions:
+    - "ms-python.python"
+    - "njpwerner.autodocstring"
+    - "teabyii.ayu"
+    - "PKief.material-icon-theme"
+    - "aaron-bond.better-comments"
+    - "alefragnani.Bookmarks"
+    - "IBM.output-colorizer"
+    - "streetsidesoftware.code-spell-checker"
+    - "yzhang.markdown-all-in-one"
+    - "davidanson.vscode-markdownlint"
+    - "qcz.text-power-tools"
+    - "ms-azuretools.vscode-docker"
+    - "wayou.vscode-todo-highlight"
+    - "editorconfig.editorconfig"
+    - "christian-kohler.path-intellisense"
+    - "eamodio.gitlens"
+    - "bungcip.better-toml"
+    - "redhat.vscode-yaml"
+    - "almenon.arepl"
+
+tasks:
+- init: |
+    poetry install
+    poetry run pre-commit install --install-hooks
+    poetry shell
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: false
+    addBadge: true
