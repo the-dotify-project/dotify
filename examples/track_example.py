@@ -1,12 +1,7 @@
-import os
-
 from dotify import Dotify, models
 
 if __name__ == "__main__":
-    SPOTIFY_ID = os.environ.get("SPOTIFY_ID")
-    SPOTIFY_SECRET = os.environ.get("SPOTIFY_SECRET")
-
-    with Dotify(SPOTIFY_ID, SPOTIFY_SECRET):
+    with Dotify():
         track = next(models.Track.search("SAINt JHN 5 Thousand Singles", limit=1))
 
         print(track)
