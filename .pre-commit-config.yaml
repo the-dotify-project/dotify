@@ -52,7 +52,7 @@ repos:
         stages: [commit-msg]
         args: [--ignore=B6, --msg-filename]
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.3.53
+    rev: 2.3.5
     hooks:
       - id: editorconfig-checker
   - repo: https://github.com/jendrikseipp/vulture
