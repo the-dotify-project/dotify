@@ -6,6 +6,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 <!--next-version-placeholder-->
 
+## v2.0.6 (2021-08-09)
+### Fix
+* Catch `SpotifyOauthError` ([`72f8d42`](https://github.com/the-dotify-project/dotify/commit/72f8d42888e374da79bab0dd5ed3a8102f5b239b))
+
+### Documentation
+* Reference `tests` in `CONTRIBUTING.md` ([`c30afbd`](https://github.com/the-dotify-project/dotify/commit/c30afbdfa260b7f6c0b4b254b6b4fea9ddf00fc2))
+* Correct some typos in `CONTRIBUTING.md` ([`8e8df0f`](https://github.com/the-dotify-project/dotify/commit/8e8df0f546a5ec75d276d9e1b7071973ac27b50c))
+
+**[See all commits in this version](https://github.com/the-dotify-project/dotify/compare/v2.0.5...v2.0.6)**
+
 ## v2.0.5 (2021-07-20)
 ### Fix
 * Update `pyproject` metadata ([`99061cb`](https://github.com/the-dotify-project/dotify/commit/99061cb9fc193719e456287108cca9e025e93e9d))
