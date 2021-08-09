@@ -1,5 +1,5 @@
 ci:
-  skip: [editorconfig-checker, export-requirements, hadolint-docker]
+  skip: [export-requirements, hadolint-docker]
   autofix_commit_msg: 'refactor: `pre-commit.ci` auto fix'
   autofix_prs: true
   autoupdate_commit_msg: 'refactor: `pre-commit.ci` auto update'
@@ -52,7 +52,7 @@ repos:
         stages: [commit-msg]
         args: [--ignore=B6, --msg-filename]
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.3.5
+    rev: 2.3.53
     hooks:
       - id: editorconfig-checker
   - repo: https://github.com/jendrikseipp/vulture
