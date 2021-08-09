@@ -34,7 +34,7 @@ PRs can be a quick way to get your fix or improvement slated for the next releas
 - Only fix/add the functionality in question **OR** address wide-spread whitespace/style issues, not both.
 - Address a single concern in the least number of changed lines as possible.
 - Be accompanied by a complete Pull Request template (loaded automatically when a PR is created).
-- Add [unit or integration tests](https://github.com/the-dotify-project/dotify/tree/master/examples) for added or changed functionality.
+- Add [unit or integration tests](https://github.com/the-dotify-project/dotify/tree/master/tests) for added or changed functionality.
 - Any code related changes should be accompanied by corresponding changes to the project's documentation.
 - If your pull request introduces a new feature, the corresponding `README` [section](https://the-dotify-project.github.io/dotify/latest/#features) must be updated to reflect this. Make sure you also include [an example](https://github.com/the-dotify-project/dotify/tree/master/examples), showcasing this new functionality.
 - Write clear, concise commit message(s) using the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format. [Why?](#writing-your-commit-message)
