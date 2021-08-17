@@ -26,9 +26,10 @@ class ModelMeta(JsonSerializableMeta):
     """
 
     def __new__(cls, name, bases, attrs):  # noqa: D102
-        json_meta = type("Json", (object,), {})
-        with contextlib.suppress(KeyError):
+        try:
             json_meta = attrs["Json"]
+        except KeyError:
+            json_meta = type("Json", (object,), {})
 
         is_abstract = False
         with contextlib.suppress(AttributeError):
