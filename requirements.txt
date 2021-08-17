@@ -2,7 +2,7 @@ anyio==3.3.0; python_full_version >= "3.6.2" and python_version >= "3.6"
 attrs==21.2.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 cached-property==1.5.2
 certifi==2021.5.30; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.6"
-charset-normalizer==2.0.3; python_full_version >= "3.6.0" and python_version >= "3"
+charset-normalizer==2.0.4; python_full_version >= "3.6.0" and python_version >= "3"
 colorama==0.4.4; python_version >= "2.7" and python_full_version < "3.0.0" and platform_system == "Windows" or python_full_version >= "3.5.0" and platform_system == "Windows"
 coverage==5.5; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0" and python_version < "4")
 decorator==4.4.2; python_version >= "2.6" and python_full_version < "3.0.0" or python_full_version >= "3.2.0"
@@ -30,7 +30,7 @@ six==1.16.0; python_version >= "2.7" and python_full_version < "3.0.0" or python
 sniffio==1.2.0; python_full_version >= "3.6.2" and python_version >= "3.6"
 spotipy==2.19.0
 toml==0.10.2; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "4"
-tqdm==4.61.2; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
+tqdm==4.62.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 typing-extensions==3.10.0.0; python_full_version >= "3.6.2" and python_version >= "3.6" and python_version < "3.8"
 urllib3==1.26.6; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"
 youtube-search-python==1.4.6; python_version >= "3.6"

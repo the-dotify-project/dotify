@@ -5,6 +5,8 @@ on:
     paths:
     - 'dotify/**/*.py'
     - 'tests/**/*.py'
+    - 'pyproject.toml'
+    - 'poetry.lock'
 
 jobs:
   codecov:

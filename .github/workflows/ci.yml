@@ -6,11 +6,17 @@ on:
     paths:
       - 'dotify/**/*.py'
       - 'tests/**/*.py'
+      - 'examples/**/*.py'
+      - 'pyproject.toml'
+      - 'poetry.lock'
   pull_request:
     branches: [master]
     paths:
       - 'dotify/**/*.py'
       - 'tests/**/*.py'
+      - 'examples/**/*.py'
+      - 'pyproject.toml'
+      - 'poetry.lock'
 
 jobs:
   tox:
