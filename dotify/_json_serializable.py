@@ -1,4 +1,3 @@
-import json
 import logging
 from abc import ABCMeta
 from typing import Any, Optional, cast
@@ -24,18 +23,15 @@ class JsonSerializableMeta(ABCMeta):
         except (KeyError, AttributeError):
             return super().__new__(cls, name, bases, attrs)
 
-        with path.open() as file:
-            json_schema = json.load(file)
+        builder = ObjectBuilder(str(path))
 
-            builder = ObjectBuilder(str(path))
+        classes = builder.build_classes(
+            strict=True,
+            named_only=True,
+            standardize_names=False,
+        )
 
-            classes = builder.build_classes(
-                strict=True,
-                named_only=True,
-                standardize_names=False,
-            )
-
-            json_schema = getattr(classes, name)
+        json_schema = getattr(classes, name)
 
         return super().__new__(cls, name, (*bases, json_schema), attrs)
 
