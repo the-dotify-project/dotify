@@ -113,7 +113,7 @@ class Model(JsonSerializable, metaclass=ModelMeta):
         return '<{0} "{1}">'.format(self.__class__.__name__, str(self))
 
     @cached_classproperty
-    def context(cls) -> Optional[Dotify]:
+    def context(cls) -> Optional[Dotify]:  # noqa: N805
         """Get the current `Dotify` context.
 
         Returns:

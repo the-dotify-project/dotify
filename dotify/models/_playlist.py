@@ -111,7 +111,7 @@ class Playlist(PlaylistBase):
         for track in self.tracks:
             track.download(
                 path
-                / "{0}.mp3".format(
+                / "{0}.mp3".format(  # noqa: W503
                     track,
                 ),
                 skip_existing=skip_existing,

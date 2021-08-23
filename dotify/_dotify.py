@@ -74,7 +74,7 @@ class Dotify(Client):
             logger.error("%s: %s", exc_type.__name__, exc_value)
 
     @classproperty
-    def contexts(cls) -> List["Dotify"]:
+    def contexts(cls) -> List["Dotify"]:  # noqa: N805
         """Get the `Dotify` context stack.
 
         Returns:
@@ -88,7 +88,7 @@ class Dotify(Client):
             return cls._context.stack
 
     @classproperty
-    def context(cls) -> Optional["Dotify"]:
+    def context(cls) -> Optional["Dotify"]:  # noqa: N805
         """Get the topmost context from the stack.
 
         Returns:
