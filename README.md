@@ -44,9 +44,14 @@
   </a>
   <a href="https://gitpod.io/from-referrer/">
     <img
-      src="https://img.shields.io/badge/Gitpod-Open-blue?logo=gitpod"
+      src="https://img.shields.io/badge/Gitpod-Open-blue?logo=gitpod&style=flat"
       alt="Open on Gitpod"
     />
+  </a>
+  <a href="https://github.com/billsioros/cookiecutter-pypackage">
+    <img
+      src="https://img.shields.io/badge/cookiecutter-template-D4AA00.svg?style=flat&logo=cookiecutter"
+      alt="Cookiecutter Template">
   </a>
 </p>
 
@@ -114,3 +119,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## Credits
+
+This package was created with [Cookiecutter](https://github.com/cookiecutter/cookiecutter) and the [billsioros/cookiecutter-pypackage](https://github.com/billsioros/cookiecutter-pypackage) cookiecutter template.
