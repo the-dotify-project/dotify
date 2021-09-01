@@ -1,0 +1,88 @@
+# For more info visit https://github.com/peaceiris/actions-label-commenter
+
+comment:
+  header: "Hello there :robot:"
+  footer: "\
+    ---\n\n\
+    > This is an automated comment created by the [peaceiris/actions-label-commenter]. \
+    Responding to the bot or mentioning it won't have any effect.\n\n\
+    [peaceiris/actions-label-commenter]: https://github.com/peaceiris/actions-label-commenter"
+
+labels:
+  - name: ":no_entry_sign: invalid"
+    labeled:
+      issue:
+        body: Thank you @{{ issue.user.login }} for reporting this issue! Please follow the issue templates, as well as the [Contributing Guidelines]({{ cookiecutter.github_repository }}/blob/master/docs/CONTRIBUTING.md).
+        action: close
+      pr:
+        body: Thank you @{{ pull_request.user.login }} for suggesting this. Please follow the pull request templates, as well as the [Contributing Guidelines]({{ cookiecutter.github_repository }}/blob/master/docs/CONTRIBUTING.md).
+        action: close
+    unlabeled:
+      issue:
+        body: Thank you for following the template. The repository owner will reply.
+        action: open
+  - name: ":coffin: wontfix"
+    labeled:
+      issue:
+        body: This issue will not be worked on for the time being, but we appreciate your contribution!
+        action: close
+    unlabeled:
+      issue:
+        body: This has become active again.
+        action: open
+  - name: ":busts_in_silhouette: duplicate"
+    labeled:
+      issue:
+        body: This issue has already been reported.
+        action: close
+  - name: ':lock: locked:spam'
+    labeled:
+      issue:
+        body: |
+          This issue has been **LOCKED** because of spam!
+
+          Please do not spam messages and/or issues on the issue tracker. You may get blocked from this repository for doing so.
+        action: close
+        locking: lock
+        lock_reason: spam
+      pr:
+        body: |
+          This pull-request has been **LOCKED** because of spam!
+
+          Please do not spam messages and/or pull-requests on this project. You may get blocked from this repository for doing so.
+        action: close
+        locking: lock
+        lock_reason: spam
+  - name: ':lock: locked:heated'
+    labeled:
+      issue:
+        body: |
+          This issue has been **LOCKED** because of heated conversation!
+
+          We appreciate exciting conversations, as long as they won't become too aggressive and/or emotional.
+        locking: lock
+        lock_reason: too heated
+      pr:
+        body: |
+          This pull-request has been **LOCKED** because of heated conversation!
+
+          We appreciate exciting conversations, as long as they won't become too aggressive and/or emotional.
+        locking: lock
+        lock_reason: too heated
+    unlabeled:
+      issue:
+        body: |
+          This issue has been unlocked now.
+        locking: unlock
+      pr:
+        body: |
+          This pull-request has been unlocked now.
+        locking: unlock
+  - name: ':lock: locked:off-topic'
+    labeled:
+      issue:
+        body: |
+          This issue has been **LOCKED** because it was considered off-topic.
+
+          Please refrain from submitting issues solely for questions you might have. Instead refer to the project's [discussion page]({{ cookiecutter.github_repository }}/discussions/categories/q-a).
+        action: close

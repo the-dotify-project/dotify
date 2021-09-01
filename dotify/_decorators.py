@@ -2,7 +2,7 @@ from functools import update_wrapper
 from typing import Any, Callable, Optional
 
 
-class classproperty(object):
+class classproperty(object):  # noqa: N801
     """
     A decorator that converts a method to a `classproperty`.
 
@@ -33,7 +33,7 @@ class classproperty(object):
         return self.method(objtype)
 
 
-class cached_classproperty(classproperty):
+class cached_classproperty(classproperty):  # noqa: N801
     """A decorator that converts a method to a `cached_classproperty`.
 
     As indicated by the name, once the method is called, its
