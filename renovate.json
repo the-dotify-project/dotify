@@ -4,7 +4,7 @@
   ],
   "extends": [
     "config:base",
-    "schedule:weekly"
+    "schedule:daily"
   ],
   "assignees": [
     "billsioros"
