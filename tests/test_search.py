@@ -19,12 +19,9 @@ class DotifySearchTestCase(DotifyBaseTestCase):
     def test_search_playlist(self):
         metadata = [
             {
-                "name": "The weirdest name for a playlist",
-                "url": "https://open.spotify.com/playlist/4cCL1HpErVIoY7FXYTomWt",
-                "description": (
-                    "Some Symptoms Are: Amazing Music, Fuego Music, and "
-                    + "Shookness because its that good"
-                ),
+                "name": "Richard's Moustache",
+                "url": "https://open.spotify.com/playlist/4EMku5bJCeA1lG9Y8oThrs",
+                "description": "the weirdest name for a playlist with the best songs",
             },
         ]
 
