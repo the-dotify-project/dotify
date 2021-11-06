@@ -69,7 +69,7 @@ mypy = "^0.910"
 types-requests = "^2.25.0"
 pytest-clarity = "^1.0.1"
 flakehell = "^0.9.0"
-coverage = {extras = ["toml"], version = "^5.5"}
+coverage = {extras = ["toml"], version = "^6.1"}
 
 [tool.semantic_release]
 version_toml = "pyproject.toml:tool.poetry.version"
