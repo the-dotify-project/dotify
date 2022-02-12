@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any, AnyStr, Dict, Iterator, List, Optional, c
 from urllib.error import HTTPError
 
 from moviepy.editor import AudioFileClip
-from mutagen.easyid3 import EasyID3
+from mutagen.easyid3 import ID3, EasyID3
 from pytube import YouTube
 from pytube.streams import Stream
 from youtubesearchpython import VideosSearch
@@ -141,7 +141,6 @@ class Track(TrackBase):
             "albumartist": [artist.name for artist in self.album.artists],
             "date": self.album.release_date,
             "originaldate": self.album.release_date,
-            "albumcover": self.album.cover,
         }
 
     def as_mp4(self, mp4_path: Path, skip_existing: Optional[bool] = False) -> Path:
@@ -202,9 +201,11 @@ class Track(TrackBase):
         mp4_path.unlink()
 
         easy_id3 = EasyID3(mp3_path)
-
         easy_id3.update(self.id3_tags)
+        easy_id3.save(v2_version=3)
 
+        easy_id3 = ID3(mp3_path)
+        easy_id3["APIC"] = self.album.cover
         easy_id3.save(v2_version=3)
 
         return mp3_path

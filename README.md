@@ -58,7 +58,8 @@
 ## Example Usage
 
 ```python
->>> from dotify import Dotify, Track
+>>> from dotify import Dotify
+>>> from dotify.models import Track
 >>> with Dotify(SPOTIFY_ID, SPOTIFY_SECRET):
 >>>     result = next(Track.search("SAINt JHN 5 Thousand Singles", limit=1))
 >>> result
