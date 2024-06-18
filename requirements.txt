@@ -30,6 +30,6 @@ sniffio==1.2.0; python_full_version >= "3.6.2" and python_version >= "3.6"
 spotipy==2.19.0
 tqdm==4.62.3; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 typing-extensions==3.10.0.2; python_full_version >= "3.6.2" and python_version >= "3.6" and python_version < "3.8"
-urllib3==1.26.6; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"
+urllib3==1.26.19; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"
 youtube-search-python==1.4.8; python_version >= "3.6"
 zipp==3.5.0; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.5.0" and python_version < "3.8" and python_version >= "3.6"
